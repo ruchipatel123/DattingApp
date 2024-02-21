@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Loram",
+      "lastName": "Ipsum",
+      "email": "loram@ipsum.com",
+      "phoneNumber": "999332323"
+    },
+    {
+      "firstName": "Test",
+      "lastName": "India",
+      "email": "sadasd@asdsads.com",
+      "phoneNumber": "999222333",
+      "id": 2
+    },
+    {
+      "firstName": "dasdsa",
+      "lastName": "asddas",
+      "email": "sadasd@asdsad.com",
+      "phoneNumber": "999333",
+      "id": 3
+    },
+    {
+      "firstName": "sadsad",
+      "lastName": "asdsad",
+      "email": "asdsa@dfsf.com",
+      "phoneNumber": "99",
+      "id": 4
+    },
+    {
+      "firstName": "uplers",
+      "lastName": "solution",
+      "email": "test@google.com",
+      "phoneNumber": "9993332323",
+      "id": 5
+    },
+    {
+      "firstName": "test 2",
+      "lastName": "user",
+      "email": "testuser@uplers.in",
+      "phoneNumber": "93939393",
+      "id": 6
+    },
+    {
+      "firstName": "sadsad",
+      "lastName": "sa",
+      "email": "rest@foofle.com",
+      "phoneNumber": "999333",
+      "id": 7
+    }
+  ]
+}
