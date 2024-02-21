@@ -1,7 +1,7 @@
-import Button from "components/Button/Button"
-import RegistrationHeader from "components/Header/RegistrationHeader"
-import ImageUpload from "components/ImageUpload/ImageUpload"
-import ProgressBar from "components/ProgressBar/Progressbar"
+import Button from 'components/Button/Button';
+import RegistrationHeader from 'components/Header/RegistrationHeader';
+import ImageUpload from 'components/ImageUpload/ImageUpload';
+import ProgressBar from 'components/ProgressBar/Progressbar';
 
 const AccountSetUp = () => {
   return (
@@ -26,30 +26,30 @@ const AccountSetUp = () => {
 
       <div className="container  flex min-h-[70vh] flex-wrap items-center justify-center pt-14">
         <div className="w-full text-gray-400">
-        <h2 className="mb-10 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
-          Please add some pictures to your profile (at least 2)
-      </h2>
-      <div className='flex flex-wrap -mx-5'>
-        <div className='px-5 w-1/5'>
-           <ImageUpload/>
-         </div>
-         <div className='px-5 w-1/5'>
-           <ImageUpload/>
-         </div>
-         <div className='px-5 w-1/5'>
-           <ImageUpload/>
-         </div>
-         <div className='px-5 w-1/5'>
-           <ImageUpload/>
-         </div>
-         <div className='px-5 w-1/5'>
-           <ImageUpload/>
-         </div>
+          <h2 className="mb-10 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
+            Please add some pictures to your profile (at least 2)
+          </h2>
+          <div className="-mx-5 flex flex-wrap">
+            <div className="w-1/5 px-5">
+              <ImageUpload />
+            </div>
+            <div className="w-1/5 px-5">
+              <ImageUpload />
+            </div>
+            <div className="w-1/5 px-5">
+              <ImageUpload />
+            </div>
+            <div className="w-1/5 px-5">
+              <ImageUpload />
+            </div>
+            <div className="w-1/5 px-5">
+              <ImageUpload />
+            </div>
+          </div>
         </div>
       </div>
-      </div>
     </div>
-  )
-}
+  );
+};
 
-export default AccountSetUp
+export default AccountSetUp;
