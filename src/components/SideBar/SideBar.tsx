@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const Sidebar = ({ isOpen, toggle }) => {
   return (
     <>
@@ -24,24 +26,21 @@ const Sidebar = ({ isOpen, toggle }) => {
         </svg>
       </button>
       <div
-        className={`fixed inset-y-0 left-0 w-64 transform overflow-y-auto bg-gray md:transform-none ${
+        className={`fixed left-0 w-[20%] transform overflow-y-auto  md:static md:transform-none ${
           isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
         } z-30 transition duration-300`}
       >
-        <div className="flex items-center justify-between p-4">
-          <div className="text-xl font-semibold text-white">Sidebar</div>
-        </div>
-        <nav className="mt-2">
+        <nav className="mt-10">
           {/* Add your sidebar navigation links here */}
-          <a href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
-            Link 1
-          </a>
-          <a href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
-            Link 2
-          </a>
-          <a href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
-            Link 3
-          </a>
+          <Link href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
+            Discover
+          </Link>
+          <Link href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
+            Common Threads
+          </Link>
+          <Link href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
+            My Connections
+          </Link>
         </nav>
       </div>
     </>

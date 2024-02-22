@@ -44,6 +44,10 @@ blockquote
   }
 }
 
+.profile_wrap *,.profile_wrap{
+  transition: all 0.5s ease; /* Smooth transition for all properties */
+}
+
 .bg-yellow-transperant
 {
   background: rgba(251, 253, 255, 0.40);

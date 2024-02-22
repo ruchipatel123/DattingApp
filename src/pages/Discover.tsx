@@ -1,3 +1,4 @@
+import Header from 'components/Header/Header';
 import ProfileListing from 'components/ProfileListing/ProfileListing';
 import Sidebar from 'components/SideBar/SideBar';
 import { useState } from 'react';
@@ -10,10 +11,13 @@ const Discover = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
-      <ProfileListing />
-    </div>
+    <>
+      <Header />
+      <div className="flex min-h-[80vh]">
+        <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
+        <ProfileListing />
+      </div>
+    </>
   );
 };
 
