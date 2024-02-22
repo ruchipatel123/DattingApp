@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileListing= () => {
+const ProfileListing = () => {
   return (
     <div className="md:ml-64">
       {/* Your profile listing page content goes here */}
