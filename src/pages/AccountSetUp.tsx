@@ -64,7 +64,7 @@ const AccountSetUp = () => {
             little better!
           </h2>
           <div className="flex w-full flex-wrap space-y-2 md:space-y-0 xxl:space-x-10 ">
-            <div className="w-full px-5 md:w-1/3 xxl:w-[31%]">
+            <div className="w-full px-5  xxl:px-0 md:w-1/3 xxl:w-[31%]">
               <div className="min-h-[200px] rounded-lg border-2 border-blue-300  bg-white p-5 font-raleway font-semibold leading-tight text-blue">
                 <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
                   I’ll Pick The Topic If You Start The Conversation
@@ -74,7 +74,7 @@ const AccountSetUp = () => {
                 </ul>
               </div>
             </div>
-            <div className="w-full px-5 md:w-1/3 xxl:w-[31%]">
+            <div className="w-full px-5 xxl:px-0 md:w-1/3 xxl:w-[31%]">
               <div className="min-h-[200px]  rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
                 <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
                   Two Truths And A Lie
@@ -87,7 +87,7 @@ const AccountSetUp = () => {
               </div>
             </div>
 
-            <div className="w-full px-5 md:w-1/3 xxl:w-[31%]">
+            <div className="w-full px-5 xxl:px-0 md:w-1/3 xxl:w-[31%]">
               <div className="relative min-h-[200px] rounded-xl border border-dashed border-blue-300">
                 <div className="absolute flex h-full w-full items-center justify-center">
                   <button
