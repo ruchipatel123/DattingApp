@@ -26,19 +26,37 @@ const Sidebar = ({ isOpen, toggle }) => {
         </svg>
       </button>
       <div
-        className={`fixed left-0 w-[20%] transform overflow-y-auto  md:static md:transform-none ${
+        className={`fixed left-0 top-[80px] h-full min-h-[400px] w-[20%] transform overflow-y-auto bg-white md:transform-none ${
           isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
         } z-30 transition duration-300`}
       >
-        <nav className="mt-10">
+        <nav className="mt-20 space-y-5">
           {/* Add your sidebar navigation links here */}
-          <Link href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
+          <Link
+            href="#"
+            className="text-gray-300 hover:bg-gray-700 flex  items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
+          >
+            <span className="icon mr-1">
+              <img src="/assets/images/discover-icon.svg" />
+            </span>{' '}
             Discover
           </Link>
-          <Link href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
+          <Link
+            href="#"
+            className="text-gray-300 hover:bg-gray-700 flex items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
+          >
+            <span className="icon  mr-1">
+              <img src="/assets/images/tread-icon.svg" />
+            </span>{' '}
             Common Threads
           </Link>
-          <Link href="#" className="text-gray-300 hover:bg-gray-700 block px-4 py-2">
+          <Link
+            href="#"
+            className="text-gray-300 hover:bg-gray-700  flex items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
+          >
+            <span className="icon  mr-1">
+              <img src="/assets/images/connection-icon.svg" />
+            </span>{' '}
             My Connections
           </Link>
         </nav>

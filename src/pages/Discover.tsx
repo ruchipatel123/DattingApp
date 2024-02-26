@@ -13,7 +13,7 @@ const Discover = () => {
   return (
     <>
       <Header />
-      <div className="flex min-h-[80vh]">
+      <div className="flex min-h-[80vh] overflow-hidden">
         <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
         <ProfileListing />
       </div>

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -8,6 +9,11 @@ module.exports = {
         raleway: ['Raleway', ...defaultTheme.fontFamily.sans],
         josefin: ['Josefin Sans', ...defaultTheme.fontFamily.sans],
         sans: ['Josefin Sans', ...defaultTheme.fontFamily.sans],
+      },
+      textShadow: {
+        sm: '0 0px 2px rgba(0, 0, 0, 0.50)',
+        DEFAULT: '0 0px 3px rgba(0, 0, 0, 0.50)',
+        lg: '0 8px 16px rgba(0, 0, 0, 0.50)',
       },
       colors: {
         black: '#000000',
@@ -64,5 +70,16 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      );
+    }),
+  ],
 };
