@@ -33,13 +33,14 @@ const Login = () => {
     dispatch(login({ username: username, password: password }))
       .unwrap()
       .then(() => {
+        resetForm();
         redirect('/discover');
       })
       .catch((e) => {
         if (e?.response?.data?.errors) {
           Object.keys(e?.response?.data?.errors).map((element, key) => {
             setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
-          })
+          });
         }
         setLoading(false);
       });

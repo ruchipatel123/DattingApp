@@ -4,18 +4,15 @@ import AuthService from '../service/auth.service';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 
 const user = getCookie('token') ? getCookie('token') : {};
-export const register = createAsyncThunk(
-  'user/register',
-  async (args: any, thunkAPI) => {
-    try {
-      const response = await AuthService.register(args.username, args.email, args.password);
-      thunkAPI.dispatch(setMessage(response.data.message));
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+export const register = createAsyncThunk('user/register', async (args: any, thunkAPI) => {
+  try {
+    const response = await AuthService.register(args.username, args.email, args.password);
+    thunkAPI.dispatch(setMessage(response.data.message));
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
 export const login = createAsyncThunk('user/login', async (args: any, thunkAPI) => {
   try {
@@ -23,18 +20,20 @@ export const login = createAsyncThunk('user/login', async (args: any, thunkAPI) 
     setCookie('token', data?.data?.token);
     return data.data;
   } catch (error) {
-    error?.response?.data?.notify && thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? "Somthing went wrong!"));
-    return thunkAPI.rejectWithValue(error);
     deleteCookie('token');
+    if (error?.response?.data?.notify)
+      thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+    return thunkAPI.rejectWithValue(error);
   }
 });
 
-export const me = createAsyncThunk('user/me', async ({ }, thunkAPI) => {
+export const me = createAsyncThunk('user/me', async ({}, thunkAPI) => {
   try {
     const data = await AuthService.meData(getCookie('token'));
     return data?.data;
   } catch (error) {
-    error?.response?.data?.notify && thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? "Somthing went wrong!"));
+    if (error?.response?.data?.notify)
+      thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -52,7 +51,8 @@ export const forgetPassword = createAsyncThunk(
       const response = await AuthService.forgetPassword({ email: args?.email });
       return response.data;
     } catch (error) {
-      error?.response?.data?.notify && thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? "Somthing went wrong!"));
+      if (error?.response?.data?.notify)
+        thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -68,7 +68,8 @@ export const resetPasswordWithOtp = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      error?.response?.data?.notify && thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? "Somthing went wrong!"));
+      if (error?.response?.data?.notify)
+        thunkAPI.dispatch(setMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
       return thunkAPI.rejectWithValue(error);
     }
   }

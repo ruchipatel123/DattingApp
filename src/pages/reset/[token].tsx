@@ -3,20 +3,25 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'store';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { forgetPassword, resetPasswordWithOtp } from 'slices/auth';
+import { resetPasswordWithOtp } from 'slices/auth';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import Layout from 'layout/Layout';
-import Link from 'next/link';
+
 const ForgotPassword = () => {
   const dispatch = useAppDispatch();
   const validationSchema = Yup.object().shape({
-    password: Yup.string().required('Please enter password!')
+    password: Yup.string()
+      .required('Please enter password!')
       .min(8, 'Please enter valid password with minimum 8 character!')
       .max(15, 'Please enter valid password with minimum 15 character!')
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Please enter password with 1 upper case char, 1 lower case char, 1 number and 1 special char"),
-    password_confirmation: Yup.string().required('Please enter confirm password!')
-      .oneOf([Yup.ref('password')], 'Please enter valid confirm password same as password')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        'Please enter password with 1 upper case char, 1 lower case char, 1 number and 1 special char'
+      ),
+    password_confirmation: Yup.string()
+      .required('Please enter confirm password!')
+      .oneOf([Yup.ref('password')], 'Please enter valid confirm password same as password'),
   });
   const [loading, setLoading] = useState<boolean>(false);
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
@@ -24,7 +29,6 @@ const ForgotPassword = () => {
   const [showComponent, setShowComponent] = useState(false);
   const { token } = router.query;
   useEffect(() => {
-
     setShowComponent(true);
     if (isLoggedIn) {
       router.push('/discover');
@@ -35,17 +39,20 @@ const ForgotPassword = () => {
     setLoading(true);
     dispatch(resetPasswordWithOtp({ password: password, token: token }))
       .unwrap()
-      .then((data) => {
+      .then(() => {
         resetForm();
         router.push('/login');
       })
       .catch((e) => {
         if (e?.response?.data?.errors) {
-          Object.keys(e?.response?.data?.errors).map((element, key) => {
+          Object.keys(e?.response?.data?.errors).map((element) => {
             setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
-          })
+          });
         }
-      }).finally(() => { setLoading(false); });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const initialValues = {
@@ -54,7 +61,6 @@ const ForgotPassword = () => {
   return showComponent && !isLoggedIn ? (
     <>
       <Layout meta={{ title: 'Reset Password' }}>
-
         <Header />
         <div className='flex h-screen-header flex-wrap items-center justify-center bg-[url("/assets/images/network-background1.png")] bg-cover bg-center'>
           <div className="hidden h-full md:block md:w-[56%]">
@@ -88,7 +94,11 @@ const ForgotPassword = () => {
                         type="password"
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
-                      <ErrorMessage name="password_confirmation" component="div" className="error-message" />
+                      <ErrorMessage
+                        name="password_confirmation"
+                        component="div"
+                        className="error-message"
+                      />
                     </div>
                   </div>
                   <div className="flex items-center justify-center">

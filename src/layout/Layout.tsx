@@ -46,9 +46,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
       </Head>
       <header></header>
       <main>{children}</main>
-      <Toaster
-        position="bottom-right"
-        reverseOrder={true} />
+      <Toaster position="bottom-right" reverseOrder={true} />
       <footer></footer>
     </>
   );

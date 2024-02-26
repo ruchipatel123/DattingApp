@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, toggle }) => {
             className="text-gray-300 hover:bg-gray-700 flex  items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
           >
             <span className="icon mr-1">
-              <img src="/assets/images/discover-icon.svg" />
+              <img src="/assets/images/discover-icon.svg" alt="discover" />
             </span>{' '}
             Discover
           </Link>
@@ -46,7 +46,7 @@ const Sidebar = ({ isOpen, toggle }) => {
             className="text-gray-300 hover:bg-gray-700 flex items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
           >
             <span className="icon  mr-1">
-              <img src="/assets/images/tread-icon.svg" />
+              <img src="/assets/images/tread-icon.svg" alt="tread" />
             </span>{' '}
             Common Threads
           </Link>
@@ -55,7 +55,7 @@ const Sidebar = ({ isOpen, toggle }) => {
             className="text-gray-300 hover:bg-gray-700  flex items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
           >
             <span className="icon  mr-1">
-              <img src="/assets/images/connection-icon.svg" />
+              <img src="/assets/images/connection-icon.svg" alt="connection" />
             </span>{' '}
             My Connections
           </Link>

@@ -28,17 +28,20 @@ const ForgotPassword = () => {
     setLoading(true);
     dispatch(forgetPassword({ email: email }))
       .unwrap()
-      .then((data) => {
+      .then(() => {
         resetForm();
         router.push('/login');
       })
       .catch((e) => {
         if (e?.response?.data?.errors) {
-          Object.keys(e?.response?.data?.errors).map((element, key) => {
+          Object.keys(e?.response?.data?.errors).map((element) => {
             setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
-          })
+          });
         }
-      }).finally(() => { setLoading(false); });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const initialValues = {
@@ -47,7 +50,6 @@ const ForgotPassword = () => {
   return showComponent && !isLoggedIn ? (
     <>
       <Layout meta={{ title: 'Forgot Password' }}>
-
         <Header />
         <div className='flex h-screen-header flex-wrap items-center justify-center bg-[url("/assets/images/network-background1.png")] bg-cover bg-center'>
           <div className="hidden h-full md:block md:w-[56%]">

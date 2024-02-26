@@ -22,7 +22,10 @@ const Banner = () => {
             </blockquote>
             <h3 className="text-center font-josefin text-lg font-medium text-blue">Get Started!</h3>
             <div className="m-auto flex flex-wrap items-center justify-between bg-[#E1EEFC] xl:w-[86%] ">
-              <Link href={isLoggedIn ? '/discover' : '/login'} className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2">
+              <Link
+                href={isLoggedIn ? '/discover' : '/login'}
+                className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2"
+              >
                 <figure className="inline-block">
                   <img
                     src="/assets/images/discovery-hearts.svg"
@@ -34,7 +37,10 @@ const Banner = () => {
                   Find A Match
                 </span>
               </Link>
-              <Link href={isLoggedIn ? '/discover' : '/login'} className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2">
+              <Link
+                href={isLoggedIn ? '/discover' : '/login'}
+                className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2"
+              >
                 <figure className="inline-block">
                   <img
                     src="/assets/images/match-heart.svg"
