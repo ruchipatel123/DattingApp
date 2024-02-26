@@ -1,6 +1,6 @@
 const Input = ({ label, type = 'text', value, onChange, variant, error, ...props }) => {
   let inputClasses =
-    'border max-w-full m-auto w-full px-4 py-2 rounded-lg focus:outline-none focus:border-black';
+    'border max-w-full m-auto w-full px-4 py-2 rounded-lg focus:outline-none focus:border-black ';
 
   switch (variant) {
     case 'primary':

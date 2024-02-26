@@ -9,7 +9,7 @@ const GenderSelection = () => {
     { value: 'Prefer Not To Say', label: 'Prefer Not To Say' },
   ];
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(options);
 
   const handleCheckboxChange = (selected) => {
     setSelectedOptions(selected);
@@ -18,7 +18,7 @@ const GenderSelection = () => {
   return (
     <div>
       <h2 className="mb-7 font-raleway text-lg text-gray">I am a...</h2>
-      <CheckboxGroup options={options} onChange={handleCheckboxChange} />
+      <CheckboxGroup options={selectedOptions} onChange={handleCheckboxChange} />
     </div>
   );
 };

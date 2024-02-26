@@ -1,32 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from './Logo';
 import NavBar from './NavBar';
-import Button from '../Button/Button';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { logout } from 'slices/auth';
+import { useAppDispatch } from 'store';
 
-const LandingHeader = () => {
+const AuthHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
-  const isNotLoginPage = router.pathname !== '/Login';
-
-  const handleClick = () => {
-    router.push('/Login');
-  };
-
+  const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push('/login');
+    }
+  }, [isLoggedIn]);
   return (
     <header className="site-header relative py-5 shadow-sm">
-      <div className="container flex flex-wrap items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between px-10">
         <Logo className="" alt="Logo" />
         <div className="hidden md:inline-block">
           <NavBar />
         </div>
         <div className="hidden md:inline-block">
-          {isNotLoginPage && (
-            <Button onClick={handleClick} type="primary" size="lg">
-              Log In
-            </Button>
-          )}
+          <button
+            className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+            onClick={() => {
+              dispatch(logout());
+            }}
+          >
+            Logout
+          </button>
         </div>
         <div className="inline-block md:hidden">
           <button
@@ -47,15 +52,19 @@ const LandingHeader = () => {
       >
         <div className="z-30 flex w-full flex-col items-center bg-white p-10 md:hidden">
           <NavBar />
-          {isNotLoginPage && (
-            <Button onClick={handleClick} type="primary" size="lg">
-              Log In
-            </Button>
-          )}
+          <button
+            className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+            onClick={() => {
+              dispatch(logout());
+            }}
+            hidden={isLoggedIn ? false : true}
+          >
+            Logout
+          </button>
         </div>
       </div>
     </header>
   );
 };
 
-export default LandingHeader;
+export default AuthHeader;

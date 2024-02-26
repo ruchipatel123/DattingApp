@@ -23,7 +23,7 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" href={websiteData.appIconImage} />
           <link rel="icon" type="image/png" href={websiteData.favIconImage} />
           <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin></link>
+          <link rel="preconnect" href="https://fonts.gstatic.com"></link>
           <link
             href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"

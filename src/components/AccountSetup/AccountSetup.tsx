@@ -19,7 +19,7 @@ const AccountSetup = () => {
   ];
 
   // State to manage the checked status of individual checkboxes
-  const [choiceboxes, setchoiceboxes] = useState([
+  const [choiceboxes] = useState([
     { id: 'checkbox5', label: 'Yes', checked: false },
     { id: 'checkbox6', label: 'No', checked: false },
   ]);

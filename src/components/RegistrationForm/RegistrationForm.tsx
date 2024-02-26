@@ -78,7 +78,7 @@ const RegistrationForm = () => {
           </div>
           <div className="text-center">
             <button className="fb-btn">
-              <img src="assets/images/fb-btn.png" />
+              <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
             </button>
           </div>
         </div>

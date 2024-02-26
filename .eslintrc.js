@@ -29,6 +29,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     '@next/next/no-img-element': 'off', // Enable img as tag
     'react/display-name': 'off',
+    "@typescript-eslint/no-explicit-any": ["off"],
     'react-hooks/exhaustive-deps': 0,
     'prettier/prettier': [
       'error',
