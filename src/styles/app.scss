@@ -47,6 +47,10 @@ blockquote
 .profile_wrap *,.profile_wrap{
   transition: all 0.5s ease; /* Smooth transition for all properties */
 }
+.box-shadow
+{box-shadow: 0px -1px 4px 0px rgba(12, 14, 16, 0.15);}
+
+
 
 .bg-yellow-transperant
 {
@@ -127,4 +131,21 @@ input[type='range']::-webkit-slider-thumb:hover {
 .border-black
 {
   border-color: #2E353E;
+}
+.yellow-gradient-bg
+{
+background: conic-gradient(from 90deg at 50% 50%, #FDEAB6 0deg, #F9DB6D 33.75deg, #FDEAB6 73.125deg, #F9DB6D 106.875deg, #FDEAB6 144.3749964237213deg, #F9DB6D 181.87499284744263deg, #FDEAB6 219.375deg, #F9DB6D 256.8750071525574deg, #FDEAB6 294.3749928474426deg, #F9DB6D 333.7499928474426deg, #FDEAB6 360deg);
+box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10) inset;
+}
+.profile-shadow
+{
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+}
+.profile-card
+{
+  padding-top: 10px;
+}
+.profile-open
+{
+  padding-top: 10px;
 }
