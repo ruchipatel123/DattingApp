@@ -9,6 +9,7 @@ import { login } from 'slices/auth';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import Layout from 'layout/Layout';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -21,6 +22,8 @@ const Login = () => {
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   useEffect(() => {
     setShowComponent(true);
     if (isLoggedIn) {
@@ -49,6 +52,9 @@ const Login = () => {
   const initialValues = {
     username: '',
     password: '',
+  };
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
   };
   return showComponent ? (
     <>
@@ -91,9 +97,15 @@ const Login = () => {
                       <label className="block  w-full text-md font-normal">Password</label>
                       <Field
                         name="password"
-                        type="password"
+                        type={isPasswordVisible ? 'text' : 'password'}
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
+                      <button
+                        className="text-gray-600 absolute inset-y-0 right-0 mt-5 flex items-center px-4"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                      </button>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
                   </div>
