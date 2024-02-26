@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from './Logo';
-import NavBar from './NavBar';
-import Button from '../Button/Button';
-import { useRouter } from 'next/router';
 
 const RegistrationHeader = () => {
   return (

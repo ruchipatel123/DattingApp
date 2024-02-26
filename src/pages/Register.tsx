@@ -1,13 +1,7 @@
 import AccountSetup from 'components/AccountSetup/AccountSetup';
 import Button from 'components/Button/Button';
-import GenderSelection from 'components/GenderSelection/GenderSelection';
 import RegistrationHeader from 'components/Header/RegistrationHeader';
-import ImageUpload from 'components/ImageUpload/ImageUpload';
-import LinkAccount from 'components/LinkAccounts/LinkAccount';
-import LocationForm from 'components/LocationForm/LocationForm';
 import ProgressBar from 'components/ProgressBar/Progressbar';
-import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
-
 const Register = () => {
   return (
     <div

@@ -12,9 +12,21 @@ const LinkAccount = () => {
       </h2>
 
       <div className="connection-wrapper mb-14 mt-14 flex justify-center  space-x-3 md:mb-20 md:mt-20 md:space-x-9">
-        <img src="/assets/images/fb.svg" className="connection-icon  max-w-24 md:max-w-max" />
-        <img src="/assets/images/linkto.svg" className="connection-icon max-w-14 md:max-w-max" />
-        <img src="/assets/images/valadate.svg" className="connection-icon max-w-24 md:max-w-max" />
+        <img
+          src="/assets/images/fb.svg"
+          className="connection-icon  max-w-24 md:max-w-max"
+          alt="facebook"
+        />
+        <img
+          src="/assets/images/linkto.svg"
+          className="connection-icon max-w-14 md:max-w-max"
+          alt="linktofacebook"
+        />
+        <img
+          src="/assets/images/valadate.svg"
+          className="connection-icon max-w-24 md:max-w-max"
+          alt="avatar"
+        />
       </div>
 
       <div className="btn-wrap container mb-10 flex  flex-wrap justify-center space-x-2 space-y-2 md:space-x-10">
