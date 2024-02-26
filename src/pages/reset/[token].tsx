@@ -1,39 +1,43 @@
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'store';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { login } from 'slices/auth';
+import { forgetPassword, resetPasswordWithOtp } from 'slices/auth';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import Layout from 'layout/Layout';
-
-const Login = () => {
-  const [rememberMe, setRememberMe] = useState(false);
+import Link from 'next/link';
+const ForgotPassword = () => {
   const dispatch = useAppDispatch();
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Please enter email!').email('Please enter valid email!'),
-    password: Yup.string().required('Please enter password!'),
+    password: Yup.string().required('Please enter password!')
+      .min(8, 'Please enter valid password with minimum 8 character!')
+      .max(15, 'Please enter valid password with minimum 15 character!')
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Please enter password with 1 upper case char, 1 lower case char, 1 number and 1 special char"),
+    password_confirmation: Yup.string().required('Please enter confirm password!')
+      .oneOf([Yup.ref('password')], 'Please enter valid confirm password same as password')
   });
   const [loading, setLoading] = useState<boolean>(false);
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(false);
+  const { token } = router.query;
   useEffect(() => {
+
     setShowComponent(true);
     if (isLoggedIn) {
       router.push('/discover');
     }
   }, [isLoggedIn]);
-  const handleLogin = (formValue, setFieldError, resetForm) => {
-    const { username, password } = formValue;
+  const handleForgotPasswordLink = (formValue, setFieldError, resetForm) => {
+    const { password } = formValue;
     setLoading(true);
-    dispatch(login({ username: username, password: password }))
+    dispatch(resetPasswordWithOtp({ password: password, token: token }))
       .unwrap()
-      .then(() => {
-        redirect('/discover');
+      .then((data) => {
+        resetForm();
+        router.push('/login');
       })
       .catch((e) => {
         if (e?.response?.data?.errors) {
@@ -41,51 +45,33 @@ const Login = () => {
             setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
           })
         }
-        setLoading(false);
-      });
+      }).finally(() => { setLoading(false); });
   };
 
   const initialValues = {
-    username: '',
-    password: '',
+    email: '',
   };
-  return showComponent ? (
+  return showComponent && !isLoggedIn ? (
     <>
-      <Layout meta={{ title: 'Login' }}>
+      <Layout meta={{ title: 'Reset Password' }}>
+
         <Header />
         <div className='flex h-screen-header flex-wrap items-center justify-center bg-[url("/assets/images/network-background1.png")] bg-cover bg-center'>
           <div className="hidden h-full md:block md:w-[56%]">
             <div className='h-full bg-[url("/assets/images/login-img.jpg")] bg-cover bg-center'></div>
           </div>
           <div className="flex h-full w-full flex-col items-center justify-center md:w-[44%] md:px-5">
-            <h1 className="mb-12 font-raleway text-xl font-bold text-blue">Welcome Back!</h1>
+            <h1 className="mb-12 font-raleway text-xl font-bold text-blue">Change Password</h1>
             <div className="login-form">
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={(data, { setFieldError, resetForm }) => {
-                  handleLogin(data, setFieldError, resetForm);
+                  handleForgotPasswordLink(data, setFieldError, resetForm);
                 }}
               >
                 <Form className="m-auto w-[80%] text-gray lg:w-[400px] lg:max-w-full">
                   <div className="mb-4">
-                    <div className="input-container">
-                      <label className="block  w-full text-md font-normal">Email</label>
-                      <Field
-                        name="username"
-                        type="email"
-                        className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
-                      />
-                      <ErrorMessage name="username" component="div" className="error-message" />
-                    </div>
-                  </div>
-                  <div className="relative mb-2">
-                    <Link
-                      href="/forgot-password"
-                      className="text-blue-500 absolute right-0 top-2 inline-block align-baseline text-base font-light leading-none underline hover:text-blue"
-                    >
-                      Forgot Password?
-                    </Link>
                     <div className="input-container">
                       <label className="block  w-full text-md font-normal">Password</label>
                       <Field
@@ -95,18 +81,15 @@ const Login = () => {
                       />
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
-                  </div>
-                  <div className="mb-4 flex items-center">
-                    <Field
-                      type="checkbox"
-                      id="rememberMe"
-                      className="mr-2 h-5 w-5 leading-tight"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <label htmlFor="rememberMe" className="text-md font-light  text-gray">
-                      Remember me
-                    </label>
+                    <div className="relative mb-2">
+                      <label className="block  w-full text-md font-normal">Confirm Password</label>
+                      <Field
+                        name="password_confirmation"
+                        type="password"
+                        className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
+                      />
+                      <ErrorMessage name="password_confirmation" component="div" className="error-message" />
+                    </div>
                   </div>
                   <div className="flex items-center justify-center">
                     <button
@@ -114,7 +97,7 @@ const Login = () => {
                       disabled={loading}
                       className="focus:shadow-outline rounded-full border border-transparent bg-yellow px-10 py-1  text-md font-normal text-blue  hover:scale-105 hover:border-blue focus:outline-none"
                     >
-                      Log In
+                      Change Password
                     </button>
                   </div>
                   <div className="devider relative mb-12 mt-16 border-t border-gray-400 text-center">
@@ -124,7 +107,7 @@ const Login = () => {
                   </div>
                   <div className="text-center">
                     <button className="fb-btn">
-                      <img src="assets/images/fb-btn.png" alt="facebook" />
+                      <img src="../assets/images/fb-btn.png" alt="facebook" />
                     </button>
                   </div>
                 </Form>
@@ -137,4 +120,4 @@ const Login = () => {
   ) : null;
 };
 
-export default Login;
+export default ForgotPassword;

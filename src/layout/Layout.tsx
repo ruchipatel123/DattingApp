@@ -4,6 +4,7 @@ import { getDefaultHeadMetaData } from 'config/website';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import gsap from 'gsap';
+import { Toaster } from 'react-hot-toast';
 
 interface LayoutProps {
   meta: {
@@ -45,6 +46,9 @@ const Layout: React.FC<LayoutProps> = (props) => {
       </Head>
       <header></header>
       <main>{children}</main>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={true} />
       <footer></footer>
     </>
   );

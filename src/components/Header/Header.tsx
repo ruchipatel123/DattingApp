@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Logo from './Logo';
 import NavBar from './NavBar';
 import { useRouter } from 'next/router';
@@ -22,7 +23,7 @@ const Header = () => {
   return (
     <header className="site-header relative py-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between px-10">
-        <Logo className="" alt="Logo" />
+        <Link href="/"><Logo className="" alt="Logo" /></Link>
         <div className="hidden md:inline-block">
           <NavBar />
         </div>
@@ -58,9 +59,8 @@ const Header = () => {
       </div>
 
       <div
-        className={`absolute top-[100%] flex w-full flex-col items-center overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96' : 'max-h-0'
-        } md:hidden`}
+        className={`absolute top-[100%] flex w-full flex-col items-center overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'
+          } md:hidden`}
       >
         <div className="z-30 flex w-full flex-col items-center bg-white p-10 md:hidden">
           <NavBar />

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import toast from "react-hot-toast";
 
 const initialState = {};
 
@@ -7,6 +8,7 @@ const messageSlice = createSlice({
   initialState,
   reducers: {
     setMessage: (state, action) => {
+      toast.error(action.payload);
       return { message: action.payload };
     },
     clearMessage: () => {

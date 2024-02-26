@@ -20,7 +20,6 @@ const login = (username, password) => {
       if (response?.data?.data?.accessToken) {
         localStorage.setItem('user', JSON.stringify(response?.data?.data));
       }
-      //console.log(response?.data?.data, localStorage.getItem("user"));
       return response.data;
     });
 };
@@ -41,9 +40,10 @@ const forgetPassword = ({ email }) => {
 
 const resetPasswordWithOtp = ({ token, password }) => {
   return axios
-    .post(API_URL + 'reset-password-otp', {
+    .post(API_URL + token + '/reset-password', {
       token,
       password,
+      password_confirmation: password,
     })
     .then((response) => {
       return response.data;
