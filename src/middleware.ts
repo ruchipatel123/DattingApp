@@ -7,6 +7,7 @@ const middleware = (req: NextRequest) => {
     return NextResponse.redirect(new URL('/login', req.url));
   } else if (
     (req.nextUrl.pathname.startsWith('/login') ||
+      req.nextUrl.pathname.startsWith('/register') ||
       req.nextUrl.pathname.startsWith('/forgot-password') ||
       req.nextUrl.pathname.startsWith('/reset')) &&
     token
