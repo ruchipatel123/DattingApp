@@ -95,7 +95,7 @@ const ProfileListing = () => {
             <div className="flex flex-wrap">
               <ProfileGallery />
               <div onClick={toggleHidden} className="fixed bottom-28 right-3">
-                <img src="/assets/images/back-btn.svg" />
+                <img src="/assets/images/back-btn.svg" alt="goback" />
               </div>
               <ProfileInformation />
               <div className="box-shadow fixed bottom-0 right-0 flex w-full justify-around bg-white text-center md:w-[332px] lg:w-[432px] xxl:w-[632px]">

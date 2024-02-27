@@ -123,13 +123,13 @@ const ProfileInformation = () => {
           </div>
           <div className="flex w-full items-center py-1">
             <span className="mr-1 h-6 w-6 rounded-full">
-              <img src="/assets/images/profile.png" />
+              <img src="/assets/images/profile.png" alt="splitimage" />
             </span>
             Amanda Chen
           </div>
           <div className="flex w-full items-center py-1">
             <span className="mr-1 h-6 w-6 rounded-full">
-              <img src="/assets/images/profile.png" />
+              <img src="/assets/images/profile.png" alt="profiledataimage" />
             </span>
             Jamaal Horton
           </div>

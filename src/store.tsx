@@ -4,23 +4,43 @@ import authReducer from './slices/auth';
 import messageReducer from './slices/message';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
-axios.interceptors.request.use((config) => {
-  const authToken = getCookie('token');
-  let header: any = config.headers;
-  header = authToken
-    ? {
-        ...header,
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + authToken,
-      }
-    : {
-        ...header,
-        Accept: 'application/json',
-      };
-  config.headers = header;
-  return config;
-});
+axios.interceptors.request.use(
+  (config) => {
+    const authToken = getCookie('token');
+    let header: any = config.headers;
+    header = authToken
+      ? {
+          ...header,
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + authToken,
+        }
+      : {
+          ...header,
+          Accept: 'application/json',
+        };
+    config.headers = header;
+    document.body.classList.add('loading-indicator');
+    return config;
+  },
+  (error) => {
+    document.body.classList.remove('loading-indicator');
+    return Promise.reject(error);
+  }
+);
 
+axios.interceptors.response.use(
+  function (response) {
+    // spinning hide
+    // UPDATE: Add this code to hide global loading indicator
+    document.body.classList.remove('loading-indicator');
+
+    return response;
+  },
+  function (error) {
+    document.body.classList.remove('loading-indicator');
+    return Promise.reject(error);
+  }
+);
 const reducer = {
   auth: authReducer,
   message: messageReducer,
