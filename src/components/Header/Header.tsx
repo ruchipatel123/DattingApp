@@ -34,7 +34,7 @@ const Header = () => {
             <button
               className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
               onClick={() => {
-                dispatch(logout());
+                dispatch(logout({}));
               }}
             >
               Logout
@@ -70,7 +70,7 @@ const Header = () => {
           <button
             className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
             onClick={() => {
-              dispatch(logout());
+              dispatch(logout({}));
             }}
             hidden={isLoggedIn ? false : true}
           >

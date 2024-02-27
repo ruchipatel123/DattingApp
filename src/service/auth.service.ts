@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_URL = 'http://localhost/react-laravel-admin-api-new/public/admin/';
 
 const register = (username, email, password) => {
@@ -25,7 +24,10 @@ const login = (username, password) => {
 };
 
 const logout = () => {
-  localStorage.removeItem('user');
+  return axios.post(API_URL + 'logout', {}).then((response) => {
+    localStorage.removeItem('user');
+    return response.data;
+  });
 };
 
 const forgetPassword = ({ email }) => {
@@ -50,14 +52,10 @@ const resetPasswordWithOtp = ({ token, password }) => {
     });
 };
 
-const meData = (token) => {
-  return axios
-    .get(API_URL + 'me', {
-      headers: { Authorization: 'Bearer ' + token },
-    })
-    .then((response) => {
-      return response.data;
-    });
+const meData = () => {
+  return axios.get(API_URL + 'me').then((response) => {
+    return response.data;
+  });
 };
 
 const authService = {

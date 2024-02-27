@@ -7,8 +7,12 @@ const messageSlice = createSlice({
   name: 'message',
   initialState,
   reducers: {
-    setMessage: (state, action) => {
+    setErrorMessage: (state, action) => {
       toast.error(action.payload);
+      return { message: action.payload };
+    },
+    setSuccessMessage: (state, action) => {
+      toast.success(action.payload);
       return { message: action.payload };
     },
     clearMessage: () => {
@@ -19,5 +23,5 @@ const messageSlice = createSlice({
 
 const { reducer, actions } = messageSlice;
 
-export const { setMessage, clearMessage } = actions;
+export const { setErrorMessage, setSuccessMessage, clearMessage } = actions;
 export default reducer;

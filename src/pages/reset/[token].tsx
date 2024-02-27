@@ -95,13 +95,12 @@ const ResetPasswordWithLink = () => {
                         type={isPasswordVisible ? 'text' : 'password'}
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
-                      <button
-                        type="button"
+                      <span
                         className="text-gray-600 absolute inset-y-0 right-0 mt-3 flex items-center px-4"
                         onClick={togglePasswordVisibility}
                       >
                         {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                      </button>
+                      </span>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
                     <div className="relative mb-2">
@@ -111,13 +110,12 @@ const ResetPasswordWithLink = () => {
                         type={isConfirmPasswordVisible ? 'text' : 'password'}
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
-                      <button
-                        type="button"
+                      <span
                         className="text-gray-600 absolute inset-y-0 right-0 mt-5 flex items-center px-4"
                         onClick={toggleConfirmPasswordVisibility}
                       >
-                        {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                      </button>
+                        {isConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                      </span>
                       <ErrorMessage
                         name="password_confirmation"
                         component="div"

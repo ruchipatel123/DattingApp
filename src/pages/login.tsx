@@ -41,7 +41,7 @@ const Login = () => {
       })
       .catch((e) => {
         if (e?.response?.data?.errors) {
-          Object.keys(e?.response?.data?.errors).map((element, key) => {
+          Object.keys(e?.response?.data?.errors).map((element) => {
             setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
           });
         }
@@ -100,12 +100,12 @@ const Login = () => {
                         type={isPasswordVisible ? 'text' : 'password'}
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
-                      <button
+                      <span
                         className="text-gray-600 absolute inset-y-0 right-0 mt-5 flex items-center px-4"
                         onClick={togglePasswordVisibility}
                       >
                         {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                      </button>
+                      </span>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
                   </div>
