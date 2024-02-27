@@ -9,9 +9,9 @@ const Sidebar = ({ isOpen, toggle }) => {
       >
         <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="#2E353E">
           {isOpen ? (
-            <path d="M1 1H21M1 9H21M1 17H21" stroke="#2E353E" stroke-linecap="round" />
+            <path d="M1 1H21M1 9H21M1 17H21" stroke="#2E353E" strokeLinecap="round" />
           ) : (
-            <path d="M1 1H21M1 9H21M1 17H21" stroke="#2E353E" stroke-linecap="round" />
+            <path d="M1 1H21M1 9H21M1 17H21" stroke="#2E353E" strokeLinecap="round" />
           )}
         </svg>
       </button>

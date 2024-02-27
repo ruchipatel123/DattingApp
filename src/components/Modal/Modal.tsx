@@ -49,14 +49,14 @@ const Modal = ({ isOpen, onClose, children }) => {
               d="M26.6663 13.3333L13.333 26.6666"
               stroke="#145CA8"
               stroke-width="2"
-              stroke-linecap="square"
+              strokeLinecap="square"
               stroke-linejoin="round"
             />
             <path
               d="M13.3337 13.3333L26.667 26.6666"
               stroke="#145CA8"
               stroke-width="2"
-              stroke-linecap="square"
+              strokeLinecap="square"
               stroke-linejoin="round"
             />
           </svg>

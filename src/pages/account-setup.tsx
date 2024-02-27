@@ -105,7 +105,7 @@ const AccountSetUp = () => {
                         d="M23 3V43M43 23H3"
                         stroke="#5AA1EC"
                         stroke-width="5"
-                        stroke-linecap="round"
+                        strokeLinecap="round"
                       />
                     </svg>
                   </button>
