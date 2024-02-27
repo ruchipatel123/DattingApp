@@ -7,8 +7,9 @@ import { resetPasswordWithOtp } from 'slices/auth';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import Layout from 'layout/Layout';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const ForgotPassword = () => {
+const ResetPasswordWithLink = () => {
   const dispatch = useAppDispatch();
   const validationSchema = Yup.object().shape({
     password: Yup.string()
@@ -28,13 +29,22 @@ const ForgotPassword = () => {
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(false);
   const { token } = router.query;
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setIsConfirmPasswordVisible((prevState) => !prevState);
+  };
   useEffect(() => {
     setShowComponent(true);
     if (isLoggedIn) {
       router.push('/discover');
     }
   }, [isLoggedIn]);
-  const handleForgotPasswordLink = (formValue, setFieldError, resetForm) => {
+  const handelResetPassword = (formValue, setFieldError, resetForm) => {
     const { password } = formValue;
     setLoading(true);
     dispatch(resetPasswordWithOtp({ password: password, token: token }))
@@ -73,27 +83,41 @@ const ForgotPassword = () => {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={(data, { setFieldError, resetForm }) => {
-                  handleForgotPasswordLink(data, setFieldError, resetForm);
+                  handelResetPassword(data, setFieldError, resetForm);
                 }}
               >
                 <Form className="m-auto w-[80%] text-gray lg:w-[400px] lg:max-w-full">
                   <div className="mb-4">
-                    <div className="input-container">
+                    <div className="relative mb-2">
                       <label className="block  w-full text-md font-normal">Password</label>
                       <Field
                         name="password"
-                        type="password"
+                        type={isPasswordVisible ? 'text' : 'password'}
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
+                      <button
+                        type="button"
+                        className="text-gray-600 absolute inset-y-0 right-0 mt-3 flex items-center px-4"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                      </button>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
                     <div className="relative mb-2">
                       <label className="block  w-full text-md font-normal">Confirm Password</label>
                       <Field
                         name="password_confirmation"
-                        type="password"
+                        type={isConfirmPasswordVisible ? 'text' : 'password'}
                         className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
                       />
+                      <button
+                        type="button"
+                        className="text-gray-600 absolute inset-y-0 right-0 mt-5 flex items-center px-4"
+                        onClick={toggleConfirmPasswordVisibility}
+                      >
+                        {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                      </button>
                       <ErrorMessage
                         name="password_confirmation"
                         component="div"
@@ -130,4 +154,4 @@ const ForgotPassword = () => {
   ) : null;
 };
 
-export default ForgotPassword;
+export default ResetPasswordWithLink;
