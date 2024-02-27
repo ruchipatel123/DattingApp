@@ -14,7 +14,7 @@ const Discover = () => {
     <>
       <Layout meta={{ title: 'Valadate' }}>
         <AuthHeader />
-        <div className="flex min-h-[100vh]">
+        <div className="flex min-h-[100vh] flex-wrap">
           <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
           <ProfileListing />
         </div>

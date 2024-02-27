@@ -1,6 +1,6 @@
 const ProfileCard = ({ btnText }) => {
   return (
-    <div className="profile_card group relative mb-10 w-full px-5">
+    <div className="profile_card group relative mb-5 w-full px-5 md:mb-10">
       <div className="bg-img relative overflow-hidden   rounded-xl bg-[url('/assets/images/profile-1.jpg')] bg-contain bg-no-repeat pb-[150%] ">
         <div
           className="bg-img__inner absolute bottom-0 left-0 right-0 px-3 py-4 text-white"

@@ -5,32 +5,22 @@ const Sidebar = ({ isOpen, toggle }) => {
     <>
       <button
         onClick={toggle}
-        className="absolute right-0 top-0 block text-blue focus:outline-none md:hidden" // Hide on desktop
+        className="absolute right-5 top-7 z-50 block text-blue focus:outline-none md:hidden" // Hide on desktop
       >
-        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#000">
+        <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="#2E353E">
           {isOpen ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
+            <path d="M1 1H21M1 9H21M1 17H21" stroke="#2E353E" stroke-linecap="round" />
           ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
+            <path d="M1 1H21M1 9H21M1 17H21" stroke="#2E353E" stroke-linecap="round" />
           )}
         </svg>
       </button>
       <div
-        className={`fixed left-0 top-[80px] h-full min-h-[400px] w-[20%] transform overflow-y-auto bg-white md:transform-none ${
-          isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
+        className={` left-0 top-[80px] min-h-[400px] w-full transform overflow-y-auto bg-white md:h-full md:w-[20%] md:transform-none ${
+          isOpen ? 'relative translate-y-0 ease-out' : 'fixed -translate-y-full ease-in'
         } z-30 transition duration-300`}
       >
-        <nav className="mt-20 space-y-5">
+        <nav className="mt-5 space-y-5 pr-5 md:mt-20">
           {/* Add your sidebar navigation links here */}
           <Link
             href="#"

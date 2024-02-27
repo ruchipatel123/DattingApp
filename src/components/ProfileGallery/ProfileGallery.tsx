@@ -17,7 +17,7 @@ const ProfileGallery = () => {
   };
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full md:px-4">
       {/* Gallery Grid for Desktop */}
       <div className="hidden md:grid md:grid-cols-2 md:gap-4">
         <div className="w-full">
@@ -45,7 +45,7 @@ const ProfileGallery = () => {
       <div className="w-full md:hidden">
         <Slider {...sliderSettings}>
           {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="px-2">
+            <div key={index}>
               <img
                 src={`/assets/images/profile-1.jpg`}
                 alt={`Profile ${index}`}

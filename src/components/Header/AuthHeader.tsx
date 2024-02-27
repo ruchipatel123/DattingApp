@@ -10,13 +10,19 @@ const AuthHeader = () => {
   useEffect(() => {}, [isLoggedIn]);
   return (
     <header className="site-header fixed left-0 right-0 top-0 z-50 flex w-full bg-white py-5">
-      <div className="flex w-full flex-wrap items-center justify-between px-10">
+      <div className="flex w-full flex-wrap items-center px-5 md:justify-between md:px-10">
         <Link href="/">
-          <Logo className="" alt="Logo" />
+          <span className="hidden md:inline-block ">
+            <Logo className="" alt="Logo" />
+          </span>
+          <span className="text-gray-800 text-2xl font-bold md:hidden">
+            <img src="/assets/images/Valadate_Logo.png" />
+          </span>
         </Link>
 
         <div className=" flex items-center space-x-5">
           <svg
+            className="absolute right-20 top-6 md:static"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -40,16 +46,7 @@ const AuthHeader = () => {
           </svg>
           <ProfileDropdown />
         </div>
-        <div className="inline-block md:hidden">
-          <button
-            className=" mt-1 w-8 rounded-md bg-white text-white md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <span className="my-2 block h-[1px] w-full bg-black"></span>
-            <span className="my-2 block h-[1px] w-full bg-black"></span>
-            <span className="my-2 block h-[1px] w-full bg-black"></span>
-          </button>
-        </div>
+        <div className="inline-block md:hidden"></div>
       </div>
     </header>
   );

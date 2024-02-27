@@ -20,7 +20,7 @@ const ProfileListing = () => {
     <div className={`flex w-[100%] flex-nowrap items-stretch space-x-5 pt-[80px] md:pl-[20%]`}>
       <div className="yellow-gradient-bg mt-2 w-[100%] rounded-xl rounded-b-none transition duration-500">
         {/* Your profile listing page content goes here */}
-        <div className="px-5 py-10">
+        <div className="py-10 md:px-5">
           <div className={`flex flex-wrap`}>
             <div
               onClick={toggleHidden}
@@ -90,11 +90,13 @@ const ProfileListing = () => {
         </div>
       </div>
       <SlideFromRight isOpen={isHidden}>
-        <div className="profile-shadow absolute left-0 right-0 mt-2 h-full rounded-b-none bg-white-100 p-4 md:relative md:rounded-xl">
+        <div className="profile-shadow absolute left-0 right-0 mt-2 rounded-b-none bg-white-100 md:relative md:h-full md:rounded-xl md:p-4">
           <div className="w-full pb-24 md:w-[300px] lg:w-[400px] xxl:w-[600px]">
             <div className="flex flex-wrap">
               <ProfileGallery />
-              <div onClick={toggleHidden}>click</div>
+              <div onClick={toggleHidden} className="fixed bottom-28 right-3">
+                <img src="/assets/images/back-btn.svg" />
+              </div>
               <ProfileInformation />
               <div className="box-shadow fixed bottom-0 right-0 flex w-full justify-around bg-white text-center md:w-[332px] lg:w-[432px] xxl:w-[632px]">
                 <button className="flex flex-col items-center px-5 py-2">
