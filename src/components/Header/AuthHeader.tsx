@@ -68,25 +68,6 @@ const AuthHeader = () => {
           </button>
         </div>
       </div>
-
-      <div
-        className={`absolute top-[100%] flex w-full flex-col items-center overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96' : 'max-h-0'
-        } md:hidden`}
-      >
-        <div className="z-30 flex w-full flex-col items-center bg-white p-10 md:hidden">
-          <NavBar />
-          <button
-            className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
-            onClick={() => {
-              dispatch(logout());
-            }}
-            hidden={isLoggedIn ? false : true}
-          >
-            Logout
-          </button>
-        </div>
-      </div>
     </header>
   );
 };

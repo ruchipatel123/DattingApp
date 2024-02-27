@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen, toggle }) => {
           {/* Add your sidebar navigation links here */}
           <Link
             href="#"
-            className="text-gray-300 hover:bg-gray-700 flex  items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
+            className="text-gray-300 hover:bg-gray-700 flex  items-center space-x-5 px-2 py-2 text-md font-normal hover:bg-[#E1EEFC] lg:px-4"
           >
             <span className="icon mr-1">
               <img src="/assets/images/discover-icon.svg" />
@@ -43,7 +43,7 @@ const Sidebar = ({ isOpen, toggle }) => {
           </Link>
           <Link
             href="#"
-            className="text-gray-300 hover:bg-gray-700 flex items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
+            className="text-gray-300 hover:bg-gray-700 flex items-center space-x-5 px-2 py-2 text-md font-normal hover:bg-[#E1EEFC] lg:px-4"
           >
             <span className="icon  mr-1">
               <img src="/assets/images/tread-icon.svg" />
@@ -52,7 +52,7 @@ const Sidebar = ({ isOpen, toggle }) => {
           </Link>
           <Link
             href="#"
-            className="text-gray-300 hover:bg-gray-700  flex items-center space-x-5 px-4 py-2 text-md font-normal hover:bg-[#E1EEFC]"
+            className="text-gray-300 hover:bg-gray-700  flex items-center space-x-5 px-2 py-2 text-md font-normal hover:bg-[#E1EEFC] lg:px-4"
           >
             <span className="icon  mr-1">
               <img src="/assets/images/connection-icon.svg" />
