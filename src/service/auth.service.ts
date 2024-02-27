@@ -1,6 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost/react-laravel-admin-api-new/public/admin/';
-
+const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
 const register = (username, email, password) => {
   return axios.post(API_URL + 'register', {
     username,
