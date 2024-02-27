@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { logout } from 'slices/auth';
+import { useAppDispatch } from 'store';
 
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -6,7 +9,8 @@ const ProfileDropdown = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   return (
     <div className="relative">
       <button
@@ -24,9 +28,20 @@ const ProfileDropdown = () => {
           <a href="#" className="block px-4 py-2 text-sm text-gray hover:bg-[#E1EEFC]">
             Settings
           </a>
-          <a href="#" className="block px-4 py-2 text-sm text-gray hover:bg-[#E1EEFC]">
+
+          <button
+            type="button"
+            className="block w-full px-4 py-2 text-left text-sm text-gray hover:bg-[#E1EEFC]"
+            onClick={() => {
+              dispatch(logout({}))
+                .unwrap()
+                .then((resp) => {
+                  if (resp) router.push('/login');
+                });
+            }}
+          >
             Sign out
-          </a>
+          </button>
         </div>
       )}
     </div>

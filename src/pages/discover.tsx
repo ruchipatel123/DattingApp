@@ -6,7 +6,6 @@ import { useState } from 'react';
 
 const Discover = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };

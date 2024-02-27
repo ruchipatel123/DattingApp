@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Logo from './Logo';
 import NavBar from './NavBar';
 import { useRouter } from 'next/router';
@@ -22,7 +23,9 @@ const Header = () => {
   return (
     <header className="site-header relative py-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between px-10">
-        <Logo className="" alt="Logo" />
+        <Link href="/">
+          <Logo className="" alt="Logo" />
+        </Link>
         <div className="hidden md:inline-block">
           <NavBar />
         </div>
@@ -31,7 +34,7 @@ const Header = () => {
             <button
               className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
               onClick={() => {
-                dispatch(logout());
+                dispatch(logout({}));
               }}
             >
               Logout
@@ -67,7 +70,7 @@ const Header = () => {
           <button
             className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
             onClick={() => {
-              dispatch(logout());
+              dispatch(logout({}));
             }}
             hidden={isLoggedIn ? false : true}
           >
