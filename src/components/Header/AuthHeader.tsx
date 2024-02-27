@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
 import { useSelector } from 'react-redux';
 import ProfileDropdown from 'components/ProfileDropdown/ProfileDropdown';
 
 const AuthHeader = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
   useEffect(() => {}, [isLoggedIn]);
   return (
@@ -16,7 +15,7 @@ const AuthHeader = () => {
             <Logo className="" alt="Logo" />
           </span>
           <span className="text-gray-800 text-2xl font-bold md:hidden">
-            <img src="/assets/images/Valadate_Logo.png" />
+            <img src="/assets/images/Valadate_Logo.png" alt={'sitelogodata'} />
           </span>
         </Link>
 
