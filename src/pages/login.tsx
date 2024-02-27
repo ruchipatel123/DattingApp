@@ -66,7 +66,7 @@ const Login = () => {
           </div>
           <div className="flex h-full w-full flex-col items-center justify-center md:w-[44%] md:px-5">
             <h1 className="mb-12 font-raleway text-xl font-bold text-blue">Welcome Back!</h1>
-            <div className="login-form">
+            <div className="login-form w-full">
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -95,17 +95,19 @@ const Login = () => {
                     </Link>
                     <div className="input-container">
                       <label className="block  w-full text-md font-normal">Password</label>
-                      <Field
-                        name="password"
-                        type={isPasswordVisible ? 'text' : 'password'}
-                        className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
-                      />
-                      <span
-                        className="text-gray-600 absolute inset-y-0 right-0 mt-5 flex items-center px-4"
-                        onClick={togglePasswordVisibility}
-                      >
-                        {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                      </span>
+                      <div className="relative">
+                        <Field
+                          name="password"
+                          type={isPasswordVisible ? 'text' : 'password'}
+                          className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
+                        />
+                        <span
+                          className="text-gray-600 absolute inset-y-0 right-0 flex items-center px-4"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                      </div>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
                   </div>

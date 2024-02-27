@@ -90,32 +90,36 @@ const ResetPasswordWithLink = () => {
                   <div className="mb-4">
                     <div className="relative mb-2">
                       <label className="block  w-full text-md font-normal">Password</label>
-                      <Field
-                        name="password"
-                        type={isPasswordVisible ? 'text' : 'password'}
-                        className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
-                      />
-                      <span
-                        className="text-gray-600 absolute inset-y-0 right-0 mt-3 flex items-center px-4"
-                        onClick={togglePasswordVisibility}
-                      >
-                        {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                      </span>
+                      <div className="relative">
+                        <Field
+                          name="password"
+                          type={isPasswordVisible ? 'text' : 'password'}
+                          className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
+                        />
+                        <span
+                          className="text-gray-600 absolute inset-y-0 right-0 flex items-center px-4"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                      </div>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
                     <div className="relative mb-2">
                       <label className="block  w-full text-md font-normal">Confirm Password</label>
-                      <Field
-                        name="password_confirmation"
-                        type={isConfirmPasswordVisible ? 'text' : 'password'}
-                        className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
-                      />
-                      <span
-                        className="text-gray-600 absolute inset-y-0 right-0 mt-5 flex items-center px-4"
-                        onClick={toggleConfirmPasswordVisibility}
-                      >
-                        {isConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                      </span>
+                      <div className="relative">
+                        <Field
+                          name="password_confirmation"
+                          type={isConfirmPasswordVisible ? 'text' : 'password'}
+                          className="m-auto min-h-10 w-full max-w-full rounded-lg border border-gray-400 px-4 py-2 focus:border-black focus:outline-none"
+                        />
+                        <span
+                          className="text-gray-600 absolute inset-y-0 right-0  flex items-center px-4"
+                          onClick={toggleConfirmPasswordVisibility}
+                        >
+                          {isConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                      </div>
                       <ErrorMessage
                         name="password_confirmation"
                         component="div"
