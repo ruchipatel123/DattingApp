@@ -195,3 +195,101 @@ box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10) inset;
 {
   display: none !important;
 }
+.tread-slider .slick-list
+{
+  padding: 0px 0 40px !important;
+}
+.profile_card
+{
+  position: relative;
+}
+.profile_card::after,.profile_card::before
+{
+  opacity: 0;
+}
+.profile_card.active::after,.profile_card.active::before
+{
+  opacity: 0;
+}
+.profile_card::after {
+  background-image: url(/assets/images/border-bottom.png);
+  content: " ";
+  position: absolute;
+  height: 23px;
+  width: 25px;
+  display: inline-block;
+  right: 0;
+  bottom: 0;
+}
+.profile_card::before
+{
+  background-image: url(/assets/images/border-top.png);
+  content: " ";
+  position: absolute;
+  height: 23px;
+  width: 25px;
+  display: inline-block;
+  left: 0;
+  top: 0;
+}
+
+.friend-slider .slick-prev:before,.friend-slider .slick-next:before
+{
+  display: none;
+}
+.friend-slider .slick-prev:hover,.friend-slider .slick-prev:focus {
+  background-image: url(/assets/images/arrow-left.svg);
+  background-repeat: no-repeat;
+}
+.friend-slider .slick-next:hover, .friend-slider .slick-next:focus
+{
+  background-image: url(/assets/images/arrow-right.svg);
+  background-repeat: no-repeat;
+}
+.friend-slider .slick-prev, .friend-slider .slick-next {
+  background-image: url(/assets/images/arrow-left.svg);
+  width: 30px;
+  height: 45px;
+  background-repeat: no-repeat;
+}
+.friend-slider .slick-next
+{
+  left: -40px;
+}
+.friend-slider .slick-next
+{
+  background-image: url(/assets/images/arrow-right.svg);
+  right: -40px;
+  left: auto;
+}
+.friend-slider .slick-slider::before
+{
+  content: " ";
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+.friend-slider .slick-slider::after
+{
+  content: " ";
+  position: absolute;
+background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  width: 200px;
+  height: 100%;
+  z-index: 1;
+  right: 0;
+  top: 0;
+}
+.tread-slider {
+  margin: 0 -15px;
+}
+@media screen and (max-width: 640px) {
+.friend-slider .slick-slider::after,.friend-slider .slick-slider::before
+{
+  display: none;
+}
+}

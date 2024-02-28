@@ -104,8 +104,8 @@ const AccountSetUp = () => {
                       <path
                         d="M23 3V43M43 23H3"
                         stroke="#5AA1EC"
-                        stroke-width="5"
-                        stroke-linecap="round"
+                        strokeWidth="5"
+                        strokeLinecap="round"
                       />
                     </svg>
                   </button>
@@ -115,7 +115,7 @@ const AccountSetUp = () => {
           </div>
 
           <Modal isOpen={isOpen} onClose={closeModal}>
-            <div className="max-h-[60vh] overflow-auto p-6 text-gray">
+            <div className="mx-auto   max-h-[60vh] overflow-auto rounded-lg bg-white p-6 text-gray md:w-[60%]">
               <div className="mb-4 font-raleway text-lg  font-bold text-gray">
                 List of Ice Breakers
               </div>

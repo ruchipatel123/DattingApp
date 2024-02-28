@@ -27,7 +27,7 @@ const ImageUpload = () => {
               fill="none"
               className="absolute"
             >
-              <path d="M23 3V43M43 23H3" stroke="#145CA8" stroke-width="5" stroke-linecap="round" />
+              <path d="M23 3V43M43 23H3" stroke="#145CA8" strokeWidth="5" strokeLinecap="round" />
             </svg>
           )}
         </div>
