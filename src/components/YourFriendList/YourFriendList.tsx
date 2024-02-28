@@ -52,7 +52,7 @@ const YourFriendList = () => {
             <input
               type="email"
               placeholder="Email"
-              className="border-gray-300 mb w-full rounded-lg border p-3"
+              className="mb w-full rounded-lg border border-gray-300 p-3"
             />
             <div className="mt-5 text-center">
               <input

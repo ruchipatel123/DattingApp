@@ -14,31 +14,31 @@ const MyConnections = () => {
       <AuthHeader />
       <div className="flex flex-wrap md:min-h-[100vh]">
         <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
-        <div className={`flex w-[100%] flex-wrap  px-5 pt-[85px] md:pl-[20%]`}>
-          <div>
+        <div className={`flex w-[100%] flex-wrap   px-5 pt-[85px] md:pl-[20%]`}>
+          <div className="w-full">
             {/* Tab headers */}
-            <div className="flex flex-wrap space-x-4">
+            <div className="flex w-full flex-wrap justify-center space-x-40">
               <button
                 className={`px-4 py-2 ${
-                  activeTab === 'tab1' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                  activeTab === 'tab1' ? 'text-blue underline' : 'text-gray-300'
                 }`}
                 onClick={() => setActiveTab('tab1')}
               >
-                Tab 1
+                Connections
               </button>
               <button
                 className={`px-4 py-2 ${
-                  activeTab === 'tab2' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                  activeTab === 'tab2' ? 'text-blue underline' : 'text-gray-300'
                 }`}
                 onClick={() => setActiveTab('tab2')}
               >
-                Tab 2
+                Valadation
               </button>
               {/* Add more tabs as needed */}
             </div>
 
             {/* Tab content */}
-            <div className="p-4">
+            <div className="w-full p-4 ">
               {activeTab === 'tab1' && <div>Content for Tab 1</div>}
               {activeTab === 'tab2' && <div>Content for Tab 2</div>}
               {/* Render content for more tabs as needed */}

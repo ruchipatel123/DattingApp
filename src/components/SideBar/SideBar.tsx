@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Sidebar = ({ isOpen, toggle }) => {
+  const router = useRouter();
+
   return (
     <>
       <button
@@ -20,11 +23,13 @@ const Sidebar = ({ isOpen, toggle }) => {
           isOpen ? 'relative translate-y-0 ease-out' : 'fixed -translate-y-full ease-in'
         } z-30 transition duration-300`}
       >
-        <nav className="mt-5 space-y-5 pr-5 md:mt-20">
+        <nav className="mt-5 space-y-5 pr-5 md:mt-20 md:pr-0">
           {/* Add your sidebar navigation links here */}
           <Link
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 flex  items-center space-x-5 px-2 py-2 text-md font-normal hover:bg-[#E1EEFC] lg:px-4"
+            href="discover"
+            className={`hover:bg-gray-700 flex items-center  space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
+              router.pathname === '/discover' ? 'bg-[#E1EEFC]' : ''
+            }`}
           >
             <span className="icon mr-1">
               <img src="/assets/images/discover-icon.svg" alt="discover" />
@@ -32,8 +37,10 @@ const Sidebar = ({ isOpen, toggle }) => {
             Discover
           </Link>
           <Link
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 flex items-center space-x-5 px-2 py-2 text-md font-normal hover:bg-[#E1EEFC] lg:px-4"
+            href="/common-threads"
+            className={`hover:bg-gray-700 flex items-center space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
+              router.pathname === '/common-threads' ? 'bg-[#E1EEFC]' : ''
+            }`}
           >
             <span className="icon  mr-1">
               <img src="/assets/images/tread-icon.svg" alt="tread" />
@@ -41,8 +48,10 @@ const Sidebar = ({ isOpen, toggle }) => {
             Common Threads
           </Link>
           <Link
-            href="#"
-            className="text-gray-300 hover:bg-gray-700  flex items-center space-x-5 px-2 py-2 text-md font-normal hover:bg-[#E1EEFC] lg:px-4"
+            href="/my-connections"
+            className={`hover:bg-gray-700 flex  items-center space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
+              router.pathname === '/my-connections' ? 'bg-[#E1EEFC]' : ''
+            }`}
           >
             <span className="icon  mr-1">
               <img src="/assets/images/connection-icon.svg" alt="connection" />
@@ -54,5 +63,4 @@ const Sidebar = ({ isOpen, toggle }) => {
     </>
   );
 };
-
 export default Sidebar;
