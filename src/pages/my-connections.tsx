@@ -1,5 +1,9 @@
+import Connection from 'components/Connections/Connection';
 import AuthHeader from 'components/Header/AuthHeader';
+import MyMatchmakers from 'components/MyMatchmakers/MyMatchmakers';
+import NewMatches from 'components/NewMatches/NewMatches';
 import Sidebar from 'components/SideBar/SideBar';
+import ValadationInProgress from 'components/ValadationInProgress/ValadationInProgress';
 import Layout from 'layout/Layout';
 import { useState } from 'react';
 
@@ -39,8 +43,18 @@ const MyConnections = () => {
 
             {/* Tab content */}
             <div className="w-full p-4 ">
-              {activeTab === 'tab1' && <div>Content for Tab 1</div>}
-              {activeTab === 'tab2' && <div>Content for Tab 2</div>}
+              {activeTab === 'tab1' && (
+                <div>
+                  <NewMatches />
+                  <Connection />
+                </div>
+              )}
+              {activeTab === 'tab2' && (
+                <div>
+                  <ValadationInProgress />
+                  <MyMatchmakers />
+                </div>
+              )}
               {/* Render content for more tabs as needed */}
             </div>
           </div>
