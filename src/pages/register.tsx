@@ -38,8 +38,9 @@ const Register = () => {
             <div className="btn-wrap container left-0 right-0 top-0 mt-4 flex space-x-2 md:absolute md:justify-end md:space-x-10">
               <Button
                 onClick={() => {
-                  if (stage == 0) router.push('/');
-                  else if (stage <= 4) {
+                  if (stage == 0) {
+                    router.push('/');
+                  } else if (stage <= 4) {
                     setStage(stage - 1);
                   } else {
                     setStage(4);
@@ -57,7 +58,6 @@ const Register = () => {
                   } else {
                     setStage(4);
                   }
-                  // setStage(stage + 1);
                 }}
                 type="primary"
                 size="lg"
