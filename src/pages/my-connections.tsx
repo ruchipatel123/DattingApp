@@ -21,7 +21,7 @@ const MyConnections = () => {
         <div className={`flex w-[100%] flex-wrap   px-5 pt-[85px] md:pl-[20%]`}>
           <div className="w-full">
             {/* Tab headers */}
-            <div className="flex w-full flex-wrap justify-center space-x-40">
+            <div className="flex w-full flex-wrap justify-center space-x-4 md:space-x-20 lg:space-x-40">
               <button
                 className={`px-4 py-2 ${
                   activeTab === 'tab1' ? 'text-blue underline' : 'text-gray-300'
