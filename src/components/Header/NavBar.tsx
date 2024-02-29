@@ -3,7 +3,7 @@ import Link from 'next/link';
 const NavBar = () => {
   return (
     <nav>
-      <ul className="flex flex-wrap items-center justify-center text-center font-raleway text-md md:justify-between  md:space-x-10 md:text-left xl:space-x-36">
+      <ul className="flex flex-wrap items-center justify-center text-center font-raleway text-md md:justify-between  md:space-x-10 md:text-left xxl:space-x-36">
         <li className="mb-3 block w-full md:mb-0 md:inline-block md:w-auto">
           <Link
             href="/"

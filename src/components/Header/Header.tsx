@@ -22,7 +22,7 @@ const Header = () => {
   }, [isLoggedIn]);
   return (
     <header className="site-header relative py-5 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between px-10">
+      <div className="flex flex-wrap items-center justify-between px-5 md:px-10">
         <Link href="/">
           <Logo className="" alt="Logo" />
         </Link>
@@ -32,7 +32,7 @@ const Header = () => {
         <div className="hidden md:inline-block">
           {isLoggedIn ? (
             <button
-              className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+              className="btn primary lg rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
               onClick={() => {
                 dispatch(logout({}));
               }}
@@ -42,13 +42,13 @@ const Header = () => {
           ) : (
             <>
               <button
-                className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+                className="btn primary lg rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
                 onClick={handleClick}
               >
                 Log In
               </button>
               <button
-                className="btn primary lg ml-3 rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+                className="btn primary lg ml-3 rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
                 onClick={() => router.push('/register')}
               >
                 Register
@@ -92,7 +92,7 @@ const Header = () => {
             Log In
           </button>
           <button
-            className="btn primary lg ml-3 mt-2 rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+            className="btn primary lg  mt-2 rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
             onClick={() => router.push('/register')}
             hidden={isLoggedIn ? true : false}
           >

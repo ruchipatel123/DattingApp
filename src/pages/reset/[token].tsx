@@ -88,7 +88,7 @@ const ResetPasswordWithLink = () => {
               >
                 <Form className="m-auto w-[80%] text-gray lg:w-[400px] lg:max-w-full">
                   <div className="mb-4">
-                    <div className="relative mb-2">
+                    <div className="relative mb-5">
                       <label className="block  w-full text-md font-normal">Password</label>
                       <div className="relative">
                         <Field
@@ -105,7 +105,7 @@ const ResetPasswordWithLink = () => {
                       </div>
                       <ErrorMessage name="password" component="div" className="error-message" />
                     </div>
-                    <div className="relative mb-2">
+                    <div className="relative mb-7">
                       <label className="block  w-full text-md font-normal">Confirm Password</label>
                       <div className="relative">
                         <Field
