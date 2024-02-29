@@ -3,7 +3,7 @@ import React from 'react';
 const ChatBot = () => {
   return (
     <>
-      <div className="text-gray-800 mr-2 flex h-screen-header rounded-2xl border border-blue-300 antialiased">
+      <div className="text-gray-800 flex h-screen-header rounded-2xl border border-blue-300 antialiased md:mr-2">
         <div className="flex h-full w-full flex-row overflow-x-hidden">
           <div className="flex h-full flex-auto flex-col p-5">
             <div className="bg-gray-100 flex h-full flex-auto flex-shrink-0 flex-col rounded-2xl">

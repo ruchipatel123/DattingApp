@@ -12,14 +12,16 @@ const MyConnectionChat = () => {
     setIsOpen(!isOpen);
   };
 
+  const [activeTab, setActiveTab] = useState('tab1');
+
   return (
     <Layout meta={{ title: 'Valadate' }}>
       <AuthHeader />
       <div className="flex flex-wrap md:min-h-[100vh]">
         <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
-        <div className={`flex w-[100%] flex-wrap   px-5 pt-[85px] md:pl-[20%]`}>
+        <div className={`flex w-[100%] flex-wrap   pt-[85px] md:px-5 md:pl-[20%]`}>
           <div className="mb-2 flex w-full flex-wrap justify-between">
-            <button className="flex items-center text-sm text-gray hover:text-blue">
+            <button className="ml-2 flex items-center text-sm text-gray hover:text-blue">
               <span className="mr-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -67,14 +69,52 @@ const MyConnectionChat = () => {
               </svg>
             </button>
           </div>
-          <div className="w-1/2">
+          <div className="hidden w-1/2 md:block">
             <ChatBot />
           </div>
-          <div className="relative w-1/2">
+          <div className="relative hidden w-1/2 md:inline-flex">
             <div className={`flex w-[100%] flex-wrap`}>
               <ProfileGallery />
               <ProfileInformation />
             </div>
+          </div>
+
+          {/* Tab headers */}
+          <div className="flex w-full flex-wrap justify-center space-x-40 md:hidden">
+            <button
+              className={`px-4 py-2 ${
+                activeTab === 'tab1' ? 'text-blue underline' : 'text-gray-300'
+              }`}
+              onClick={() => setActiveTab('tab1')}
+            >
+              Chat
+            </button>
+            <button
+              className={`px-4 py-2 ${
+                activeTab === 'tab2' ? 'text-blue underline' : 'text-gray-300'
+              }`}
+              onClick={() => setActiveTab('tab2')}
+            >
+              Profile
+            </button>
+            {/* Add more tabs as needed */}
+          </div>
+          {/* Tab content */}
+          <div className="w-full md:p-4 ">
+            {activeTab === 'tab1' && (
+              <div className="px-4">
+                <ChatBot />
+              </div>
+            )}
+            {activeTab === 'tab2' && (
+              <div className="profile-shadow w-full">
+                <div className="flex flex-wrap">
+                  <ProfileGallery />
+                  <ProfileInformation />
+                </div>
+              </div>
+            )}
+            {/* Render content for more tabs as needed */}
           </div>
         </div>
       </div>
