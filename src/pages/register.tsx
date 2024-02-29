@@ -4,16 +4,19 @@ import LocationForm from 'components/RegistrationComponents/LocationForm';
 import ProgressBar from 'components/ProgressBar/Progressbar';
 import Layout from 'layout/Layout';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { getQuestionList } from 'slices/common';
 import RegistrationForm from 'components/RegistrationComponents/RegistrationForm';
 import GenderSelection from 'components/RegistrationComponents/GenderSelection';
 import AccountSetup from 'components/RegistrationComponents/AccountSetup';
 import Progress from './progress';
+import { FacebookConnect } from 'components/RegistrationComponents/FacebookConnect';
+import LookingFor from 'components/RegistrationComponents/LookingFor';
 
 const Register = () => {
   const router = useRouter();
+  const formRef = useRef();
   const [stage, setStage] = useState(0);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -29,7 +32,7 @@ const Register = () => {
         className="semitransperent-header min-h-screen"
         style={{ background: 'linear-gradient(69deg, #FDEAB6 0%, #F9DB6D 89.75%)' }}
       >
-        {stage !== 3 ? (
+        {stage !== 5 ? (
           <>
             <RegistrationHeader />
             <div className="mt-5 ">
@@ -40,10 +43,10 @@ const Register = () => {
                 onClick={() => {
                   if (stage == 0) {
                     router.push('/');
-                  } else if (stage <= 4) {
+                  } else if (stage <= 6) {
                     setStage(stage - 1);
                   } else {
-                    setStage(4);
+                    setStage(6);
                   }
                 }}
                 type="primary"
@@ -53,10 +56,10 @@ const Register = () => {
               </Button>
               <Button
                 onClick={() => {
-                  if (stage < 4) {
+                  if (stage < 6) {
                     setStage(stage + 1);
                   } else {
-                    setStage(4);
+                    setStage(6);
                   }
                 }}
                 type="primary"
@@ -70,17 +73,21 @@ const Register = () => {
           <></>
         )}
 
-        {[0, 1, 2, 4].indexOf(stage) >= 0 ? (
+        {[0, 1, 2, 3, 4, 6].indexOf(stage) >= 0 ? (
           <div className="container flex min-h-[70vh] flex-wrap items-center justify-center pt-14">
             <div className="w-full max-w-[840px] text-gray-400">
-              {stage == 0 && <RegistrationForm stage={stage} setStage={setStage} />}
-              {stage == 1 && <GenderSelection />}
+              {stage == 0 && (
+                <RegistrationForm stage={stage} setStage={setStage} formRef={formRef} />
+              )}
+              {stage == 1 && <FacebookConnect stage={stage} setStage={setStage} />}
               {stage == 2 && <LocationForm />}
-              {stage == 4 && <AccountSetup />}
+              {stage == 3 && <GenderSelection />}
+              {stage == 4 && <LookingFor />}
+              {stage == 6 && <AccountSetup />}
             </div>
           </div>
         ) : (
-          stage == 3 && <Progress setStage={setStage} stage={stage} />
+          stage == 5 && <Progress setStage={setStage} stage={stage} />
         )}
       </div>
     </Layout>
