@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import authReducer from './slices/auth';
 import messageReducer from './slices/message';
+import commonReducer from './slices/common';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 axios.interceptors.request.use(
@@ -43,6 +44,7 @@ axios.interceptors.response.use(
 );
 const reducer = {
   auth: authReducer,
+  common: commonReducer,
   message: messageReducer,
 };
 
