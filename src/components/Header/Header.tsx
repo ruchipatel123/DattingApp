@@ -40,12 +40,20 @@ const Header = () => {
               Logout
             </button>
           ) : (
-            <button
-              className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
-              onClick={handleClick}
-            >
-              Log In
-            </button>
+            <>
+              <button
+                className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+                onClick={handleClick}
+              >
+                Log In
+              </button>
+              <button
+                className="btn primary lg ml-3 rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
+                onClick={() => router.push('/register')}
+              >
+                Register
+              </button>
+            </>
           )}
         </div>
         <div className="inline-block md:hidden">

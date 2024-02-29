@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Input from 'components/Input/Input';
+import Button from 'components/Button/Button';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ stage, setStage }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -77,12 +78,64 @@ const RegistrationForm = () => {
             <div className="devider relative w-24 border-t border-gray-400 text-center"></div>
           </div>
           <div className="text-center">
-            <button className="fb-btn">
+            <button
+              className="fb-btn"
+              type="button"
+              onClick={() => {
+                console.log('first');
+              }}
+            >
               <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
             </button>
           </div>
         </div>
       </form>
+      <h2 className="mb-10 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
+        Great! Nice to meet you, John! Would you like to link your Facebook friends to your account?
+      </h2>
+      <h2 className="mb-10 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
+        Doing this will allow you to see mutual connections on the platform and could lead to you
+        having a more accurate, enjoyable dating experience. You can always change your mind later!
+      </h2>
+
+      <div className="connection-wrapper mb-14 mt-14 flex justify-center  space-x-3 md:mb-20 md:mt-20 md:space-x-9">
+        <img
+          src="/assets/images/fb.svg"
+          className="connection-icon  max-w-24 md:max-w-max"
+          alt="facebook"
+        />
+        <img
+          src="/assets/images/linkto.svg"
+          className="connection-icon max-w-14 md:max-w-max"
+          alt="linktofacebook"
+        />
+        <img
+          src="/assets/images/valadate.svg"
+          className="connection-icon max-w-24 md:max-w-max"
+          alt="avatar"
+        />
+      </div>
+
+      <div className="btn-wrap container mb-10 flex  flex-wrap justify-center space-x-2 space-y-2 md:space-x-10">
+        <Button
+          onClick={() => {
+            setStage(stage + 1);
+          }}
+          type="primary"
+          size="lg"
+        >
+          Not Right Now
+        </Button>
+        <Button
+          onClick={() => {
+            setStage(stage);
+          }}
+          type="primary"
+          size="lg"
+        >
+          Let’s Do It!
+        </Button>
+      </div>
     </>
   );
 };
