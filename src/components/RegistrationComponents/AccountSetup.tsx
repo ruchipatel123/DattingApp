@@ -37,7 +37,7 @@ const AccountSetup = () => {
 
   return (
     <>
-      <h2 className="mb-7 font-raleway  text-md  text-gray md:text-lg">
+      <h2 className="mb-7 font-raleway  text-md  text-gray md:-mx-10  md:text-lg">
         Great! We want to help you find your perfect match - in order to do that, we need to figure
         out exactly what you’re looking for!
       </h2>

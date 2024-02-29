@@ -23,7 +23,7 @@ const Banner = () => {
             <h3 className="text-center font-josefin text-lg font-medium text-blue">Get Started!</h3>
             <div className="m-auto flex flex-wrap items-center justify-between bg-[#E1EEFC] xl:w-[86%] ">
               <Link
-                href={isLoggedIn ? '/discover' : '/login'}
+                href={isLoggedIn ? '/discover' : '/register'}
                 className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2"
               >
                 <figure className="inline-block">
@@ -38,7 +38,7 @@ const Banner = () => {
                 </span>
               </Link>
               <Link
-                href={isLoggedIn ? '/discover' : '/login'}
+                href={isLoggedIn ? '/discover' : '/register'}
                 className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2"
               >
                 <figure className="inline-block">

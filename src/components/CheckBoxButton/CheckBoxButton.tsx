@@ -10,7 +10,7 @@ const CheckBoxButton = ({ id, label, checked, onChange }) => {
       />
       <label
         htmlFor={id}
-        className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-10 ${
+        className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
           checked
             ? 'border border-blue bg-blue text-white'
             : 'text-gray-800 border border-blue bg-transparent  text-gray'

@@ -47,12 +47,6 @@ const Header = () => {
               >
                 Log In
               </button>
-              <button
-                className="btn primary lg ml-3 rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
-                onClick={() => router.push('/register')}
-              >
-                Register
-              </button>
             </>
           )}
         </div>
@@ -90,13 +84,6 @@ const Header = () => {
             hidden={isLoggedIn ? true : false}
           >
             Log In
-          </button>
-          <button
-            className="btn primary lg  mt-2 rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
-            onClick={() => router.push('/register')}
-            hidden={isLoggedIn ? true : false}
-          >
-            Register
           </button>
         </div>
       </div>

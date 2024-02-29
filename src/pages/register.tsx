@@ -13,6 +13,9 @@ import AccountSetup from 'components/RegistrationComponents/AccountSetup';
 import Progress from './progress';
 import { FacebookConnect } from 'components/RegistrationComponents/FacebookConnect';
 import LookingFor from 'components/RegistrationComponents/LookingFor';
+import ImageUpload from 'components/ImageUpload/ImageUpload';
+import AccountSetup1 from 'components/RegistrationComponents/AccountSetup1';
+import AccountSetup2 from 'components/RegistrationComponents/AccountSetup2';
 
 const Register = () => {
   const router = useRouter();
@@ -43,10 +46,10 @@ const Register = () => {
                 onClick={() => {
                   if (stage == 0) {
                     router.push('/');
-                  } else if (stage <= 6) {
+                  } else if (stage <= 8) {
                     setStage(stage - 1);
                   } else {
-                    setStage(6);
+                    setStage(8);
                   }
                 }}
                 type="primary"
@@ -56,10 +59,10 @@ const Register = () => {
               </Button>
               <Button
                 onClick={() => {
-                  if (stage < 6) {
+                  if (stage < 8) {
                     setStage(stage + 1);
                   } else {
-                    setStage(6);
+                    setStage(8);
                   }
                 }}
                 type="primary"
@@ -73,7 +76,7 @@ const Register = () => {
           <></>
         )}
 
-        {[0, 1, 2, 3, 4, 6].indexOf(stage) >= 0 ? (
+        {[0, 1, 2, 3, 4, 6, 7, 8].indexOf(stage) >= 0 ? (
           <div className="container flex min-h-[70vh] flex-wrap items-center justify-center pt-14">
             <div className="w-full max-w-[840px] text-gray-400">
               {stage == 0 && (
@@ -84,6 +87,8 @@ const Register = () => {
               {stage == 3 && <GenderSelection />}
               {stage == 4 && <LookingFor />}
               {stage == 6 && <AccountSetup />}
+              {stage == 7 && <AccountSetup1 />}
+              {stage == 8 && <AccountSetup2 />}
             </div>
           </div>
         ) : (
