@@ -1,27 +1,56 @@
 import React, { useState } from 'react';
-import Input from 'components/Input/Input';
-import Button from 'components/Button/Button';
+import * as Yup from 'yup';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-const RegistrationForm = ({ stage, setStage }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
+const RegistrationForm = ({ stage, setStage, formRef }) => {
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string()
+      .required('Please enter first name!')
+      .min(1, 'Please enter first name with minimum 1 character!')
+      .max(255, 'Please enter last name with maximum 255 characters!'),
+    lastName: Yup.string()
+      .required('Please enter last name!')
+      .min(1, 'Please enter last name with minimum 1 character!')
+      .max(255, 'Please enter last name with maximum 255 characters!'),
+    email: Yup.string().required('Please enter email!').email('Please enter valid email!'),
+    password: Yup.string()
+      .required('Please enter password!')
+      .min(8, 'Please enter valid password with minimum 8 character!')
+      .max(15, 'Please enter valid password with minimum 15 character!')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        'Please enter password with 1 upper case char, 1 lower case char, 1 number and 1 special char'
+      ),
+  });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
   };
-
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
+  const handleProgress = (formValue, setFieldError, resetForm) => {
+    console.log(formValue);
+    // const { username, password } = formValue;
+    // setLoading(true);
+    // dispatch(login({ username: username, password: password }))
+    //   .unwrap()
+    //   .then(() => {
+    //     resetForm();
+    //     redirect('/discover');
+    //   })
+    //   .catch((e) => {
+    //     if (e?.response?.data?.errors) {
+    //       Object.keys(e?.response?.data?.errors).map((element) => {
+    //         setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
+    //       });
+    //     }
+    //     setLoading(false);
+    //   });
   };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
   };
 
   return (
@@ -30,112 +59,79 @@ const RegistrationForm = ({ stage, setStage }) => {
         Hey! Thank you for joining the Valadate community - let’s get started by setting up your
         account!
       </h2>
-      <form className="flex flex-wrap md:-mx-5">
-        <div className="mb-5 w-full md:w-3/5 md:px-5">
-          <Input
-            label="First Name"
-            type="text"
-            value={firstName}
-            onChange={handleFirstNameChange}
-            error={''}
-            variant={'secondary'}
-          />
-        </div>
-        <div className="mb-5 w-full md:w-2/5 md:px-5">
-          <Input
-            label="Last Name"
-            type="text"
-            value={lastName}
-            onChange={handleLastNameChange}
-            error={''}
-            variant={'secondary'}
-          />
-        </div>
-        <div className="mb-5 w-full md:px-5">
-          <Input
-            label="Email"
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            error={''}
-            variant={'secondary'}
-          />
-        </div>
-        <div className="mb-5 w-full md:px-5">
-          <Input
-            label="Password"
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-            error={''}
-            variant={'secondary'}
-          />
-        </div>
-        <div className="m-auto mb-10 flex w-96 flex-col flex-wrap items-center justify-center md:mb-0">
-          <div className="mb-5 mt-10 flex items-center justify-center text-center md:mb-12 md:mt-14">
-            <div className="devider relative w-24 border-t  border-gray-400 text-center"></div>
-            <p className="inline-block px-5  text-center text-sm text-gray-400">Or sign in with</p>
-            <div className="devider relative w-24 border-t border-gray-400 text-center"></div>
+      <Formik
+        innerRef={formRef}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(data, { setFieldError, resetForm }) => {
+          handleProgress(data, setFieldError, resetForm);
+        }}
+      >
+        <Form className="flex flex-wrap md:-mx-5">
+          <div className="mb-5 w-full md:w-3/5 md:px-5">
+            <label className="block  w-full text-md font-normal">First Name</label>
+            <Field
+              name="firstName"
+              type="text"
+              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+            />
+            <ErrorMessage name="firstName" component="div" className="error-message" />
           </div>
-          <div className="text-center">
-            <button
-              className="fb-btn"
-              type="button"
-              onClick={() => {
-                console.log('first');
-              }}
+          <div className="mb-5 w-full md:w-2/5 md:px-5">
+            <label className="block  w-full text-md font-normal">Last Name</label>
+            <Field
+              name="lastName"
+              type="text"
+              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+            />
+            <ErrorMessage name="lastName" component="div" className="error-message" />
+          </div>
+          <div className="mb-5 w-full md:px-5">
+            <label className="block  w-full text-md font-normal">Email</label>
+            <Field
+              name="email"
+              type="email"
+              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+            />
+            <ErrorMessage name="email" component="div" className="error-message" />
+          </div>
+          <div className="mb-5 w-full md:px-5">
+            <label className="block  w-full text-md font-normal">Password</label>
+            <Field
+              name="password"
+              type={isPasswordVisible ? 'text' : 'password'}
+              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+            />
+            <ErrorMessage name="password" component="div" className="error-message" />
+            <span
+              className="text-gray-600 inset-y-0  flex items-center px-4"
+              onClick={togglePasswordVisibility}
             >
-              <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
-            </button>
+              {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+            </span>
           </div>
-        </div>
-      </form>
-      <h2 className="mb-10 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
-        Great! Nice to meet you, John! Would you like to link your Facebook friends to your account?
-      </h2>
-      <h2 className="mb-10 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
-        Doing this will allow you to see mutual connections on the platform and could lead to you
-        having a more accurate, enjoyable dating experience. You can always change your mind later!
-      </h2>
-
-      <div className="connection-wrapper mb-14 mt-14 flex justify-center  space-x-3 md:mb-20 md:mt-20 md:space-x-9">
-        <img
-          src="/assets/images/fb.svg"
-          className="connection-icon  max-w-24 md:max-w-max"
-          alt="facebook"
-        />
-        <img
-          src="/assets/images/linkto.svg"
-          className="connection-icon max-w-14 md:max-w-max"
-          alt="linktofacebook"
-        />
-        <img
-          src="/assets/images/valadate.svg"
-          className="connection-icon max-w-24 md:max-w-max"
-          alt="avatar"
-        />
-      </div>
-
-      <div className="btn-wrap container mb-10 flex  flex-wrap justify-center space-x-2 space-y-2 md:space-x-10">
-        <Button
-          onClick={() => {
-            setStage(stage + 1);
-          }}
-          type="primary"
-          size="lg"
-        >
-          Not Right Now
-        </Button>
-        <Button
-          onClick={() => {
-            setStage(stage);
-          }}
-          type="primary"
-          size="lg"
-        >
-          Let’s Do It!
-        </Button>
-      </div>
+          <div className="m-auto mb-10 flex w-96 flex-col flex-wrap items-center justify-center md:mb-0">
+            <div className="mb-5 mt-10 flex items-center justify-center text-center md:mb-12 md:mt-14">
+              <div className="devider relative w-24 border-t  border-gray-400 text-center"></div>
+              <p className="inline-block px-5  text-center text-sm text-gray-400">
+                Or sign in with
+              </p>
+              <div className="devider relative w-24 border-t border-gray-400 text-center"></div>
+            </div>
+            <div className="text-center">
+              <button
+                className="fb-btn"
+                type="button"
+                onClick={() => {
+                  console.log('first');
+                }}
+              >
+                <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
+              </button>
+            </div>
+          </div>
+        </Form>
+      </Formik>
     </>
   );
 };
