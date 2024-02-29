@@ -19,11 +19,11 @@ const Sidebar = ({ isOpen, toggle }) => {
         </svg>
       </button>
       <div
-        className={` left-0 top-[80px] min-h-[400px] w-full transform overflow-y-auto bg-white md:h-full md:w-[20%] md:transform-none ${
+        className={` left-0 top-[80px] min-h-[400px] w-full   transform overflow-y-auto bg-white md:h-full md:w-[20%] md:transform-none ${
           isOpen ? 'relative translate-y-0 ease-out' : 'fixed -translate-y-full ease-in'
         } z-30 transition duration-300`}
       >
-        <nav className="mt-5 space-y-5 pr-5 md:mt-20 md:pr-0">
+        <nav className="mt-5 space-y-5 text-center md:mt-20 md:pr-0">
           {/* Add your sidebar navigation links here */}
           <Link
             href="discover"
