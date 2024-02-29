@@ -97,18 +97,20 @@ const RegistrationForm = ({ stage, setStage, formRef }) => {
           </div>
           <div className="mb-5 w-full md:px-5">
             <label className="block  w-full text-md font-normal">Password</label>
-            <Field
-              name="password"
-              type={isPasswordVisible ? 'text' : 'password'}
-              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
-            />
+            <div className="relative">
+              <Field
+                name="password"
+                type={isPasswordVisible ? 'text' : 'password'}
+                className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+              />
+              <span
+                className="text-gray-600 absolute  inset-y-0 right-0 top-0 flex cursor-pointer items-center px-4"
+                onClick={togglePasswordVisibility}
+              >
+                {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             <ErrorMessage name="password" component="div" className="error-message" />
-            <span
-              className="text-gray-600 inset-y-0  flex items-center px-4"
-              onClick={togglePasswordVisibility}
-            >
-              {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-            </span>
           </div>
           <div className="m-auto mb-10 flex w-96 flex-col flex-wrap items-center justify-center md:mb-0">
             <div className="mb-5 mt-10 flex items-center justify-center text-center md:mb-12 md:mt-14">
