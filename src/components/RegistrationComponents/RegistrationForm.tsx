@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { getCookie } from 'cookies-next';
 
-const RegistrationForm = ({ stage, setStage, formRef }) => {
+const RegistrationForm = ({ stage, handleProgress }) => {
+  const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
       .required('Please enter first name!')
@@ -27,30 +29,12 @@ const RegistrationForm = ({ stage, setStage, formRef }) => {
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevState) => !prevState);
   };
-  const handleProgress = (formValue, setFieldError, resetForm) => {
-    console.log(formValue);
-    // const { username, password } = formValue;
-    // setLoading(true);
-    // dispatch(login({ username: username, password: password }))
-    //   .unwrap()
-    //   .then(() => {
-    //     resetForm();
-    //     redirect('/discover');
-    //   })
-    //   .catch((e) => {
-    //     if (e?.response?.data?.errors) {
-    //       Object.keys(e?.response?.data?.errors).map((element) => {
-    //         setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
-    //       });
-    //     }
-    //     setLoading(false);
-    //   });
-  };
+
   const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: initialValueData?.firstName ?? '',
+    lastName: initialValueData?.lastName ?? '',
+    email: initialValueData?.email ?? '',
+    password: initialValueData?.password ?? '',
   };
 
   return (
@@ -60,14 +44,13 @@ const RegistrationForm = ({ stage, setStage, formRef }) => {
         account!
       </h2>
       <Formik
-        innerRef={formRef}
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(data, { setFieldError, resetForm }) => {
           handleProgress(data, setFieldError, resetForm);
         }}
       >
-        <Form className="flex flex-wrap md:-mx-5">
+        <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
           <div className="mb-5 w-full md:w-3/5 md:px-5">
             <label className="block  w-full text-md font-normal">First Name</label>
             <Field

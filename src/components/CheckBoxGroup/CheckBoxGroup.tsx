@@ -1,23 +1,22 @@
 import { useState } from 'react';
 
-const CheckboxGroup = ({ options, onChange }) => {
-  const [checkedItems, setCheckedItems] = useState({});
+const CheckboxGroup = ({ options }) => {
+  const [checkedItems, setCheckedItems] = useState<any>([]);
 
-  const handleCheckboxChange = (option) => {
-    const newCheckedItems = { ...checkedItems, [option.value]: !checkedItems[option.value] };
-    setCheckedItems(newCheckedItems);
-    onChange(Object.keys(newCheckedItems).filter((key) => newCheckedItems[key]));
+  const handleCheckboxChange = (option: any) => {
+    setCheckedItems([...checkedItems, option.value]);
+    console.log(checkedItems);
   };
 
   return (
     <div className="space-y-2">
-      {options.map((option) => (
+      {options.map((option: any) => (
         <div key={option.value} className="relative flex items-center">
           <input
             type="checkbox"
             className="form-checkbox text-blue-600 absolute bottom-0 left-0 right-0 top-0 hidden h-5 w-5"
             id={option.value}
-            checked={checkedItems[option.value] || false}
+            checked={checkedItems.indexOf(option?.value) >= 0}
             onChange={() => handleCheckboxChange(option)}
           />
           <label
