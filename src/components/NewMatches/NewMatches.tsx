@@ -12,6 +12,22 @@ const NewMatches = () => {
     slidesToScroll: 1,
     responsive: [
       {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          initialSlide: 1,
+        },
+      },
+      {
         breakpoint: 767,
         settings: {
           slidesToShow: 3,
