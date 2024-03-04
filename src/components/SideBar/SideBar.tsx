@@ -59,6 +59,13 @@ const Sidebar = ({ isOpen, toggle }) => {
             My Connections
           </Link>
         </nav>
+
+        <button
+          title="Log Out"
+          className=" absolute left-0 right-0 top-3/4 h-6 font-raleway text-md"
+        >
+          Log Out
+        </button>
       </div>
     </>
   );
