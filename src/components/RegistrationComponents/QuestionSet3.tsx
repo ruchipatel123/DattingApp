@@ -33,8 +33,8 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
     });
   const validationSchemaData = Yup.object().shape(validationSchema);
   const initialValues = {
-    height_feet: '',
-    height_inch: '',
+    height_feet: initialValueData?.height_feet ?? '',
+    height_inch: initialValueData?.height_inch ?? '',
     ...fields,
   };
   const optionft = [

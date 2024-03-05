@@ -50,7 +50,6 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
           >
             {({ values }) => (
               <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
-                {JSON.stringify(values)}
                 <div className="mb-8 block">
                   {questionList
                     .filter((question) => {

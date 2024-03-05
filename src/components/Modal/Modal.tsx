@@ -50,14 +50,14 @@ const Modal = ({ isOpen, onClose, children }) => {
               stroke="#145CA8"
               strokeWidth="2"
               strokeLinecap="square"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
             />
             <path
               d="M13.3337 13.3333L26.667 26.6666"
               stroke="#145CA8"
               strokeWidth="2"
               strokeLinecap="square"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
             />
           </svg>
         </button>

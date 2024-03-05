@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { uploadFile } from 'slices/common';
+import { useAppDispatch } from 'store';
 
-const ImageUpload = () => {
-  const [image, setImage] = useState(null);
-
+const ImageUpload = ({ setFieldValue, fieldName, values, element }) => {
+  const dispatch = useAppDispatch();
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+    dispatch(uploadFile(e.target.files[0]))
+      .unwrap()
+      .then((data) => {
+        setFieldValue(fieldName, data?.file_url);
+      });
   };
 
   return (
@@ -18,7 +22,7 @@ const ImageUpload = () => {
             onChange={handleImageChange}
             className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
           />
-          {!image && (
+          {!values.images[element] && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="46"
@@ -32,9 +36,9 @@ const ImageUpload = () => {
           )}
         </div>
         <div className="image_wrap relative overflow-hidden pb-[120%] text-center">
-          {image && (
+          {values.images[element] && (
             <img
-              src={URL.createObjectURL(image)}
+              src={values.images[element]}
               alt="Uploaded image"
               className="absolute bottom-0 left-0 right-0 top-0 m-auto inline-block h-full w-auto max-w-max "
             />
