@@ -48,6 +48,8 @@ const commonSlice = createSlice({
   name: 'common',
   initialState: {
     questionList: {},
+    iceBreakerQuestionList: {},
+    lastFile: {},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -56,10 +58,10 @@ const commonSlice = createSlice({
         state.questionList = action.data;
       })
       .addCase(getIcebreakerQuestionList.fulfilled, (state: any, action: any) => {
-        state.questionList = action.data;
+        state.iceBreakerQuestionList = action.data;
       })
       .addCase(uploadFile.fulfilled, (state: any, action: any) => {
-        state.questionList = action.data;
+        state.lastFile = action.data;
       });
   },
 });
