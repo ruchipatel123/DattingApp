@@ -66,7 +66,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
                                 return (
                                   <div key={element.value} className="relative flex items-center ">
                                     <label
-                                      className={`m-1 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
+                                      className={`mb-3 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
                                         values['question__' + question.id] &&
                                         values['question__' + question.id]?.indexOf(
                                           element.id.toString()

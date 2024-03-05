@@ -1,4 +1,5 @@
 import ThreadSlider from './ThreadSlider';
+import ThreadSliderMatchMaker from './ThreadSliderMatchMaker';
 
 const Threads = () => {
   return (
@@ -8,6 +9,7 @@ const Threads = () => {
       </h2>
       <div className="w-full">
         <ThreadSlider />
+        {/* <ThreadSliderMatchMaker /> */}
       </div>
     </>
   );

@@ -1,12 +1,12 @@
 import Slider from 'react-slick';
 import ThreadCard from './ThreadCard';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useState } from 'react';
+import { Children, useState } from 'react';
 import Modal from 'components/Modal/Modal';
 import ProfileGallery from 'components/ProfileGallery/ProfileGallery';
 import ProfileInformation from 'components/ProfileInformation/ProfileInformation';
+import Button from 'components/Button/Button';
 
 const ThreadSlider = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,6 +90,11 @@ const ThreadSlider = () => {
               <img src="/assets/images/not-interested.svg" alt="Like" />
               <span className="w-full text-base font-light">Not Interested</span>
             </button>
+            {/* <div className='py-5'>
+             <Button  onClick={() => {}} >
+                <span className="w-full text-base font-light">Recommend User</span>
+             </Button>
+             </div> */}
           </div>
         </div>
       </Modal>
