@@ -107,7 +107,6 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                   name="iceBreaker"
                   render={(arrayHelper) => {
                     ArrayHelperRef.current = arrayHelper;
-                    console.log(arrayHelper);
                     return (
                       <>
                         {values?.iceBreaker &&

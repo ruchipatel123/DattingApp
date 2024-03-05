@@ -5,7 +5,6 @@ const CheckboxGroup = ({ options }) => {
 
   const handleCheckboxChange = (option: any) => {
     setCheckedItems([...checkedItems, option.value]);
-    console.log(checkedItems);
   };
 
   return (

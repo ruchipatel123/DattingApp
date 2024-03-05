@@ -12,9 +12,8 @@ const LocationForm = ({ stage, handleProgress }) => {
     { value: '20', label: '20' },
     { value: '30', label: '30' },
   ];
-
-  const [birthdate, setBirthdate] = useState(initialValueData?.birthdate ?? null);
   const validationSchema = Yup.object().shape({
+    dob: Yup.string().required('Please enter birthdate!'),
     city: Yup.string()
       .required('Please enter city name!')
       .min(1, 'Please enter city name with minimum 1 character!')
@@ -36,12 +35,8 @@ const LocationForm = ({ stage, handleProgress }) => {
     zipcode: initialValueData?.zipcode ?? '',
     dob: initialValueData?.dob ?? '',
     radius_miles: initialValueData?.radius_miles ?? '',
-    birthdate: initialValueData?.birthdate ?? '',
   };
 
-  const handleDateChange = (date) => {
-    setBirthdate(date);
-  };
   return (
     <>
       <h2 className="mb-7 font-raleway  text-md  text-gray md:text-lg">I live in</h2>
@@ -52,64 +47,71 @@ const LocationForm = ({ stage, handleProgress }) => {
           handleProgress(data, setFieldError, resetForm);
         }}
       >
-        <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
-          <div className="mb-8 w-full md:w-[50%] md:px-5">
-            <label className="block  w-full text-md font-normal">City</label>
-            <Field
-              name="city"
-              type="text"
-              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
-            />
-            <ErrorMessage name="city" component="div" className="error-message" />
-          </div>
-          <div className="mb-8 w-full md:w-[25%] md:px-5">
-            <label className="block  w-full text-md font-normal">State</label>
-            <Field
-              name="state"
-              type="text"
-              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
-            />
-            <ErrorMessage name="state" component="div" className="error-message" />
-          </div>
-          <div className="mb-8 w-full md:w-[25%] md:px-5">
-            <label className="block  w-full text-md font-normal">Zip Code</label>
-            <Field
-              name="zipcode"
-              type="text"
-              className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
-            />
-            <ErrorMessage name="zipcode" component="div" className="error-message" />
-          </div>
-          <div className="mb-5 w-full md:w-[50%] md:px-5">
-            <h2 className="mb-3 font-raleway  text-md  text-gray md:text-lg">
-              I’m looking for someone within
-            </h2>
-            <div className="h-[60px]">
+        {({ values, setFieldValue }) => (
+          <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
+            <div className="mb-8 w-full md:w-[50%] md:px-5">
+              <label className="block  w-full text-md font-normal">City</label>
               <Field
-                type="select"
-                as="select"
-                name="radius_miles"
-                className="border-${borderColor} focus:shadow-outline small inline-block h-full w-auto min-w-40 appearance-none rounded border bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
-              >
-                {options.map((element) => {
-                  return (
-                    <option key={'l' + element.value} value={element.value}>
-                      {element.label}
-                    </option>
-                  );
-                })}
-              </Field>
-              <span className="ml-2 align-bottom font-raleway   text-md  text-gray md:text-lg">
-                miles
-              </span>
-              <ErrorMessage name="radius_miles" component="div" className="error-message" />
+                name="city"
+                type="text"
+                className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+              />
+              <ErrorMessage name="city" component="div" className="error-message" />
             </div>
-          </div>
-          <div className="mb-5 w-full md:w-[50%] md:px-5">
-            <h2 className="mb-3 font-raleway  text-md text-gray md:text-lg">My Birthday Is:</h2>
-            <Datepicker selectedDate={birthdate} onChange={handleDateChange} />
-          </div>
-        </Form>
+            <div className="mb-8 w-full md:w-[25%] md:px-5">
+              <label className="block  w-full text-md font-normal">State</label>
+              <Field
+                name="state"
+                type="text"
+                className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+              />
+              <ErrorMessage name="state" component="div" className="error-message" />
+            </div>
+            <div className="mb-8 w-full md:w-[25%] md:px-5">
+              <label className="block  w-full text-md font-normal">Zip Code</label>
+              <Field
+                name="zipcode"
+                type="text"
+                className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+              />
+              <ErrorMessage name="zipcode" component="div" className="error-message" />
+            </div>
+            <div className="mb-5 w-full md:w-[50%] md:px-5">
+              <h2 className="mb-3 font-raleway  text-md  text-gray md:text-lg">
+                I’m looking for someone within
+              </h2>
+              <div className="h-[60px]">
+                <Field
+                  type="select"
+                  as="select"
+                  name="radius_miles"
+                  className="border-${borderColor} focus:shadow-outline small inline-block h-full w-auto min-w-40 appearance-none rounded border bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                >
+                  {options.map((element) => {
+                    return (
+                      <option key={'l' + element.value} value={element.value}>
+                        {element.label}
+                      </option>
+                    );
+                  })}
+                </Field>
+                <span className="ml-2 align-bottom font-raleway   text-md  text-gray md:text-lg">
+                  miles
+                </span>
+                <ErrorMessage name="radius_miles" component="div" className="error-message" />
+              </div>
+            </div>
+            <div className="mb-5 w-full md:w-[50%] md:px-5">
+              <h2 className="mb-3 font-raleway  text-md text-gray md:text-lg">My Birthday Is:</h2>
+              <Datepicker
+                selectedDate={values?.dob ?? ''}
+                onChange={(data) => {
+                  setFieldValue('dob', data);
+                }}
+              />
+            </div>
+          </Form>
+        )}
       </Formik>
     </>
   );

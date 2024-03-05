@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
-  console.log(initialValueData);
   const fields = {};
   let validationSchema = {};
 
@@ -29,7 +28,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
       };
     });
   validationSchema = Yup.object().shape(validationSchema);
-  console.log(validationSchema);
+
   const initialValues = {
     ...fields,
   };

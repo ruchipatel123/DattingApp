@@ -45,7 +45,6 @@ const Register = () => {
     }
     const regUser = getCookie('reguser') ?? '{}';
     setCookie('reguser', { ...JSON.parse(regUser), ...formValue });
-    console.log(JSON.parse(getCookie('reguser') ?? '{}'));
     // const { username, password } = formValue;
     // setLoading(true);
     // dispatch(login({ username: username, password: password }))
