@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 const Accordion = ({ title, children, isOpen, onClick }) => {
-  // Specify that contentRef is a ref to an HTMLDivElement
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [height, setHeight] = useState('0px');
 

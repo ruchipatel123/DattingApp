@@ -114,7 +114,7 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                           values.iceBreaker.map((breakerData, index) => (
                             <div
                               key={breakerData.question_id}
-                              className="w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
+                              className="relative w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
                             >
                               <div className="min-h-[200px] rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
                                 <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
@@ -137,10 +137,33 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                               </div>
                               <button
                                 type="button"
+                                className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400"
                                 onClick={() => arrayHelper.remove(index)}
                                 hidden={values.iceBreaker.length <= 1}
                               >
-                                Remove
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 40 40"
+                                  fill="none"
+                                >
+                                  <circle cx="20" cy="20" r="15" fill="#145CA8" />
+                                  <path
+                                    d="M26.6663 13.3333L13.333 26.6666"
+                                    stroke="#fff"
+                                    stroke-width="2"
+                                    stroke-linecap="square"
+                                    stroke-linejoin="round"
+                                  />
+                                  <path
+                                    d="M13.3337 13.3333L26.667 26.6666"
+                                    stroke="#fff"
+                                    stroke-width="2"
+                                    stroke-linecap="square"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
                               </button>
                             </div>
                           ))}
