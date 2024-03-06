@@ -9,12 +9,6 @@ const LocationForm = ({ stage, handleProgress }) => {
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(100);
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
-  const options = [
-    { value: '', label: 'Select miles' },
-    { value: '10', label: '10' },
-    { value: '20', label: '20' },
-    { value: '30', label: '30' },
-  ];
   const validationSchema = Yup.object().shape({
     dob: Yup.string().required('Please enter birthdate!'),
     city: Yup.string()
@@ -101,23 +95,26 @@ const LocationForm = ({ stage, handleProgress }) => {
                 <div className="w-full">
                   <div className="range-slider-wrap range_slider_single inline-block w-3/5">
                     <RangeSlider
-                      min={0}
+                      min={10}
                       max={100}
                       step={0}
                       options={{
                         leftInputProps: {
-                          value: 0,
+                          value: 10,
                           onChange: (e) => setLow(0),
                         },
                         rightInputProps: {
-                          value: high,
-                          onChange: (e) => setHigh(Number(e.target.value)),
+                          value: initialValueData?.radius_miles ?? high,
+                          onChange: (e) => {
+                            setFieldValue('radius_miles', Number(e.target.value));
+                            setHigh(Number(e.target.value));
+                          },
                         },
                       }}
                     />
                   </div>
                   <span className="ml-2 align-bottom font-raleway   text-md  text-gray md:text-lg">
-                    {high} miles
+                    {initialValueData?.radius_miles ?? high} miles
                   </span>
                 </div>
                 <ErrorMessage name="radius_miles" component="div" className="error-message" />

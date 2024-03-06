@@ -19,9 +19,9 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
   ]);
 
   // Function to handle individual checkbox change
-  const [low, setLow] = useState(18);
-  const [high, setHigh] = useState(100);
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
+  const [low, setLow] = useState(initialValueData?.age_range_min ?? 18);
+  const [high, setHigh] = useState(initialValueData?.age_range_max ?? 100);
   const initialValues = {
     age_range_min: initialValueData?.age_range_min ?? 18,
     age_range_max: initialValueData?.age_range_max ?? 100,
@@ -83,8 +83,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                       />
                     </div>
                     <h3 className="ml-3 text-md font-medium text-gray">
-                      {initialValueData?.age_range_min ?? low} -{' '}
-                      {initialValueData?.age_range_max ?? high} years old
+                      {values?.age_range_min ?? low} - {values?.age_range_max ?? high} years old
                     </h3>
                   </div>
 

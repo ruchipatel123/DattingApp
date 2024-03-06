@@ -38,21 +38,31 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
     ...fields,
   };
   const optionft = [
-    { value: '1 ft', label: '1 ft' },
-    { value: '2 ft', label: '2 ft' },
-    { value: '3 ft', label: '3 ft' },
-    { value: '4 ft', label: '4 ft' },
-    { value: '5 ft', label: '5 ft' },
-    { value: '6 ft', label: '6 ft' },
+    { value: '1', label: '1 ft' },
+    { value: '2', label: '2 ft' },
+    { value: '3', label: '3 ft' },
+    { value: '4', label: '4 ft' },
+    { value: '5', label: '5 ft' },
+    { value: '6', label: '6 ft' },
+    { value: '7', label: '7 ft' },
+    { value: '8', label: '8 ft' },
+    { value: '9', label: '9 ft' },
   ];
 
   const optionin = [
-    { value: '1 in', label: '1 in' },
-    { value: '2 in', label: '2 in' },
-    { value: '3 in', label: '3 in' },
-    { value: '4 in', label: '4 in' },
-    { value: '5 in', label: '5 in' },
-    { value: '6 in', label: '6 in' },
+    { value: '0', label: '0 in' },
+    { value: '1', label: '1 in' },
+    { value: '2', label: '2 in' },
+    { value: '3', label: '3 in' },
+    { value: '4', label: '4 in' },
+    { value: '5', label: '5 in' },
+    { value: '6', label: '6 in' },
+    { value: '7', label: '7 in' },
+    { value: '8', label: '8 in' },
+    { value: '9', label: '9 in' },
+    { value: '10', label: '10 in' },
+    { value: '11', label: '11 in' },
+    { value: '12', label: '12 in' },
   ];
 
   return (

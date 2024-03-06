@@ -6,10 +6,12 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 const user = getCookie('token') ? getCookie('token') : {};
 export const register = createAsyncThunk('user/register', async (args: any, thunkAPI) => {
   try {
-    const response = await AuthService.register(args.username, args.email, args.password);
-    thunkAPI.dispatch(setErrorMessage(response.data.message));
-    return response.data;
+    const data = await AuthService.register(args);
+    if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
+    return data.data;
   } catch (error) {
+    if (error?.response?.data?.notify)
+      thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -84,19 +86,23 @@ export const logout = createAsyncThunk('user/logout', async (args: any, thunkAPI
   }
 });
 
-const getInitialStage = () => {
+const getInitialState = () => {
   return {
     isLoggedIn: getCookie('token') ? true : false,
     user: user,
   };
 };
-const initialState = getInitialStage();
+const initialState = getInitialState();
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(register.fulfilled, (state: any, action: any) => {
+        state.isLoggedIn = true;
+        state.user = action?.payload?.userdata ?? {};
+      })
       .addCase(login.fulfilled, (state: any, action: any) => {
         state.isLoggedIn = true;
         state.user = action.payload.user;

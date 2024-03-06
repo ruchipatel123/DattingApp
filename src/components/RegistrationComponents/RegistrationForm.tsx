@@ -7,11 +7,11 @@ import { getCookie } from 'cookies-next';
 const RegistrationForm = ({ stage, handleProgress }) => {
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
+    firstname: Yup.string()
       .required('Please enter first name!')
       .min(1, 'Please enter first name with minimum 1 character!')
       .max(255, 'Please enter last name with maximum 255 characters!'),
-    lastName: Yup.string()
+    lastname: Yup.string()
       .required('Please enter last name!')
       .min(1, 'Please enter last name with minimum 1 character!')
       .max(255, 'Please enter last name with maximum 255 characters!'),
@@ -31,8 +31,8 @@ const RegistrationForm = ({ stage, handleProgress }) => {
   };
 
   const initialValues = {
-    firstName: initialValueData?.firstName ?? '',
-    lastName: initialValueData?.lastName ?? '',
+    firstname: initialValueData?.firstname ?? '',
+    lastname: initialValueData?.lastname ?? '',
     email: initialValueData?.email ?? '',
     password: initialValueData?.password ?? '',
   };
@@ -54,20 +54,20 @@ const RegistrationForm = ({ stage, handleProgress }) => {
           <div className="mb-5 w-full md:w-3/5 md:px-5">
             <label className="block  w-full text-md font-normal">First Name</label>
             <Field
-              name="firstName"
+              name="firstname"
               type="text"
               className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
             />
-            <ErrorMessage name="firstName" component="div" className="error-message" />
+            <ErrorMessage name="firstname" component="div" className="error-message" />
           </div>
           <div className="mb-5 w-full md:w-2/5 md:px-5">
             <label className="block  w-full text-md font-normal">Last Name</label>
             <Field
-              name="lastName"
+              name="lastname"
               type="text"
               className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
             />
-            <ErrorMessage name="lastName" component="div" className="error-message" />
+            <ErrorMessage name="lastname" component="div" className="error-message" />
           </div>
           <div className="mb-5 w-full md:px-5">
             <label className="block  w-full text-md font-normal">Email</label>
