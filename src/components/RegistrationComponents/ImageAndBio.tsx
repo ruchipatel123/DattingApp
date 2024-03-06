@@ -152,16 +152,16 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                                   <path
                                     d="M26.6663 13.3333L13.333 26.6666"
                                     stroke="#fff"
-                                    stroke-width="2"
-                                    stroke-linecap="square"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2"
+                                    strokeLinecap="square"
+                                    strokeLinejoin="round"
                                   />
                                   <path
                                     d="M13.3337 13.3333L26.667 26.6666"
                                     stroke="#fff"
-                                    stroke-width="2"
-                                    stroke-linecap="square"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2"
+                                    strokeLinecap="square"
+                                    strokeLinejoin="round"
                                   />
                                 </svg>
                               </button>
