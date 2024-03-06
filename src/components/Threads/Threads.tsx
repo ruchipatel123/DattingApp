@@ -1,5 +1,4 @@
 import ThreadSlider from './ThreadSlider';
-import ThreadSliderMatchMaker from './ThreadSliderMatchMaker';
 
 const Threads = () => {
   return (

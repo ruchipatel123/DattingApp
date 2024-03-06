@@ -2,10 +2,8 @@ import Slider from 'react-slick';
 import ThreadCard from './ThreadCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Children, useState } from 'react';
+import { useState } from 'react';
 import Modal from 'components/Modal/Modal';
-import ProfileGallery from 'components/ProfileGallery/ProfileGallery';
-import ProfileInformation from 'components/ProfileInformation/ProfileInformation';
 import Button from 'components/Button/Button';
 
 const ThreadSliderMatchMaker = () => {

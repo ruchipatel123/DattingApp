@@ -1,14 +1,10 @@
-import Connection from 'components/Connections/Connection';
 import AuthHeader from 'components/Header/AuthHeader';
 import MyMatchmakers from 'components/MyMatchmakers/MyMatchmakers';
-import NewMatches from 'components/NewMatches/NewMatches';
 import ProfileGallery from 'components/ProfileGallery/ProfileGallery';
 import ProfileInformation from 'components/ProfileInformation/ProfileInformation';
-import Sidebar from 'components/SideBar/SideBar';
 import SideBarMatchMaker from 'components/SideBar/SideBarMatchMakers';
 import SlideFromRight from 'components/SlideFromRIght/SlideFromRight';
 import Valadation from 'components/Valadation/Valadation';
-import ValadationInProgress from 'components/ValadationInProgress/ValadationInProgress';
 import ValadationRequest from 'components/ValadationRequest/ValadationRequest';
 import Layout from 'layout/Layout';
 import { useState } from 'react';

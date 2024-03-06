@@ -1,10 +1,13 @@
 import Datepicker from 'components/DatePicker/Datepicker';
 import { getCookie } from 'cookies-next';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { RangeSlider } from 'next-range-slider';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
 const LocationForm = ({ stage, handleProgress }) => {
+  const [low, setLow] = useState(0);
+  const [high, setHigh] = useState(100);
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
   const options = [
     { value: '', label: 'Select miles' },
@@ -81,7 +84,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                 I’m looking for someone within
               </h2>
               <div className="h-[60px]">
-                <Field
+                {/* <Field
                   type="select"
                   as="select"
                   name="radius_miles"
@@ -94,10 +97,29 @@ const LocationForm = ({ stage, handleProgress }) => {
                       </option>
                     );
                   })}
-                </Field>
-                <span className="ml-2 align-bottom font-raleway   text-md  text-gray md:text-lg">
-                  miles
-                </span>
+                </Field> */}
+                <div className="w-full">
+                  <div className="range-slider-wrap range_slider_single inline-block w-3/5">
+                    <RangeSlider
+                      min={0}
+                      max={100}
+                      step={0}
+                      options={{
+                        leftInputProps: {
+                          value: 0,
+                          onChange: (e) => setLow(0),
+                        },
+                        rightInputProps: {
+                          value: high,
+                          onChange: (e) => setHigh(Number(e.target.value)),
+                        },
+                      }}
+                    />
+                  </div>
+                  <span className="ml-2 align-bottom font-raleway   text-md  text-gray md:text-lg">
+                    {high} miles
+                  </span>
+                </div>
                 <ErrorMessage name="radius_miles" component="div" className="error-message" />
               </div>
             </div>

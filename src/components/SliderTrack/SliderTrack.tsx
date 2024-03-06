@@ -13,7 +13,7 @@ const SliderTrack = ({ leftLabel, rightLabel }) => {
             max="100"
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
-            className="range bg-custom-gradient slider-thumb h-2 w-full  rounded-lg"
+            className="range bg-custom-gradient slider-thumb slider h-2 w-full  rounded-lg"
             // style={{ backgroundSize: `${value}% 100%` }} // This adjusts the fill color based on the value
           />
           <div className="mt-1 flex w-full justify-between">

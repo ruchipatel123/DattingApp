@@ -3,7 +3,7 @@ import React from 'react';
 
 const Valadation = () => {
   return (
-    <div className="mx-3 mt-10 flex w-full flex-wrap rounded-lg border border-yellow p-5 ">
+    <div className="valadation_wrap mx-3 mt-10 flex w-full flex-wrap rounded-lg border border-yellow p-5 ">
       <div className="flex w-full justify-between">
         <h2 className="mb-5  font-raleway text-sm tracking-wide text-blue">Valadation</h2>
         <span>

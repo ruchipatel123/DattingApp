@@ -1,6 +1,5 @@
 import Accordion from 'components/Accordion/Accordion';
 import ProfileCard from 'components/ProfileCard/ProfileCard';
-import ValadationInProgress from 'components/ValadationInProgress/ValadationInProgress';
 import React, { useState } from 'react';
 
 const ValadationRequest = ({ onClick }) => {
