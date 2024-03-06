@@ -54,8 +54,8 @@ const MyIceBreaker = () => {
                     viewBox="0 0 16 16"
                     fill="none"
                   >
-                    <path d="M8 4L8 12" stroke="#145CA8" stroke-width="2" stroke-linecap="round" />
-                    <path d="M12 8L4 8" stroke="#145CA8" stroke-width="2" stroke-linecap="round" />
+                    <path d="M8 4L8 12" stroke="#145CA8" strokeWidth="2" stroke-linecap="round" />
+                    <path d="M12 8L4 8" stroke="#145CA8" strokeWidth="2" stroke-linecap="round" />
                   </svg>
                 </span>
                 Add an Icebreaker

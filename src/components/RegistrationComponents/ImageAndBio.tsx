@@ -116,7 +116,7 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                               key={breakerData.question_id}
                               className="relative w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
                             >
-                              <div className="min-h-[200px] rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
+                              <div className="min-h-[240px] rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
                                 <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
                                   {breakerData.breaker_question}
                                 </h3>
@@ -152,16 +152,16 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                                   <path
                                     d="M26.6663 13.3333L13.333 26.6666"
                                     stroke="#fff"
-                                    stroke-width="2"
-                                    stroke-linecap="square"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2"
+                                    strokeLinecap="square"
+                                    strokeLinejoin="round"
                                   />
                                   <path
                                     d="M13.3337 13.3333L26.667 26.6666"
                                     stroke="#fff"
-                                    stroke-width="2"
-                                    stroke-linecap="square"
-                                    stroke-linejoin="round"
+                                    strokeWidth="2"
+                                    strokeLinecap="square"
+                                    strokeLinejoin="round"
                                   />
                                 </svg>
                               </button>
@@ -175,7 +175,7 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                   className="w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
                   hidden={values.iceBreaker.length >= 3}
                 >
-                  <div className="relative min-h-[200px] rounded-xl border border-dashed border-blue-300">
+                  <div className="relative min-h-[240px] rounded-xl border border-dashed border-blue-300">
                     <div className="absolute flex h-full w-full items-center justify-center">
                       <button
                         type="button"

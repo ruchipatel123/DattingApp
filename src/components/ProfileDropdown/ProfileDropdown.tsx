@@ -21,7 +21,7 @@ const ProfileDropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-48 rounded border border-gray bg-white shadow-lg">
+        <div className="absolute z-10 mt-2 w-48 rounded border border-gray bg-white shadow-lg md:right-0">
           <a href="#" className="block px-4 py-2 text-sm text-gray hover:bg-[#E1EEFC]">
             Profile
           </a>
