@@ -15,22 +15,28 @@ const ValadationRequest = ({ onClick }) => {
   };
   return (
     <div className="my-10">
+      <h2 className="mb-5 font-raleway text-md font-medium tracking-wide text-blue">
+        Valadation Requests
+      </h2>
       <Accordion
-        title="What is Next.js?"
+        title="John Doe"
         isOpen={openAccordion === 1}
         onClick={() => handleAccordionClick(1)}
       >
-        <div className="w-[240px]" onClick={onClick}>
+        <p className="mb-1 text-md font-light">Hey! What do you think?</p>
+        <div className="-mx-5 w-[240px]" onClick={onClick}>
           <ProfileCard btnText={''} />
         </div>
       </Accordion>
       <Accordion
-        title="How to use Tailwind CSS with Next.js?"
+        title="Adam Smith"
         isOpen={openAccordion === 2}
         onClick={() => handleAccordionClick(2)}
       >
-        To start using Tailwind CSS in Next.js, you need to install tailwindcss via npm, set up your
-        configuration file, and then use the utility classes in your components.
+        <p className="mb-1 text-md font-light">Hey! What do you think?</p>
+        <div className="-mx-5 w-[240px]" onClick={onClick}>
+          <ProfileCard btnText={''} />
+        </div>
       </Accordion>
       {/* Add more accordions as needed, each with a unique index */}
     </div>

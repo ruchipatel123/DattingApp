@@ -11,13 +11,19 @@ const Accordion = ({ title, children, isOpen, onClick }) => {
   }, [isOpen]);
 
   return (
-    <div className="mb-4 overflow-hidden rounded-lg border">
+    <div className="overflow-hidden border-t border-blue-100 last-of-type:border-b ">
       <button
-        className="flex w-full cursor-pointer items-center justify-between bg-gray px-4 py-2 text-left focus:outline-none"
+        className="flex w-full cursor-pointer items-center py-2 text-left font-raleway text-md tracking-wide focus:outline-none"
         onClick={onClick}
       >
+        <img
+          src="/assets/images/joan.png"
+          alt="Icon"
+          style={{ width: '40px', height: '40px', marginRight: '10px' }}
+        />
+
         {title}
-        <span className="transform transition-transform duration-500">
+        <span className="absolute right-5 transform transition-transform duration-500">
           {isOpen ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +52,7 @@ const Accordion = ({ title, children, isOpen, onClick }) => {
         style={{ maxHeight: height }}
         className="transition-max-height duration-500 ease-in-out"
       >
-        <div className="p-4">{children}</div>
+        <div className="py-2">{children}</div>
       </div>
     </div>
   );

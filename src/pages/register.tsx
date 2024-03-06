@@ -24,6 +24,7 @@ const Register = () => {
   const [questionList, setQuestionList] = useState<any>({});
   const [stage, setStage] = useState(0);
   const [showComponent, setShowComponent] = useState(0);
+  const totalStages = 11;
   const dispatch = useAppDispatch();
   useEffect(() => {
     setStage(parseInt(getCookie('stage') ?? '0'));
@@ -36,12 +37,12 @@ const Register = () => {
   }, []);
 
   const handleProgress = (formValue, setFieldError, resetForm) => {
-    if (stage < 10) {
+    if (stage < 11) {
       setStage(stage + 1);
       setCookie('stage', stage + 1);
     } else {
-      setStage(10);
-      setCookie('stage', 10);
+      setStage(11);
+      setCookie('stage', 11);
     }
     const regUser = getCookie('reguser') ?? '{}';
     setCookie('reguser', { ...JSON.parse(regUser), ...formValue });
@@ -69,11 +70,11 @@ const Register = () => {
           className="semitransperent-header min-h-screen"
           style={{ background: 'linear-gradient(69deg, #FDEAB6 0%, #F9DB6D 89.75%)' }}
         >
-          {stage !== 5 ? (
+          {stage !== 5 && stage !== 8 ? (
             <>
               <RegistrationHeader />
               <div className="mt-5 ">
-                <ProgressBar progress={2} />
+                <ProgressBar totalStages={totalStages} currentStage={stage} />
               </div>
               <div className="btn-wrap container left-0 right-0 top-0 mt-4 flex space-x-2 md:absolute md:justify-end md:space-x-10">
                 <Button
@@ -93,7 +94,7 @@ const Register = () => {
                 >
                   Go Back
                 </Button>
-                {[0, 2, 3, 4, 6, 7, 8, 9, 10].indexOf(stage) >= 0 ? (
+                {[0, 2, 3, 4, 6, 7, 8, 9, 10, 11].indexOf(stage) >= 0 ? (
                   <button
                     form={'form' + stage}
                     type="submit"
@@ -104,10 +105,10 @@ const Register = () => {
                 ) : (
                   <Button
                     onClick={() => {
-                      if (stage < 10) {
+                      if (stage < 11) {
                         setStage(stage + 1);
                       } else {
-                        setStage(10);
+                        setStage(11);
                       }
                     }}
                     type="primary"
@@ -122,11 +123,11 @@ const Register = () => {
             <></>
           )}
 
-          {[0, 1, 2, 3, 4, 6, 7, 8, 9, 10].indexOf(stage) >= 0 ? (
+          {[0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(stage) >= 0 ? (
             <div className="container flex min-h-[70vh] flex-wrap items-center justify-center pt-14">
               <div
                 className={
-                  stage == 10 ? 'w-full text-gray-400' : 'w-full max-w-[840px] text-gray-400'
+                  stage == 11 ? 'w-full text-gray-400' : 'w-full max-w-[840px] text-gray-400'
                 }
               >
                 {stage == 0 && <RegistrationForm stage={stage} handleProgress={handleProgress} />}
@@ -142,25 +143,29 @@ const Register = () => {
                     handleProgress={handleProgress}
                   />
                 )}
-                {stage == 8 && (
+                {stage == 9 && (
                   <QuestionSet2
                     stage={stage}
                     questionList={questionList}
                     handleProgress={handleProgress}
                   />
                 )}
-                {stage == 9 && (
+                {stage == 10 && (
                   <QuestionSet3
                     stage={stage}
                     questionList={questionList}
                     handleProgress={handleProgress}
                   />
                 )}
-                {stage == 10 && <ImageAndBio stage={stage} handleProgress={handleProgress} />}
+                {stage == 11 && <ImageAndBio stage={stage} handleProgress={handleProgress} />}
               </div>
             </div>
           ) : (
-            stage == 5 && <Progress setStage={setStage} stage={stage} />
+            <>
+              {' '}
+              {stage == 5 && <Progress setStage={setStage} stage={stage} />}
+              {stage == 8 && <Progress setStage={setStage} stage={stage} />}
+            </>
           )}
         </div>
       ) : (
