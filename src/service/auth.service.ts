@@ -11,8 +11,9 @@ const register = async (args) => {
       if (keyval[1]?.includes('is_deal_breaker')) {
         object['question[' + keyval[1].split('_is_deal_breaker')[0] + '][is_deal_breaker]'] =
           args[value];
+      } else {
+        object['question[' + keyval[1] + ']'] = args[value];
       }
-      object['question[' + keyval[1] + ']'] = args[value];
     } else if (value == 'dob') {
       object[value] = moment(args[value]).format('YYYY-MM-DD');
     } else {
@@ -66,6 +67,15 @@ const resetPasswordWithOtp = ({ token, password }) => {
       return response.data;
     });
 };
+const verifyAccount = ({ token }) => {
+  return axios
+    .post(API_URL + 'verify-account', {
+      token,
+    })
+    .then((response) => {
+      return response.data;
+    });
+};
 
 const meData = () => {
   return axios.get(API_URL + 'me').then((response) => {
@@ -79,6 +89,7 @@ const authService = {
   logout,
   forgetPassword,
   resetPasswordWithOtp,
+  verifyAccount,
   meData,
 };
 

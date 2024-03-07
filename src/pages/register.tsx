@@ -30,6 +30,9 @@ const Register = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
+    const regUser = getCookie('reguser') ?? '{}';
+    if (!JSON.parse(regUser).user_type)
+      setCookie('reguser', { ...JSON.parse(regUser), ...{ user_type: 2 } });
     setStage(parseInt(getCookie('stage') ?? '0'));
     dispatch(getQuestionList({}))
       .unwrap()

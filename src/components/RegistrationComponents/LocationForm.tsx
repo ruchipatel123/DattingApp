@@ -32,6 +32,8 @@ const LocationForm = ({ stage, handleProgress }) => {
     zipcode: initialValueData?.zipcode ?? '',
     dob: initialValueData?.dob ?? '',
     radius_miles: initialValueData?.radius_miles ?? '',
+    latitude: initialValueData?.latitude ?? '118.2426',
+    longitude: initialValueData?.longitude ?? '34.0549',
   };
 
   return (
@@ -71,6 +73,16 @@ const LocationForm = ({ stage, handleProgress }) => {
                 type="text"
                 className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
               />
+              <Field
+                name="latitude"
+                type="hidden"
+                className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+              />
+              <Field
+                name="longitude"
+                type="hidden"
+                className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
+              />
               <ErrorMessage name="zipcode" component="div" className="error-message" />
             </div>
             <div className="mb-5 w-full md:w-[50%] md:px-5">
@@ -101,7 +113,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                       options={{
                         leftInputProps: {
                           value: 10,
-                          onChange: (e) => setLow(0),
+                          onChange: () => setLow(0),
                         },
                         rightInputProps: {
                           value: initialValueData?.radius_miles ?? high,

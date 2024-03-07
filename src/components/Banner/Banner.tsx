@@ -1,8 +1,11 @@
-import Link from 'next/link';
+import { getCookie, setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 const Banner = () => {
+  const regUser = getCookie('reguser') ?? '{}';
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
+  const router = useRouter();
   return (
     <div className="py-10 md:py-10">
       <div className="container">
@@ -22,8 +25,16 @@ const Banner = () => {
             </blockquote>
             <h3 className="text-center font-josefin text-lg font-medium text-blue">Get Started!</h3>
             <div className="m-auto flex flex-wrap items-center justify-between bg-[#E1EEFC] xl:w-[86%] ">
-              <Link
-                href={isLoggedIn ? '/discover' : '/register'}
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    setCookie('reguser', { ...JSON.parse(regUser), ...{ user_type: 2 } });
+                    router.push('/register');
+                  } else {
+                    router.push('/discover');
+                  }
+                }}
                 className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2"
               >
                 <figure className="inline-block">
@@ -36,9 +47,17 @@ const Banner = () => {
                 <span className="block text-sm font-normal text-black group-hover:text-white">
                   Find A Match
                 </span>
-              </Link>
-              <Link
-                href={isLoggedIn ? '/discover' : '/register'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    setCookie('reguser', { ...JSON.parse(regUser), ...{ user_type: 3 } });
+                    router.push('/register');
+                  } else {
+                    router.push('/discover');
+                  }
+                }}
                 className="group w-full bg-[#E1EEFC] px-10 py-3 text-center font-medium text-white hover:bg-blue sm:w-1/2"
               >
                 <figure className="inline-block">
@@ -51,7 +70,7 @@ const Banner = () => {
                 <span className="block text-sm font-normal text-black group-hover:text-white">
                   Be A Matchmaker
                 </span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>
