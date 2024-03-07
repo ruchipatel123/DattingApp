@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { logout } from 'slices/auth';
+import { useAppDispatch } from 'store';
 
 const Sidebar = ({ isOpen, toggle }) => {
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   return (
     <>
       <button
@@ -63,6 +65,13 @@ const Sidebar = ({ isOpen, toggle }) => {
         <button
           title="Log Out"
           className=" absolute left-0 right-0 top-3/4 h-6 font-raleway text-md"
+          onClick={() => {
+            dispatch(logout({}))
+              .unwrap()
+              .then(() => {
+                router.push('/login');
+              });
+          }}
         >
           Log Out
         </button>
