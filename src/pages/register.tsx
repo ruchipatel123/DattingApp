@@ -61,7 +61,7 @@ const Register = () => {
           deleteCookie('reguser');
           deleteCookie('stage');
           setLoading(false);
-          redirect('/');
+          router.push('/');
         })
         .catch((e) => {
           if (e?.response?.data?.errors) {
