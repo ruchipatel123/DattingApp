@@ -78,7 +78,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                 I’m looking for someone within
               </h2>
               <div className="h-[60px]">
-                <Field
+                {/* <Field
                   type="select"
                   as="select"
                   name="radius_miles"
@@ -91,7 +91,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                       </option>
                     );
                   })}
-                </Field>
+                </Field> */}
                 <div className="w-full">
                   <div className="range-slider-wrap range_slider_single inline-block w-3/5">
                     <RangeSlider
