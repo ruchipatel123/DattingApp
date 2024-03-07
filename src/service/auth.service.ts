@@ -1,6 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
-const API_URL = 'http://localhost/valadate-laravel-backend/public/';
+const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
 
 const register = async (args) => {
   const objectKeys = Object.keys(args);
