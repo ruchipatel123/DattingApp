@@ -59,14 +59,14 @@ const ReorderImages = () => {
               <path
                 d="M16 8L8 16"
                 stroke="#145CA8"
-                stroke-width="1.2"
+                strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M8 8L16 16"
                 stroke="#145CA8"
-                stroke-width="1.2"
+                strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />

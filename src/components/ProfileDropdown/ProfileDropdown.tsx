@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { logout } from 'slices/auth';
@@ -22,9 +23,9 @@ const ProfileDropdown = () => {
 
       {isOpen && (
         <div className="absolute z-10 mt-2 w-48 rounded border border-gray bg-white shadow-lg md:right-0">
-          <a href="#" className="block px-4 py-2 text-sm text-gray hover:bg-[#E1EEFC]">
+          <Link href="/my-profile" className="block px-4 py-2 text-sm text-gray hover:bg-[#E1EEFC]">
             Profile
-          </a>
+          </Link>
           <a href="#" className="block px-4 py-2 text-sm text-gray hover:bg-[#E1EEFC]">
             Settings
           </a>
