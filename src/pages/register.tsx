@@ -18,8 +18,7 @@ import AgeIntentionChild from 'components/RegistrationComponents/AgeIntentionChi
 import QuestionSet2 from 'components/RegistrationComponents/QuestionSet2';
 import QuestionSet3 from 'components/RegistrationComponents/QuestionSet3';
 import ImageAndBio from 'components/RegistrationComponents/ImageAndBio';
-import { redirect } from 'next/navigation';
-import { register } from 'slices/auth';
+import { checkEmail, register } from 'slices/auth';
 
 const Register = () => {
   const router = useRouter();
@@ -44,8 +43,26 @@ const Register = () => {
 
   const handleProgress = (formValue, setFieldError, resetForm) => {
     if (stage < 11) {
-      setStage(stage + 1);
-      setCookie('stage', stage + 1);
+      if (stage == 0) {
+        setLoading(true);
+        dispatch(checkEmail({ email: formValue?.email }))
+          .unwrap()
+          .then((data) => {
+            if (data) setLoading(false);
+            setStage(stage + 1);
+          })
+          .catch((e) => {
+            if (e?.response?.data?.errors) {
+              Object.keys(e?.response?.data?.errors).map((element) => {
+                setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
+              });
+              setLoading(false);
+            }
+          });
+      } else {
+        setStage(stage + 1);
+        setCookie('stage', stage + 1);
+      }
     } else {
       setStage(11);
       setCookie('stage', 11);

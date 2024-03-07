@@ -6,7 +6,6 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 
 const LocationForm = ({ stage, handleProgress }) => {
-  const [low, setLow] = useState(0);
   const [high, setHigh] = useState(100);
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
   const validationSchema = Yup.object().shape({
@@ -113,7 +112,6 @@ const LocationForm = ({ stage, handleProgress }) => {
                       options={{
                         leftInputProps: {
                           value: 10,
-                          onChange: () => setLow(0),
                         },
                         rightInputProps: {
                           value: initialValueData?.radius_miles ?? high,

@@ -77,6 +77,16 @@ const verifyAccount = ({ token }) => {
     });
 };
 
+const checkEmailExists = (email) => {
+  return axios
+    .post(API_URL + 'check-unique-email', {
+      email: email,
+    })
+    .then((response) => {
+      return response.data;
+    });
+};
+
 const meData = () => {
   return axios.get(API_URL + 'me').then((response) => {
     return response.data;
@@ -90,6 +100,7 @@ const authService = {
   forgetPassword,
   resetPasswordWithOtp,
   verifyAccount,
+  checkEmailExists,
   meData,
 };
 

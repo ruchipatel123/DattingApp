@@ -72,6 +72,7 @@ export const resetPasswordWithOtp = createAsyncThunk(
     }
   }
 );
+
 export const verifyAccount = createAsyncThunk(
   'user/verify-account',
   async (args: any, thunkAPI) => {
@@ -87,6 +88,16 @@ export const verifyAccount = createAsyncThunk(
     }
   }
 );
+export const checkEmail = createAsyncThunk('user/check-email', async (args: any, thunkAPI) => {
+  try {
+    const response = await AuthService.checkEmailExists(args.email);
+    return response.data;
+  } catch (error) {
+    if (error?.response?.data?.notify)
+      thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const logout = createAsyncThunk('user/logout', async (args: any, thunkAPI) => {
   try {
@@ -135,6 +146,10 @@ const authSlice = createSlice({
         state.user = action.payload?.userdata ?? {};
       })
       .addCase(verifyAccount.fulfilled, (state: any, action: any) => {
+        state.isLoggedIn = false;
+        state.user = action.payload?.userdata ?? {};
+      })
+      .addCase(checkEmail.fulfilled, (state: any, action: any) => {
         state.isLoggedIn = false;
         state.user = action.payload?.userdata ?? {};
       })
