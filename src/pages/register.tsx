@@ -13,11 +13,13 @@ import Progress from './progress';
 import { FacebookConnect } from 'components/RegistrationComponents/FacebookConnect';
 import LookingFor from 'components/RegistrationComponents/LookingFor';
 import QuestionSet1 from 'components/RegistrationComponents/QuestionSet1';
-import { getCookie, setCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import AgeIntentionChild from 'components/RegistrationComponents/AgeIntentionChild';
 import QuestionSet2 from 'components/RegistrationComponents/QuestionSet2';
 import QuestionSet3 from 'components/RegistrationComponents/QuestionSet3';
 import ImageAndBio from 'components/RegistrationComponents/ImageAndBio';
+import { redirect } from 'next/navigation';
+import { register } from 'slices/auth';
 
 const Register = () => {
   const router = useRouter();
@@ -25,6 +27,7 @@ const Register = () => {
   const [stage, setStage] = useState(0);
   const [showComponent, setShowComponent] = useState(0);
   const totalStages = 11;
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
     setStage(parseInt(getCookie('stage') ?? '0'));
@@ -46,22 +49,26 @@ const Register = () => {
     }
     const regUser = getCookie('reguser') ?? '{}';
     setCookie('reguser', { ...JSON.parse(regUser), ...formValue });
-    // const { username, password } = formValue;
-    // setLoading(true);
-    // dispatch(login({ username: username, password: password }))
-    //   .unwrap()
-    //   .then(() => {
-    //     resetForm();
-    //     redirect('/discover');
-    //   })
-    //   .catch((e) => {
-    //     if (e?.response?.data?.errors) {
-    //       Object.keys(e?.response?.data?.errors).map((element) => {
-    //         setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
-    //       });
-    //     }
-    //     setLoading(false);
-    //   });
+    if (stage == 11) {
+      setLoading(true);
+      dispatch(register({ ...JSON.parse(regUser), ...formValue }))
+        .unwrap()
+        .then(() => {
+          resetForm();
+          deleteCookie('reguser');
+          deleteCookie('stage');
+          setLoading(false);
+          redirect('/');
+        })
+        .catch((e) => {
+          if (e?.response?.data?.errors) {
+            Object.keys(e?.response?.data?.errors).map((element) => {
+              setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
+            });
+            setLoading(false);
+          }
+        });
+    }
   };
   return (
     <Layout meta={{ title: 'Register' }}>

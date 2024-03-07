@@ -1,11 +1,26 @@
 import axios from 'axios';
-const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
+import moment from 'moment';
+const API_URL = 'http://localhost/valadate-laravel-backend/public/';
 
-const register = (username, email, password) => {
-  return axios.post(API_URL + 'register', {
-    username,
-    email,
-    password,
+const register = async (args) => {
+  const objectKeys = Object.keys(args);
+  const object = {};
+  objectKeys.forEach((value) => {
+    if (value.includes('question_')) {
+      const keyval = value.split('__');
+      if (keyval[1]?.includes('is_deal_breaker')) {
+        object['question[' + keyval[1].split('_is_deal_breaker')[0] + '][is_deal_breaker]'] =
+          args[value];
+      }
+      object['question[' + keyval[1] + ']'] = args[value];
+    } else if (value == 'dob') {
+      object[value] = moment(args[value]).format('YYYY-MM-DD');
+    } else {
+      object[value] = args[value];
+    }
+  });
+  return axios.post(API_URL + 'register', object).then((response) => {
+    return response.data;
   });
 };
 

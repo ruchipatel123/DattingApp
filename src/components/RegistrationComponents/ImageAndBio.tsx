@@ -178,6 +178,7 @@ const ImageAndBio = ({ stage, handleProgress }) => {
                   <div className="relative min-h-[240px] rounded-xl border border-dashed border-blue-300">
                     <div className="absolute flex h-full w-full items-center justify-center">
                       <button
+                        type="button"
                         onClick={openModal}
                         className="absolute flex h-full w-full items-center justify-center"
                       >

@@ -5,11 +5,13 @@ import { useAppDispatch } from 'store';
 const ImageUpload = ({ setFieldValue, fieldName, values, element }) => {
   const dispatch = useAppDispatch();
   const handleImageChange = (e) => {
-    dispatch(uploadFile(e.target.files[0]))
-      .unwrap()
-      .then((data) => {
-        setFieldValue(fieldName, data?.file_url);
-      });
+    if (e.target.files[0]) {
+      dispatch(uploadFile(e.target.files[0]))
+        .unwrap()
+        .then((data) => {
+          setFieldValue(fieldName, data?.file_url);
+        });
+    }
   };
 
   return (
