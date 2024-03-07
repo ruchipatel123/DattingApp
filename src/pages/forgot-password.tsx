@@ -55,7 +55,7 @@ const ForgotPassword = () => {
           <div className="hidden h-full md:block md:w-[56%]">
             <div className='h-full bg-[url("/assets/images/login-img.jpg")] bg-cover bg-center'></div>
           </div>
-          <div className="flex h-full w-full flex-col items-center justify-center md:w-[44%] md:px-5">
+          <div className="flex h-full w-full flex-col items-center justify-center px-5 md:w-[44%] md:px-5">
             <h1 className="mb-12 font-raleway text-xl font-bold text-blue">Forgot Password?</h1>
             <div className="login-form w-full">
               <Formik
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
                   handleForgotPasswordLink(data, setFieldError, resetForm);
                 }}
               >
-                <Form className="m-auto w-[80%] text-gray lg:w-[400px] lg:max-w-full">
+                <Form className="m-auto  text-gray lg:w-[400px] lg:max-w-full">
                   <div className="mb-10">
                     <div className="input-container">
                       <label className="block  w-full text-md font-normal">Email</label>

@@ -36,7 +36,7 @@ const LocationForm = ({ stage, handleProgress }) => {
 
   return (
     <>
-      <h2 className="mb-7 font-raleway  text-md  text-gray md:text-lg">I live in</h2>
+      <h2 className="mb-3 font-raleway  text-md  text-gray md:text-lg">I live in</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

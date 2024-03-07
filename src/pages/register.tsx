@@ -134,7 +134,7 @@ const Register = () => {
             <div className="container flex min-h-[70vh] flex-wrap items-center justify-center pt-14">
               <div
                 className={
-                  stage == 11 ? 'w-full text-gray-400' : 'w-full max-w-[840px] text-gray-400'
+                  stage == 11 ? 'w-full text-gray-400' : 'w-full max-w-[880px] text-gray-400'
                 }
               >
                 {stage == 0 && <RegistrationForm stage={stage} handleProgress={handleProgress} />}

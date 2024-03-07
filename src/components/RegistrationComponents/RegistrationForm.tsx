@@ -51,7 +51,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
         }}
       >
         <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
-          <div className="mb-5 w-full md:w-3/5 md:px-5">
+          <div className="mb-3 w-full md:w-3/5 md:px-5">
             <label className="block  w-full text-md font-normal">First Name</label>
             <Field
               name="firstname"
@@ -60,7 +60,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
             />
             <ErrorMessage name="firstname" component="div" className="error-message" />
           </div>
-          <div className="mb-5 w-full md:w-2/5 md:px-5">
+          <div className="mb-3 w-full md:w-2/5 md:px-5">
             <label className="block  w-full text-md font-normal">Last Name</label>
             <Field
               name="lastname"
@@ -69,7 +69,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
             />
             <ErrorMessage name="lastname" component="div" className="error-message" />
           </div>
-          <div className="mb-5 w-full md:px-5">
+          <div className="mb-4 w-full md:px-5">
             <label className="block  w-full text-md font-normal">Email</label>
             <Field
               name="email"
@@ -78,7 +78,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
             />
             <ErrorMessage name="email" component="div" className="error-message" />
           </div>
-          <div className="mb-5 w-full md:px-5">
+          <div className="mb-7 w-full md:px-5">
             <label className="block  w-full text-md font-normal">Password</label>
             <div className="relative">
               <Field
@@ -95,13 +95,13 @@ const RegistrationForm = ({ stage, handleProgress }) => {
             </div>
             <ErrorMessage name="password" component="div" className="error-message" />
           </div>
-          <div className="m-auto mb-10 flex w-96 flex-col flex-wrap items-center justify-center md:mb-0">
-            <div className="mb-5 mt-10 flex items-center justify-center text-center md:mb-12 md:mt-14">
-              <div className="devider relative w-24 border-t  border-gray-400 text-center"></div>
+          <div className="m-auto mb-10 flex w-auto flex-col flex-wrap items-center justify-center md:mb-0">
+            <div className="mb-5 mt-10 flex items-center justify-center text-center md:mb-8 md:mt-7">
+              <div className="devider relative w-24 border-t border-gray-400  text-center md:w-32"></div>
               <p className="inline-block px-5  text-center text-sm text-gray-400">
-                Or sign in with
+                Or Sign Up With
               </p>
-              <div className="devider relative w-24 border-t border-gray-400 text-center"></div>
+              <div className="devider relative  w-24 border-t border-gray-400 text-center md:w-32"></div>
             </div>
             <div className="text-center">
               <button
