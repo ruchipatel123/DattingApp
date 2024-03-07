@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const Banner = () => {
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
   return (
-    <div className="py-10 md:py-16">
+    <div className="py-10 md:py-10">
       <div className="container">
         <div className="flex flex-wrap items-center">
           <div className="mb-2 w-full md:w-1/2">

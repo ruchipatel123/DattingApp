@@ -3,9 +3,9 @@ const ImageContent = () => {
     <>
       <div className="pb-10 pt-5">
         <div className="container">
-          <div className="flex flex-wrap items-center">
-            <div className="w-full space-y-7 text-md font-thin leading-tight md:w-3/5 md:pr-10 md:text-lg">
-              <h2 className="font-raleway font-bold text-blue md:text-xl">Why Valadate?</h2>
+          <div className="flex flex-wrap items-end">
+            <div className="w-full space-y-8 text-md font-thin leading-tight md:w-3/5 md:pr-10 md:text-lg">
+              <h2 className="font-raleway text-lg font-bold text-blue md:text-xl">Why Valadate?</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, ante
                 ut fermentum blandit, odio felis interdum enim, vel dignissim nisi nisi eget arcu.
