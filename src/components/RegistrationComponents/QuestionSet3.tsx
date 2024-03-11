@@ -112,7 +112,7 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                       <Field
                         as="select"
                         name="height_inch"
-                        className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                        className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight text-black focus:outline-none"
                       >
                         <option key={'sheightinch'} value="">
                           Select
@@ -150,7 +150,7 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                                 return (
                                   <div key={element.value} className="relative flex items-center ">
                                     <label
-                                      className={`mb-3 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
+                                      className={`mb-3 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
                                         values['question__' + question.id] &&
                                         values['question__' + question.id]?.indexOf(
                                           element.id.toString()
@@ -175,7 +175,7 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                                 <Field
                                   as="select"
                                   name={'question__' + question.id}
-                                  className="`inline-block border-${borderColor} focus:shadow-outline h-full w-full min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                                  className="`inline-block border-${borderColor} focus:shadow-outline h-full w-full min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight text-black focus:outline-none"
                                 >
                                   <option key={'s' + question.id} value="">
                                     Select

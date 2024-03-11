@@ -37,7 +37,7 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
         One key to a long-term match is finding people with shared values and lifestyles. Let’s
         figure out who’s best for you!
       </h2>
-      <div className="setup-form-wrap bg-white-transperent h-[60vh] items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:px-10 md:py-10">
+      <div className="setup-form-wrap bg-white-transperent h-[60vh] items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:px-10 md:py-5">
         <div className="setup-form">
           <Formik
             initialValues={initialValues}
@@ -69,7 +69,7 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
                                       className="relative flex items-center "
                                     >
                                       <label
-                                        className={`mb-3 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
+                                        className={`mb-4 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
                                           values['question__' + question.id] &&
                                           values['question__' + question.id]?.indexOf(
                                             element.id.toString()

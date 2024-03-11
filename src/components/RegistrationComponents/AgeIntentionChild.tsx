@@ -39,7 +39,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
   });
   return (
     <>
-      <h2 className="mb-7 font-raleway  text-md  text-gray md:-mx-10  md:text-lg">
+      <h2 className="mb-5 font-raleway text-md leading-tight  text-gray md:-mx-10  md:text-lg">
         Great! We want to help you find your perfect match - in order to do that, we need to figure
         out exactly what you’re looking for!
       </h2>
@@ -58,7 +58,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
             >
               {({ values, setFieldValue }) => (
                 <Form id={'form' + stage}>
-                  <div className="flex flex-wrap items-center">
+                  <div className="mb-5 flex flex-wrap items-center">
                     <div className="range-slider-wrap w-full md:w-1/2">
                       <RangeSlider
                         min={18}
@@ -95,7 +95,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                       return (
                         <div key={element.value} className="relative flex items-center ">
                           <label
-                            className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
+                            className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
                               values.dating_intention == element.value
                                 ? 'border border-blue bg-blue text-white'
                                 : 'text-gray-800 border border-blue bg-transparent  text-gray'
@@ -152,7 +152,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                               />
                               <label
                                 htmlFor={'has_children_' + element.value}
-                                className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
+                                className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
                                   values.has_children == element.value
                                     ? 'border border-blue bg-blue text-white'
                                     : 'text-gray-800 border border-blue bg-transparent  text-gray'

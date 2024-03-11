@@ -38,7 +38,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
         One key to a long-term match is finding people with shared values and lifestyles. Let’s
         figure out who’s best for you!
       </h2>
-      <div className="setup-form-wrap bg-white-transperent h-[60vh] items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:px-10 md:py-10">
+      <div className="setup-form-wrap bg-white-transperent h-[60vh] items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:px-10 md:py-5">
         <div className="setup-form">
           <Formik
             initialValues={initialValues}
@@ -49,7 +49,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
           >
             {({ values }) => (
               <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
-                <div className="mb-8 block">
+                <div className="mb-5 block">
                   {questionList
                     .filter((question) => {
                       return question.page == 1;
@@ -66,7 +66,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
                                 return (
                                   <div key={element.value} className="relative flex items-center ">
                                     <label
-                                      className={`m-1 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-6 py-2 text-sm  font-medium md:mr-7 ${
+                                      className={`m-1 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
                                         values['question__' + question.id] &&
                                         values['question__' + question.id]?.indexOf(
                                           element.id.toString()
@@ -114,7 +114,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
                           />
                           {question.is_dealbreaker == 1 ? (
                             <div className=" flex items-center">
-                              <div className="mb-8 block">
+                              <div className="mb-5 block">
                                 <div className="mb-4 mt-2 flex items-center">
                                   <Field
                                     type="checkbox"
