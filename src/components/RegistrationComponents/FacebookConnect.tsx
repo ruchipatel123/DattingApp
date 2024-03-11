@@ -1,7 +1,21 @@
 import Button from 'components/Button/Button';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { loginFacebook } from 'slices/auth';
+import { useAppDispatch } from 'store';
 
 export const FacebookConnect = ({ stage, setStage }) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const handleFacebookLogin = () => {
+    dispatch(loginFacebook({}))
+      .unwrap()
+      .then((data) => {
+        router.replace(data.data);
+        //window.open(data.data, "facebook", "menubar=1,resizable=1,width=350,height=500");
+      });
+  };
+
   return (
     <>
       <h2 className="mb-7 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
@@ -45,7 +59,7 @@ export const FacebookConnect = ({ stage, setStage }) => {
         <div className="mb-5">
           <Button
             onClick={() => {
-              setStage(stage);
+              handleFacebookLogin();
             }}
             type="primary"
             size="lg"

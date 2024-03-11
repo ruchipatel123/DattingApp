@@ -93,6 +93,18 @@ const meData = () => {
   });
 };
 
+const loginWithFacebook = () => {
+  return axios.post(API_URL + 'login-facebook').then((response) => {
+    return response.data;
+  });
+};
+
+const loginWithFacebookCallaback = (code) => {
+  return axios.get(API_URL + 'login-facebook-callback?code=' + code).then((response) => {
+    return response.data;
+  });
+};
+
 const authService = {
   register,
   login,
@@ -102,6 +114,8 @@ const authService = {
   verifyAccount,
   checkEmailExists,
   meData,
+  loginWithFacebook,
+  loginWithFacebookCallaback,
 };
 
 export default authService;

@@ -4,7 +4,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Datepicker = ({ selectedDate, onChange }) => {
-  console.log(moment().subtract('18Y').toDate());
   return (
     <DatePicker
       selected={selectedDate}
