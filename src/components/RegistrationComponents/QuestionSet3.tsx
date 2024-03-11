@@ -83,41 +83,54 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
               <Form id={'form' + stage}>
                 <div className="mb-8 block">
                   <h3 className="mb-3 text-md font-medium text-gray">How tall are you?</h3>
-                  <div className="flex space-x-8 text-gray md:w-96">
-                    <Field
-                      as="select"
-                      name="height_feet"
-                      className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
-                    >
-                      <option key={'sheightfeet'} value="">
-                        Select
-                      </option>
-                      {optionft.map((element) => {
-                        return (
-                          <option key={element?.value} value={element?.value}>
-                            {element?.label}
-                          </option>
-                        );
-                      })}
-                    </Field>
-                    <ErrorMessage name={'height_feet'} component="div" className="error-message" />
-                    <Field
-                      as="select"
-                      name="height_inch"
-                      className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
-                    >
-                      <option key={'sheightinch'} value="">
-                        Select
-                      </option>
-                      {optionin.map((element) => {
-                        return (
-                          <option key={element?.value} value={element?.value}>
-                            {element?.label}
-                          </option>
-                        );
-                      })}
-                    </Field>
-                    <ErrorMessage name={'height_inch'} component="div" className="error-message" />
+                  <div className="flex items-center  space-x-8 text-gray md:w-96">
+                    <div className="block">
+                      <Field
+                        as="select"
+                        name="height_feet"
+                        className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                      >
+                        <option key={'sheightfeet'} value="">
+                          Select
+                        </option>
+                        {optionft.map((element) => {
+                          return (
+                            <option key={element?.value} value={element?.value}>
+                              {element?.label}
+                            </option>
+                          );
+                        })}
+                      </Field>
+
+                      <ErrorMessage
+                        name={'height_feet'}
+                        component="div"
+                        className="error-message"
+                      />
+                    </div>
+                    <div className="block">
+                      <Field
+                        as="select"
+                        name="height_inch"
+                        className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                      >
+                        <option key={'sheightinch'} value="">
+                          Select
+                        </option>
+                        {optionin.map((element) => {
+                          return (
+                            <option key={element?.value} value={element?.value}>
+                              {element?.label}
+                            </option>
+                          );
+                        })}
+                      </Field>
+                      <ErrorMessage
+                        name={'height_inch'}
+                        component="div"
+                        className="error-message"
+                      />
+                    </div>
                   </div>
                 </div>
                 {questionList
@@ -162,7 +175,7 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                                 <Field
                                   as="select"
                                   name={'question__' + question.id}
-                                  className="`inline-block border-${borderColor} focus:shadow-outline h-full w-full min-w-40 appearance-none rounded border bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                                  className="`inline-block border-${borderColor} focus:shadow-outline h-full w-full min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
                                 >
                                   <option key={'s' + question.id} value="">
                                     Select

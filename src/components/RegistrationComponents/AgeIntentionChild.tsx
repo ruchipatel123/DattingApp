@@ -112,12 +112,8 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                         </div>
                       );
                     })}
-                    <ErrorMessage
-                      name="dating_intention"
-                      component="div"
-                      className="error-message"
-                    />
                   </div>
+                  <ErrorMessage name="dating_intention" component="div" className="error-message" />
 
                   <div className="mb-8 block">
                     <div className="mb-4 mt-2 flex items-center">
@@ -167,10 +163,12 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                             </div>
                           );
                         })}
+                      </div>
+                      <div className="w-full">
                         <ErrorMessage
                           name="has_children"
                           component="div"
-                          className="error-message"
+                          className="error-message block w-full"
                         />
                       </div>
                     </div>
