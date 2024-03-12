@@ -6,8 +6,8 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 
 const LocationForm = ({ stage, handleProgress }) => {
-  const [high, setHigh] = useState(100);
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
+  const [high, setHigh] = useState(initialValueData?.radius_miles ?? 100);
   const validationSchema = Yup.object().shape({
     dob: Yup.string().required('Please enter birthdate!'),
     city: Yup.string()
@@ -114,7 +114,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                           value: 10,
                         },
                         rightInputProps: {
-                          value: initialValueData?.radius_miles ?? high,
+                          value: high,
                           onChange: (e) => {
                             setFieldValue('radius_miles', Number(e.target.value));
                             setHigh(Number(e.target.value));
@@ -123,8 +123,8 @@ const LocationForm = ({ stage, handleProgress }) => {
                       }}
                     />
                   </div>
-                  <span className="ml-2 align-bottom font-raleway   text-md  text-gray md:text-lg">
-                    {initialValueData?.radius_miles ?? high} miles
+                  <span className="ml-2 align-bottom font-raleway text-md text-gray md:text-lg">
+                    {high} miles
                   </span>
                 </div>
                 <ErrorMessage name="radius_miles" component="div" className="error-message" />

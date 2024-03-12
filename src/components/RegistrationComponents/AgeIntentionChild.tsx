@@ -66,14 +66,14 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                         step={0}
                         options={{
                           leftInputProps: {
-                            value: initialValueData?.age_range_min ?? low,
+                            value: low,
                             onChange: (e) => {
                               setLow(Number(e.target.value));
                               setFieldValue('age_range_min', Number(e.target.value));
                             },
                           },
                           rightInputProps: {
-                            value: initialValueData?.age_range_max ?? high,
+                            value: high,
                             onChange: (e) => {
                               setHigh(Number(e.target.value));
                               setFieldValue('age_range_max', Number(e.target.value));
@@ -83,7 +83,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                       />
                     </div>
                     <h3 className="ml-3 text-md font-medium text-gray">
-                      {values?.age_range_min ?? low} - {values?.age_range_max ?? high} years old
+                      {low} - {high} years old
                     </h3>
                   </div>
 
