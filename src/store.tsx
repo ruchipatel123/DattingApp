@@ -39,6 +39,12 @@ axios.interceptors.response.use(
   },
   function (error) {
     document.body.classList.remove('loading-indicator');
+    if (
+      (error?.response?.status && error?.response?.status == 401) ||
+      error?.response?.status == 403
+    ) {
+      window.location.href = '/login';
+    }
     return Promise.reject(error);
   }
 );

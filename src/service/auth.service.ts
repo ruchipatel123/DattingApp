@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { deleteCookie } from 'cookies-next';
 import moment from 'moment';
 const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
 
@@ -40,10 +41,16 @@ const login = (username, password) => {
 };
 
 const logout = () => {
-  return axios.post(API_URL + 'logout', {}).then((response) => {
-    localStorage.removeItem('user');
-    return response.data;
-  });
+  return axios
+    .post(API_URL + 'logout', {})
+    .then((response) => {
+      localStorage.removeItem('user');
+      return response.data;
+    })
+    .catch((e) => {
+      localStorage.removeItem('user');
+      deleteCookie('token');
+    });
 };
 
 const forgetPassword = ({ email }) => {

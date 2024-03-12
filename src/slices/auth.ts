@@ -129,7 +129,7 @@ export const logout = createAsyncThunk('user/logout', async (args: any, thunkAPI
     const response = await AuthService.logout();
     if (response?.notify) thunkAPI.dispatch(setSuccessMessage(response?.notify ?? 'Success!'));
     deleteCookie('token');
-    return response.data;
+    return response?.data ?? null;
   } catch (error) {
     if (error?.response?.data?.notify)
       thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
