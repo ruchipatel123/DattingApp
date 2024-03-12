@@ -55,7 +55,7 @@ export const login = createAsyncThunk('user/login', async (args: any, thunkAPI) 
   }
 });
 
-export const me = createAsyncThunk('user/me', async ({}, thunkAPI) => {
+export const me = createAsyncThunk('user/me', async (args: any, thunkAPI) => {
   try {
     const data = await AuthService.meData();
     if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));

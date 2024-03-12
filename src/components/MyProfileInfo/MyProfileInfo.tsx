@@ -1,8 +1,14 @@
 import MyIceBreaker from 'components/MyIceBreaker/MyIceBreaker';
 import ReorderImages from 'components/ReorderImages/ReorderImages';
-import React from 'react';
+import React, { useState } from 'react';
 
-const MyProfileInfo = () => {
+const MyProfileInfo = ({ user }) => {
+  const [relationShipStatus] = useState<any>([
+    { id: 0, value: 'Long-Term Relationship' },
+    { id: 1, value: 'Short-Term Fun' },
+    { id: 2, value: 'Just Browsing' },
+    { id: 3, value: 'Not Sure Ye' },
+  ]);
   return (
     <>
       <div className={`flex w-[100%] flex-wrap  pb-[80px] pl-5 pr-5 pt-[100px]  md:pl-[20%]`}>
@@ -10,7 +16,7 @@ const MyProfileInfo = () => {
         <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
           <div className="flex w-full justify-between">
             <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">
-              Tracey <span className="font-light">58</span>
+              {user?.firstname ?? ''} <span className="font-light">{user?.age ?? ''}</span>
             </h2>
             <div className="smile w-[20px]">
               <svg
@@ -51,7 +57,7 @@ const MyProfileInfo = () => {
                   <circle cx="12" cy="10" r="3.5" stroke="#72859A" />
                 </svg>
               </span>
-              Richmond, VA
+              {user?.city || ''},{user?.state || ''},{user?.zipcode || ''}
             </li>
             <li className="flex w-full items-center">
               <span className="mr-1">
@@ -71,7 +77,11 @@ const MyProfileInfo = () => {
                   <path d="M20 20L17 17" stroke="#72859A" strokeLinecap="round" />
                 </svg>
               </span>
-              Long-Term Partner
+              {
+                relationShipStatus.filter((element: any) => {
+                  return (element.id = user.dating_intention);
+                })[0]?.value
+              }
             </li>
             <li className="flex w-full items-center">
               <span className="mr-1">
