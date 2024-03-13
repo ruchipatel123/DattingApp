@@ -13,7 +13,7 @@ const LookingFor = ({ stage, handleProgress }) => {
     looking_for: initialValueData?.looking_for ?? '',
   };
   const validationSchema = Yup.object().shape({
-    looking_for: Yup.string().required('Please select your gender!'),
+    looking_for: Yup.string().required('Please select whom you are looking for!'),
   });
 
   return (
