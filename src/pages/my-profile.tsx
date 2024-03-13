@@ -11,10 +11,11 @@ import { getIcebreakerQuestionList } from 'slices/common';
 import { useAppDispatch } from 'store';
 
 const MyProfile = () => {
-  const { relationShipStatus, iceBreakerQuestionList } = useSelector((state: any) => {
+  const { relationShipStatus } = useSelector((state: any) => {
     return state?.common;
   });
   const [images, setImages] = useState<any>([]);
+  const [iceBreakerQuestionList, setIceBreakerQuestionList] = useState<any>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [isOpenModel, setIsOpenModel] = useState(false);
@@ -48,7 +49,11 @@ const MyProfile = () => {
         );
         setImages(data?.user?.userProfileImages);
         if (iceBreakerQuestionList.length == 0) {
-          dispatch(getIcebreakerQuestionList({}));
+          dispatch(getIcebreakerQuestionList({}))
+            .unwrap()
+            .then((response) => {
+              setIceBreakerQuestionList(response.icebreakerQuestions);
+            });
         }
       });
   }, []);
