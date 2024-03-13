@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { deleteCookie } from 'cookies-next';
 import moment from 'moment';
-const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
+const API_URL = 'http://localhost/valadate-laravel-backend/public/';
 
 const register = async (args) => {
   const objectKeys = Object.keys(args);
@@ -113,6 +113,12 @@ const loginWithFacebookCallaback = (code) => {
   });
 };
 
+const inviteUserByEmailId = (args) => {
+  return axios.post(API_URL + 'invite-referal', args).then((response) => {
+    return response.data;
+  });
+};
+
 const authService = {
   register,
   login,
@@ -124,6 +130,7 @@ const authService = {
   meData,
   loginWithFacebook,
   loginWithFacebookCallaback,
+  inviteUserByEmailId,
 };
 
 export default authService;

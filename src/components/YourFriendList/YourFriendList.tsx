@@ -1,10 +1,14 @@
 import Modal from 'components/Modal/Modal';
 import { useState } from 'react';
 import FriendSlider from './FriendSlider';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import { useAppDispatch } from 'store';
+import { inviteReferal } from 'slices/auth';
 
 const YourFriendList = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const dispatch = useAppDispatch();
   const openModal = () => {
     setIsOpen(true);
   };
@@ -12,6 +16,9 @@ const YourFriendList = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required('Please enter email!').email('Please enter valid email!'),
+  });
   return (
     <>
       <div className="friend-slider w-full">
@@ -43,25 +50,50 @@ const YourFriendList = () => {
 
       <Modal isOpen={isOpen} onClose={closeModal}>
         <div className="mx-auto max-h-[60vh] rounded-lg bg-white p-6  text-gray md:w-[60%]">
-          <h3 className="mb-10 font-raleway text-lg">
-            Please enter the email address of the user you’d like to add to your friends. If no
-            account exists, we will send them an invite!
-          </h3>
-          <form>
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="Email"
-              className="mb w-full rounded-lg border border-gray-300 p-3"
-            />
-            <div className="mt-5 text-center">
-              <input
-                type="submit"
-                value="Send Invite"
-                className="mt-3 inline-block  cursor-pointer rounded-full border border-blue-300 px-10 py-2 hover:bg-blue-300 hover:text-white"
+          <Formik
+            initialValues={{ email: '' }}
+            validationSchema={validationSchema}
+            onSubmit={(data, { setFieldError, resetForm }) => {
+              dispatch(inviteReferal(data))
+                .unwrap()
+                .then(() => {
+                  resetForm();
+                  closeModal();
+                })
+                .catch((e) => {
+                  if (e?.response?.data?.errors) {
+                    Object.keys(e?.response?.data?.errors).map((element) => {
+                      setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
+                    });
+                  }
+                });
+            }}
+          >
+            <Form id="formreferal">
+              <h3 className="mb-10 font-raleway text-lg">
+                Please enter the email address of the user you’d like to add to your friends. If no
+                account exists, we will send them an invite!
+              </h3>
+
+              <label>Email</label>
+              <Field
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="mb w-full rounded-lg border border-gray-300 p-3"
               />
-            </div>
-          </form>
+              <ErrorMessage name="email" component="div" className="error-message" />
+              <div className="mt-5 text-center">
+                <button
+                  type="submit"
+                  form="formreferal"
+                  className="mt-3 inline-block  cursor-pointer rounded-full border border-blue-300 px-10 py-2 hover:bg-blue-300 hover:text-white"
+                >
+                  Send Invite
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
       </Modal>
     </>

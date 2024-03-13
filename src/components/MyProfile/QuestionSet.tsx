@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 
 const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipStatus }) => {
-  const [initialValueData] = useState<any>(user?.questions ?? []);
   const fields = {};
   let validationSchema = {};
 

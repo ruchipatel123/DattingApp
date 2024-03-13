@@ -15,6 +15,7 @@ export const register = createAsyncThunk('user/register', async (args: any, thun
     return thunkAPI.rejectWithValue(error);
   }
 });
+
 export const loginFacebook = createAsyncThunk('user/facebook-login', async ({}: any, thunkAPI) => {
   try {
     const data = await AuthService.loginWithFacebook();
@@ -26,6 +27,7 @@ export const loginFacebook = createAsyncThunk('user/facebook-login', async ({}: 
     return thunkAPI.rejectWithValue(error);
   }
 });
+
 export const loginFacebookCallback = createAsyncThunk(
   'user/facebook-login-callback',
   async (args: any, thunkAPI) => {
@@ -137,6 +139,18 @@ export const logout = createAsyncThunk('user/logout', async (args: any, thunkAPI
   }
 });
 
+export const inviteReferal = createAsyncThunk('invite/referal', async (args: any, thunkAPI) => {
+  try {
+    const response = await AuthService.inviteUserByEmailId(args);
+    if (response?.notify) thunkAPI.dispatch(setSuccessMessage(response?.notify ?? 'Success!'));
+    return response?.data ?? null;
+  } catch (error) {
+    if (error?.response?.data?.notify)
+      thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
 const getInitialState = () => {
   return {
     isLoggedIn: getCookie('token') ? true : false,
@@ -188,6 +202,9 @@ const authSlice = createSlice({
       })
       .addCase(loginFacebookCallback.fulfilled, (state: any, action: any) => {
         state.isLoggedIn = false;
+        state.user = action?.payload?.userdata ? action?.payload?.userdata : {};
+      })
+      .addCase(inviteReferal.fulfilled, (state: any, action: any) => {
         state.user = action?.payload?.userdata ? action?.payload?.userdata : {};
       });
   },
