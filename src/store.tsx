@@ -4,7 +4,7 @@ import authReducer from './slices/auth';
 import messageReducer from './slices/message';
 import commonReducer from './slices/common';
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 axios.interceptors.request.use(
   (config) => {
     const authToken = getCookie('token');
@@ -43,9 +43,11 @@ axios.interceptors.response.use(
       (error?.response?.status && error?.response?.status == 401) ||
       error?.response?.status == 403
     ) {
+      deleteCookie('token');
       window.location.href = '/login';
+    } else {
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
   }
 );
 const reducer = {

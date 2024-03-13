@@ -30,7 +30,7 @@ const LocationForm = ({ stage, handleProgress }) => {
     state: initialValueData?.state ?? '',
     zipcode: initialValueData?.zipcode ?? '',
     dob: initialValueData?.dob ?? '',
-    radius_miles: initialValueData?.radius_miles ?? '',
+    radius_miles: initialValueData?.radius_miles ?? 100,
     latitude: initialValueData?.latitude ?? '118.2426',
     longitude: initialValueData?.longitude ?? '34.0549',
   };

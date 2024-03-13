@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { deleteCookie } from 'cookies-next';
 import moment from 'moment';
-const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
+const API_URL = 'http://localhost/valadate-laravel-backend/public/';
 
 const register = async (args) => {
   const objectKeys = Object.keys(args);
@@ -50,6 +50,7 @@ const logout = () => {
     .catch((e) => {
       localStorage.removeItem('user');
       deleteCookie('token');
+      //      return e;
     });
 };
 

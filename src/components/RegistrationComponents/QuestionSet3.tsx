@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { getCookie } from 'cookies-next';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 
 const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
+  const { optionft, optionin } = useSelector((state: any) => {
+    return state?.common;
+  });
   const fields = {};
   let validationSchema = {
     height_feet: Yup.string().required('Please select Height'),
@@ -37,34 +41,6 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
     height_inch: initialValueData?.height_inch ?? '',
     ...fields,
   };
-  const optionft = [
-    { value: '1', label: '1 ft' },
-    { value: '2', label: '2 ft' },
-    { value: '3', label: '3 ft' },
-    { value: '4', label: '4 ft' },
-    { value: '5', label: '5 ft' },
-    { value: '6', label: '6 ft' },
-    { value: '7', label: '7 ft' },
-    { value: '8', label: '8 ft' },
-    { value: '9', label: '9 ft' },
-  ];
-
-  const optionin = [
-    { value: '0', label: '0 in' },
-    { value: '1', label: '1 in' },
-    { value: '2', label: '2 in' },
-    { value: '3', label: '3 in' },
-    { value: '4', label: '4 in' },
-    { value: '5', label: '5 in' },
-    { value: '6', label: '6 in' },
-    { value: '7', label: '7 in' },
-    { value: '8', label: '8 in' },
-    { value: '9', label: '9 in' },
-    { value: '10', label: '10 in' },
-    { value: '11', label: '11 in' },
-    { value: '12', label: '12 in' },
-  ];
-
   return (
     <>
       <h2 className="mb-7 font-raleway  text-md  text-gray md:-mx-10  md:text-lg">
@@ -95,8 +71,8 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                         </option>
                         {optionft.map((element) => {
                           return (
-                            <option key={element?.value} value={element?.value}>
-                              {element?.label}
+                            <option key={element?.id} value={element?.id}>
+                              {element?.value}
                             </option>
                           );
                         })}
@@ -119,8 +95,8 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                         </option>
                         {optionin.map((element) => {
                           return (
-                            <option key={element?.value} value={element?.value}>
-                              {element?.label}
+                            <option key={element?.id} value={element?.id}>
+                              {element?.value}
                             </option>
                           );
                         })}

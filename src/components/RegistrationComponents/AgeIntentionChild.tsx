@@ -3,20 +3,12 @@ import { RangeSlider } from 'next-range-slider';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { getCookie } from 'cookies-next';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 const AgeIntentionChild = ({ stage, handleProgress }) => {
   // State to manage the checked status of individual checkboxes
-  const [datingcheckboxes] = useState([
-    { value: '1', label: 'Long-Term Relationship' },
-    { value: '2', label: 'Short-Term Fun' },
-    { value: '3', label: 'Just Browsing' },
-    { value: '0', label: 'Not Sure Ye' },
-  ]);
-
-  // State to manage the checked status of individual checkboxes
-  const [hasChildren] = useState([
-    { value: '1', label: 'Yes' },
-    { value: '0', label: 'No' },
-  ]);
+  const { relationShipStatus, hasChildren } = useSelector((state: any) => {
+    return state?.common;
+  });
 
   // Function to handle individual checkbox change
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
@@ -91,12 +83,12 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                     What are your dating intentions?
                   </h3>
                   <div className="relative mb-2 inline-flex items-center">
-                    {datingcheckboxes.map((element) => {
+                    {relationShipStatus.map((element) => {
                       return (
-                        <div key={element.value} className="relative flex items-center ">
+                        <div key={element.id} className="relative flex items-center ">
                           <label
                             className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
-                              values.dating_intention == element.value
+                              values.dating_intention == element.id
                                 ? 'border border-blue bg-blue text-white'
                                 : 'text-gray-800 border border-blue bg-transparent  text-gray'
                             } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
@@ -104,10 +96,10 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                             <Field
                               type="radio"
                               name="dating_intention"
-                              value={element?.value}
+                              value={element?.id}
                               className={'hidden'}
                             />
-                            {element?.label}
+                            {element?.value}
                           </label>
                         </div>
                       );
@@ -142,23 +134,23 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                       <div className="relative mb-2 inline-flex items-center">
                         {hasChildren.map((element) => {
                           return (
-                            <div key={element.value} className="relative flex items-center ">
+                            <div key={element.id} className="relative flex items-center ">
                               <Field
                                 type="radio"
                                 name="has_children"
-                                value={element?.value}
+                                value={element?.id}
                                 className="hidden"
-                                id={'has_children_' + element.value}
+                                id={'has_children_' + element.id}
                               />
                               <label
-                                htmlFor={'has_children_' + element.value}
+                                htmlFor={'has_children_' + element.id}
                                 className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
-                                  values.has_children == element.value
+                                  values.has_children == element.id
                                     ? 'border border-blue bg-blue text-white'
                                     : 'text-gray-800 border border-blue bg-transparent  text-gray'
                                 } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
                               >
-                                {element?.label}
+                                {element?.value}
                               </label>
                             </div>
                           );

@@ -54,13 +54,13 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
                       return question.page == 2;
                     })
                     .map((question) => {
-                      const result = question?.options.reduce(function (r, a) {
+                      const questionOption = question?.options.reduce(function (r, a) {
                         r[a.option_group] = r[a.option_group] || [];
                         r[a.option_group].push(a);
                         return r;
                       }, Object.create(null));
 
-                      return Object.keys(result)?.map((ele, index) => {
+                      return Object.keys(questionOption)?.map((ele, index) => {
                         return (
                           <>
                             {index == 0 ? (
@@ -77,7 +77,7 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
                               <h3 className="mb-3 text-md font-medium text-gray">{ele}</h3>
                               <div className="flex flex-wrap ">
                                 {[0, 1].indexOf(question?.question_type) >= 0 ? (
-                                  result[ele]?.map((element) => {
+                                  questionOption[ele]?.map((element) => {
                                     return (
                                       <div
                                         key={element.value}
@@ -116,7 +116,7 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
                                       <option key={'s' + question.id} value="">
                                         Select
                                       </option>
-                                      {result[ele]?.map((element) => {
+                                      {questionOption[ele]?.map((element) => {
                                         return (
                                           <option key={element?.id} value={element?.id}>
                                             {element?.option}
