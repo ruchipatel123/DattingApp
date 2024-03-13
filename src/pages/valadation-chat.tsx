@@ -1,7 +1,7 @@
 import ChatBot from 'components/ChatBot/ChatBot';
 import AuthHeader from 'components/Header/AuthHeader';
-import ProfileGallery from 'components/ProfileGallery/ProfileGallery';
-import ProfileInformation from 'components/ProfileInformation/ProfileInformation';
+import ProfileGallery from 'components/Profile/ProfileGallery';
+import ProfileInformation from 'components/Profile/ProfileInformation';
 import Sidebar from 'components/SideBar/SideBar';
 import Layout from 'layout/Layout';
 import { useState } from 'react';

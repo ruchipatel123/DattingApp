@@ -47,8 +47,8 @@ export const uploadFile = createAsyncThunk('post/uploadFile', async (args: any, 
 const commonSlice = createSlice({
   name: 'common',
   initialState: {
-    questionList: {},
-    iceBreakerQuestionList: {},
+    questionList: [],
+    iceBreakerQuestionList: [],
     lastFile: {},
     relationShipStatus: [
       { id: 0, value: 'Long-Term Relationship' },
@@ -97,10 +97,10 @@ const commonSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getQuestionList.fulfilled, (state: any, action: any) => {
-        state.questionList = action.data;
+        state.questionList = action?.data?.profileQuestions || [];
       })
       .addCase(getIcebreakerQuestionList.fulfilled, (state: any, action: any) => {
-        state.iceBreakerQuestionList = action.data;
+        state.iceBreakerQuestionList = action?.data?.icebreakerQuestions || [];
       })
       .addCase(uploadFile.fulfilled, (state: any, action: any) => {
         state.lastFile = action.data;

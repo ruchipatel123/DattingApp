@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ProfileCard from 'components/ProfileCard/ProfileCard';
+import ProfileCard from './ProfileCard';
 import SlideFromRight from 'components/SlideFromRIght/SlideFromRight';
-import ProfileGallery from 'components/ProfileGallery/ProfileGallery';
-import ProfileInformation from 'components/ProfileInformation/ProfileInformation';
+import ProfileGallery from './ProfileGallery';
+import ProfileInformation from './ProfileInformation';
 
 const ProfileListing = () => {
   const [isHidden, setIsHidden] = useState(false);

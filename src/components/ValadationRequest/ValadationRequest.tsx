@@ -1,5 +1,5 @@
 import Accordion from 'components/Accordion/Accordion';
-import ProfileCard from 'components/ProfileCard/ProfileCard';
+import ProfileCard from 'components/Profile/ProfileCard';
 import React, { useState } from 'react';
 
 const ValadationRequest = ({ onClick }) => {

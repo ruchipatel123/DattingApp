@@ -4,8 +4,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useState } from 'react';
 import Modal from 'components/Modal/Modal';
-import ProfileGallery from 'components/ProfileGallery/ProfileGallery';
-import ProfileInformation from 'components/ProfileInformation/ProfileInformation';
+import ProfileGallery from 'components/Profile/ProfileGallery';
+import ProfileInformation from 'components/Profile/ProfileInformation';
 
 const ThreadSlider = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
 import { useSelector } from 'react-redux';
-import ProfileDropdown from 'components/ProfileDropdown/ProfileDropdown';
+import ProfileDropdown from 'components/Profile/ProfileDropdown';
 
 const AuthHeader = () => {
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);

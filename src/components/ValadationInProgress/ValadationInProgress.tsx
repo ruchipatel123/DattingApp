@@ -1,4 +1,4 @@
-import ProfileCard from 'components/ProfileCard/ProfileCard';
+import ProfileCard from 'components/Profile/ProfileCard';
 import React from 'react';
 
 const ValadationInProgress = ({ onClick }) => {

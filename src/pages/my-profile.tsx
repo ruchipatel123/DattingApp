@@ -6,14 +6,14 @@ import Layout from 'layout/Layout';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { me } from 'slices/auth';
+import { getIcebreakerQuestionList } from 'slices/common';
 import { useAppDispatch } from 'store';
 
 const MyProfile = () => {
-  const { relationShipStatus } = useSelector((state: any) => {
+  const { relationShipStatus, iceBreakerQuestionList } = useSelector((state: any) => {
     return state?.common;
   });
   const [images, setImages] = useState<any>([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [isOpenModel, setIsOpenModel] = useState(false);
@@ -46,6 +46,9 @@ const MyProfile = () => {
           })[0] || []
         );
         setImages(data?.user?.userProfileImages);
+        if (iceBreakerQuestionList.length == 0) {
+          dispatch(getIcebreakerQuestionList({}));
+        }
       });
   }, []);
   return (
@@ -209,6 +212,7 @@ const MyProfile = () => {
                   Architect
                 </li>
               </ul>
+
               {user?.questions
                 ?.filter((element: any) => {
                   return element?.question !== 'Hobbies';
@@ -334,52 +338,18 @@ const MyProfile = () => {
                     List of Ice Breakers
                   </div>
                   <ol className="list-decimal space-y-2 pl-5 text-sm">
-                    <li>
-                      What&apos;s the most interesting thing you&apos;ve read or seen this week?
-                    </li>
-                    <li>
-                      If you could live in any city in the world for a year, where would it be?
-                    </li>
-                    <li>What&apos;s your go-to karaoke song?</li>
-                    <li>If you could have dinner with any historical figure, who would it be?</li>
-                    <li>
-                      What&apos;s one hobby you&apos;ve always wanted to try but haven&apos;t yet?
-                    </li>
-                    <li>What was the best vacation you&apos;ve ever taken?</li>
-                    <li>If you could instantly become an expert in something, what would it be?</li>
-                    <li>What&apos;s the most unusual food you&apos;ve ever tried?</li>
-                    <li>What movie can you watch over and over without ever getting tired of?</li>
-                    <li>What&apos;s a passion of yours that most people might not know about?</li>
-                    <li>What&apos;s the best piece of advice you&apos;ve ever received?</li>
-                    <li>What&apos;s one book that impacted you profoundly?</li>
-                    <li>
-                      If you could only listen to one musician or band for the rest of your life,
-                      who would it be?
-                    </li>
-                    <li>What&apos;s the most spontaneous thing you&apos;ve ever done?</li>
-                    <li>If you could have any superpower, what would it be?</li>
-                    <li>What&apos;s your idea of a perfect day?</li>
-                    <li>
-                      What&apos;s something you&apos;re proud of but never have an excuse to talk
-                      about?
-                    </li>
-                    <li>If you could be a character in any movie, who would you be?</li>
-                    <li>What&apos;s your favorite way to relax after a long day?</li>
-                    <li>What are three things on your bucket list?</li>
-                    <li>What&apos;s a skill you&apos;d like to learn this year?</li>
-                    <li>
-                      What&apos;s something you&apos;ve done that took you out of your comfort zone?
-                    </li>
-                    <li>How do you like to spend your weekends?</li>
-                    <li>What&apos;s the most interesting fact you know?</li>
-                    <li>What&apos;s one thing that can always make you smile?</li>
-                    <li>
-                      If you could only eat one food for the rest of your life, what would it be?
-                    </li>
-                    <li>What&apos;s the best concert or live event you&apos;ve ever attended?</li>
-                    <li>What&apos;s your favorite quote or saying?</li>
-                    <li>I&apos;ll pick the topic if you start the conversation.</li>
-                    <li>Can you figure out my two truths and my lie?</li>
+                    {iceBreakerQuestionList?.map((question) => {
+                      return (
+                        <li
+                          key={question?.id}
+                          onClick={() => {
+                            closeIcebreakerModel();
+                          }}
+                        >
+                          {question?.breaker_question}
+                        </li>
+                      );
+                    })}
                   </ol>
                 </div>
               </Modal>

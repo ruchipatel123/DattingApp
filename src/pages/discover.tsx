@@ -1,5 +1,5 @@
 import AuthHeader from 'components/Header/AuthHeader';
-import ProfileListing from 'components/ProfileListing/ProfileListing';
+import ProfileListing from 'components/Profile/ProfileListing';
 import Sidebar from 'components/SideBar/SideBar';
 import Layout from 'layout/Layout';
 import { useState } from 'react';
