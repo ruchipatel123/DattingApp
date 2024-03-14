@@ -7,7 +7,7 @@ const NavBar = () => {
         <li className="mb-3 block w-full md:mb-0 md:inline-block md:w-auto">
           <Link
             href="/"
-            className="block w-full font-regular text-black hover:text-blue md:inline-block md:w-auto"
+            className="block w-full font-regular text-gray hover:text-blue md:inline-block md:w-auto"
           >
             Why Valadate?
           </Link>
@@ -15,7 +15,7 @@ const NavBar = () => {
         <li className="mb-3  block  w-full md:mb-0 md:inline-block md:w-auto">
           <Link
             href="/"
-            className="block w-full font-regular text-black hover:text-blue md:inline-block md:w-auto"
+            className="block w-full font-regular text-gray hover:text-blue md:inline-block md:w-auto"
           >
             Our Mission
           </Link>
@@ -23,7 +23,7 @@ const NavBar = () => {
         <li className="mb-3  block  w-full md:mb-0 md:inline-block md:w-auto">
           <Link
             href="/"
-            className="block w-full font-regular text-black hover:text-blue md:inline-block md:w-auto"
+            className="block w-full font-regular text-gray hover:text-blue md:inline-block md:w-auto"
           >
             Contact Us
           </Link>

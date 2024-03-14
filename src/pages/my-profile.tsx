@@ -1,4 +1,5 @@
 import AuthHeader from 'components/Header/AuthHeader';
+import ImageUpdate from 'components/ImageUpload/ImageUpdate';
 import Modal from 'components/Modal/Modal';
 import QuestionSet from 'components/MyProfile/QuestionSet';
 import Sidebar from 'components/SideBar/SideBar';
@@ -127,6 +128,11 @@ const MyProfile = () => {
                 </Reorder.Item>
               ))}
             </Reorder.Group>
+            {images.length < 5 && (
+              <div className="ml-3 h-64 w-52">
+                <ImageUpdate />
+              </div>
+            )}
             {!editMode ? (
               <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
                 <div className="flex w-full justify-between">
