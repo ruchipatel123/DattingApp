@@ -3,15 +3,12 @@ import * as Yup from 'yup';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { getCookie } from 'cookies-next';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from '@greatsumini/react-facebook-login';
 
 const RegistrationForm = ({ stage, handleProgress }) => {
-  const handleFacebookLogin = (response) => {
-    const { accessToken } = response;
-    console.log(accessToken, response);
-    //loginWithFacebook(accessToken);
-  };
-  const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
+  const [initialValueData, setInitValuesData] = useState<any>(
+    JSON.parse(getCookie('reguser') ?? '{}')
+  );
   const validationSchema = Yup.object().shape({
     firstname: Yup.string()
       .required('Please enter first name!')
@@ -43,6 +40,20 @@ const RegistrationForm = ({ stage, handleProgress }) => {
     password: initialValueData?.password ?? '',
   };
 
+  const handleFacebookLogin = (response) => {
+    const { accessToken } = response;
+    console.log(accessToken, response);
+    setInitValuesData({
+      ...initialValueData,
+      ...{
+        firstname: response?.name?.split(' ')[0] || '',
+        lastname: response?.name?.split(' ')[1] || '',
+        email: response?.email,
+        social_media_id: response?.userID,
+      },
+    });
+    //loginWithFacebook(accessToken);
+  };
   return (
     <>
       <h2 className="mb-14 font-raleway text-md font-normal leading-tight text-gray md:text-lg">
@@ -113,7 +124,11 @@ const RegistrationForm = ({ stage, handleProgress }) => {
               <FacebookLogin
                 appId={'1648935228679261'}
                 fields="name,email,picture"
-                callback={handleFacebookLogin}
+                scope="public_profile,email"
+                onSuccess={handleFacebookLogin}
+                onFail={(error) => {
+                  console.log(error);
+                }}
                 render={(renderProps) => (
                   <button
                     className="fb-btn"
