@@ -3,8 +3,14 @@ import * as Yup from 'yup';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { getCookie } from 'cookies-next';
+import FacebookLogin from 'react-facebook-login';
 
 const RegistrationForm = ({ stage, handleProgress }) => {
+  const handleFacebookLogin = (response) => {
+    const { accessToken } = response;
+    console.log(accessToken, response);
+    //loginWithFacebook(accessToken);
+  };
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
   const validationSchema = Yup.object().shape({
     firstname: Yup.string()
@@ -104,15 +110,21 @@ const RegistrationForm = ({ stage, handleProgress }) => {
               <div className="devider relative  w-24 border-t border-gray-400 text-center md:w-32"></div>
             </div>
             <div className="text-center">
-              <button
-                className="fb-btn"
-                type="button"
-                onClick={() => {
-                  console.log('first');
-                }}
-              >
-                <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
-              </button>
+              <FacebookLogin
+                appId={'1648935228679261'}
+                fields="name,email,picture"
+                callback={handleFacebookLogin}
+                render={(renderProps) => (
+                  <button
+                    className="fb-btn"
+                    type="button"
+                    onClick={renderProps.onClick}
+                    disabled={false}
+                  >
+                    <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
+                  </button>
+                )}
+              />
             </div>
           </div>
         </Form>
