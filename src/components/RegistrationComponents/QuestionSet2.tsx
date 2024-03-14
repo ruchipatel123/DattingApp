@@ -64,11 +64,13 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
                         return (
                           <>
                             {index == 0 ? (
-                              <ErrorMessage
-                                name={'question__' + question.id}
-                                component="div"
-                                className="error-message"
-                              />
+                              <div className="mb-3">
+                                <ErrorMessage
+                                  name={'question__' + question.id}
+                                  component="div"
+                                  className="error-message"
+                                />
+                              </div>
                             ) : (
                               ''
                             )}
