@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import Layout from 'layout/Layout';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { deleteCookie } from 'cookies-next';
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -37,6 +38,8 @@ const Login = () => {
       .unwrap()
       .then(() => {
         resetForm();
+        deleteCookie('reguser');
+        deleteCookie('stage');
         redirect('/discover');
       })
       .catch((e) => {
