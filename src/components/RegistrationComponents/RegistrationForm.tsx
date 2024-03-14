@@ -28,7 +28,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
       .max(15, 'Please enter valid password with minimum 15 character!')
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        'Please enter password with at least one upper case char, one lower case char, one number and one special char'
+        'Please enter password with at least 1 upper case char, 1 lower case char, 1 number and 1 special char'
       ),
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
