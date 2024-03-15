@@ -51,10 +51,10 @@ const commonSlice = createSlice({
     iceBreakerQuestionList: [],
     lastFile: {},
     relationShipStatus: [
-      { id: 0, value: 'Long-Term Relationship' },
-      { id: 1, value: 'Short-Term Fun' },
-      { id: 2, value: 'Just Browsing' },
-      { id: 3, value: 'Not Sure Ye' },
+      { id: '1', value: 'Long-Term Relationship' },
+      { id: '2', value: 'Short-Term Fun' },
+      { id: '3', value: 'Just Browsing' },
+      { id: '0', value: 'Not Sure Yet' },
     ],
     genderList: [
       { id: '1', value: 'Male' },

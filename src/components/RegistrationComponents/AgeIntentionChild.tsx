@@ -88,7 +88,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                         <div key={element.id} className="relative flex items-center ">
                           <label
                             className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
-                              values.dating_intention == element.id
+                              values.dating_intention == element.id.toString()
                                 ? 'border border-blue bg-blue text-white'
                                 : 'text-gray-800 border border-blue bg-transparent  text-gray'
                             } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
