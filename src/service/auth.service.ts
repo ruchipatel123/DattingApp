@@ -47,7 +47,7 @@ const logout = () => {
       localStorage.removeItem('user');
       return response.data;
     })
-    .catch((e) => {
+    .catch(() => {
       localStorage.removeItem('user');
       deleteCookie('token');
       //      return e;
@@ -119,6 +119,34 @@ const inviteUserByEmailId = (args) => {
   });
 };
 
+const updateProfile = async (args) => {
+  const objectKeys = Object.keys(args);
+  const object = {};
+  objectKeys.forEach((value) => {
+    if (value.includes('question_')) {
+      const keyval = value.split('__');
+      if (keyval[1]?.includes('is_deal_breaker')) {
+        object['question[' + keyval[1].split('_is_deal_breaker')[0] + '][is_deal_breaker]'] =
+          args[value];
+      } else {
+        object['question[' + keyval[1] + ']'] = args[value];
+      }
+    } else if (value == 'dob') {
+      object[value] = moment(args[value]).format('YYYY-MM-DD');
+    } else {
+      object[value] = args[value];
+    }
+  });
+  return axios.post(API_URL + 'me', object).then((response: any) => {
+    return response.data;
+  });
+};
+
+const updateIceBreaker = async (args) => {
+  return axios.post(API_URL + 'my-ice-breaker', args).then((response: any) => {
+    return response.data;
+  });
+};
 const authService = {
   register,
   login,
@@ -131,6 +159,8 @@ const authService = {
   loginWithFacebook,
   loginWithFacebookCallaback,
   inviteUserByEmailId,
+  updateProfile,
+  updateIceBreaker,
 };
 
 export default authService;

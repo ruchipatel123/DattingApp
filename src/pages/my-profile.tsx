@@ -1,25 +1,43 @@
 import AuthHeader from 'components/Header/AuthHeader';
 import ImageUpdate from 'components/ImageUpload/ImageUpdate';
 import Modal from 'components/Modal/Modal';
+import Profile from 'components/MyProfile/Profile';
 import QuestionSet from 'components/MyProfile/QuestionSet';
 import Sidebar from 'components/SideBar/SideBar';
+import { ErrorMessage, Field, FieldArray, FieldArrayRenderProps, Form, Formik } from 'formik';
 import { Reorder } from 'framer-motion';
 import Layout from 'layout/Layout';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { me } from 'slices/auth';
+import { me, updateMyIceBreaker } from 'slices/auth';
 import { getIcebreakerQuestionList } from 'slices/common';
 import { useAppDispatch } from 'store';
-
+import * as Yup from 'yup';
 const MyProfile = () => {
   const { relationShipStatus } = useSelector((state: any) => {
     return state?.common;
   });
+  const validationSchema = Yup.object().shape({
+    iceBreaker: Yup.array()
+      .max(3, 'Please select max 3 ice breaker')
+      .min(1, 'Please select Ice breaker')
+      .of(
+        Yup.object().shape({
+          question_id: Yup.string().required('Select the question'),
+          answer: Yup.string().required('Please enter some content'),
+        })
+      ),
+  });
+
   const [images, setImages] = useState<any>([]);
   const [iceBreakerQuestionList, setIceBreakerQuestionList] = useState<any>([]);
+  const [iceBreakerQuestionEditing, setIceBreakerQuestionEditing] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [iceBreakereditMode, seticeBreakerEditMode] = useState(false);
+  const [iceBreakerList, seticeBreakerList] = useState<any>([]);
   const [isOpenModel, setIsOpenModel] = useState(false);
+  const [hobbyQuestion, setHobbyQuestion] = useState<any>({});
   const openIceBreakerModal = () => {
     setIsOpenModel(true);
   };
@@ -27,11 +45,23 @@ const MyProfile = () => {
     setIsOpenModel(false);
   };
 
-  const [hobbyQuestion, setHobbyQuestion] = useState<any>({});
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-  const [user, setUser] = useState<any>({});
+  const ArrayHelperRef = useRef<FieldArrayRenderProps>();
+  const addQuestionToIceBreaker = (question) => {
+    if (
+      ArrayHelperRef?.current?.form?.values?.iceBreaker?.length < 4 &&
+      question.question_id &&
+      ArrayHelperRef?.current?.form?.values?.iceBreaker?.filter((ele) => {
+        return ele.question_id == question.question_id;
+      }) <= 0
+    ) {
+      ArrayHelperRef?.current?.push(question);
+      seticeBreakerList([...iceBreakerList, question]);
+    }
+  };
+  //const [user, setUser] = useState<any>({});
   const dispatch = useAppDispatch();
 
   const removeImage = (id) => {
@@ -42,11 +72,20 @@ const MyProfile = () => {
     dispatch(me({}))
       .unwrap()
       .then((data) => {
-        setUser(data?.user);
+        //setUser(data?.user);
         setHobbyQuestion(
           data?.user?.questions?.filter((element: any) => {
             return element?.question == 'Hobbies';
           })[0] || []
+        );
+        seticeBreakerList(
+          data?.user?.ice_breakers?.map((question) => {
+            return {
+              question_id: question?.ice_breaker_master_id,
+              answer: question.answer,
+              breaker_question: question?.ice_breaker_master.breaker_question,
+            };
+          }) ?? []
         );
         setImages(data?.user?.userProfileImages);
         if (iceBreakerQuestionList.length == 0) {
@@ -57,7 +96,7 @@ const MyProfile = () => {
             });
         }
       });
-  }, []);
+  }, [iceBreakereditMode]);
   return (
     <>
       <Layout meta={{ title: 'Valadate' }}>
@@ -134,15 +173,26 @@ const MyProfile = () => {
               </div>
             )}
             {!editMode ? (
-              <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
-                <div className="flex w-full justify-between">
-                  <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">
-                    {user?.firstname ?? ''} <span className="font-light">{user?.age ?? ''}</span>
-                  </h2>
+              <Profile
+                editMode={editMode}
+                setEditMode={setEditMode}
+                hobbyQuestion={hobbyQuestion}
+                relationShipStatus={relationShipStatus}
+                iceBreakereditMode={iceBreakereditMode}
+              />
+            ) : (
+              <QuestionSet relationShipStatus={relationShipStatus} setEditMode={setEditMode} />
+            )}
+            <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
+              <div className="flex w-full justify-between">
+                <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">
+                  My Ice Breakers
+                </h2>
+                {!iceBreakereditMode && !editMode ? (
                   <div
                     className="smile w-[20px]"
                     onClick={() => {
-                      setEditMode(!editMode);
+                      seticeBreakerEditMode(!iceBreakereditMode);
                     }}
                   >
                     <svg
@@ -160,183 +210,191 @@ const MyProfile = () => {
                       <path d="M14.583 8.75L19.2497 13.4167" stroke="#5AA1EC" strokeWidth="1.2" />
                     </svg>
                   </div>
-                </div>
-                <ul className="w-full text-base font-light">
-                  <li className="flex w-full items-center">
-                    <span className="mr-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M19.3612 17C20.1072 17.4561 20.5 17.9734 20.5 18.5C20.5 19.0266 20.1072 19.5439 19.3612 20C18.6152 20.4561 17.5422 20.8348 16.25 21.0981C14.9578 21.3614 13.4921 21.5 12 21.5C10.5079 21.5 9.04216 21.3614 7.75 21.0981C6.45784 20.8348 5.38482 20.4561 4.63878 20C3.89275 19.5439 3.5 19.0266 3.5 18.5C3.5 17.9734 3.89275 17.4561 4.63878 17"
-                          stroke="#72859A"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M19.5 10C19.5 15.018 14.0117 18.4027 12.4249 19.2764C12.1568 19.424 11.8432 19.424 11.5751 19.2764C9.98831 18.4027 4.5 15.018 4.5 10C4.5 5.5 8.13401 2.5 12 2.5C16 2.5 19.5 5.5 19.5 10Z"
-                          stroke="#72859A"
-                        />
-                        <circle cx="12" cy="10" r="3.5" stroke="#72859A" />
-                      </svg>
-                    </span>
-                    {user?.city || ''},{user?.state || ''},{user?.zipcode || ''}
-                  </li>
-                  <li className="flex w-full items-center">
-                    <span className="mr-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <circle cx="11" cy="11" r="6" stroke="#72859A" />
-                        <path
-                          d="M11 8C10.606 8 10.2159 8.0776 9.85195 8.22836C9.48797 8.37913 9.15726 8.6001 8.87868 8.87868C8.6001 9.15726 8.37913 9.48797 8.22836 9.85195C8.0776 10.2159 8 10.606 8 11"
-                          stroke="#72859A"
-                          strokeLinecap="round"
-                        />
-                        <path d="M20 20L17 17" stroke="#72859A" strokeLinecap="round" />
-                      </svg>
-                    </span>
-                    {relationShipStatus?.filter((element: any) => {
-                      return element?.id == user?.dating_intention;
-                    })[0]?.value || ''}
-                  </li>
-                </ul>
-
-                {user?.questions
-                  ?.filter((element: any) => {
-                    return element?.question !== 'Hobbies';
-                  })
-                  .map((question: any) => {
+                ) : (
+                  ''
+                )}
+              </div>
+              <div className="flex w-full flex-wrap space-y-2 md:space-y-5">
+                {!iceBreakereditMode ? (
+                  iceBreakerList?.map((element: any) => {
                     return (
-                      <div className="mt-2 flex w-full flex-wrap" key={question?.id}>
-                        <h2 className="mb-2 w-full font-raleway text-sm tracking-wide	text-blue">
-                          {editMode
-                            ? question?.question
-                            : question?.question?.replace(' (Select all that apply)', '')}
-                        </h2>
-                        <div className="flex flex-wrap">
-                          {question?.options?.map((option) => {
-                            return (
-                              <span
-                                key={option.id}
-                                className={
-                                  question.selectedOptions.indexOf(option?.id) >= 0
-                                    ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-5 py-2 text-xs'
-                                    : 'mr-2 mt-2 rounded-full border border-blue-100 px-5 py-2 text-xs'
-                                }
-                              >
-                                {option?.option}
-                              </span>
-                            );
-                          })}
+                      <div key={element?.question_id} className="w-full px-0 xxl:px-0">
+                        <div className="rounded-lg border-2 border-yellow  bg-white p-5 font-raleway font-semibold leading-tight text-blue">
+                          <h3 className="mb-3 font-raleway text-base font-normal tracking-wider">
+                            {element?.breaker_question || ''}
+                          </h3>
+                          <ul className="space-y-1 text-lg tracking-wide">
+                            <li>{element?.answer || ''}</li>
+                          </ul>
                         </div>
                       </div>
                     );
-                  })}
-                <div className="mt-2 flex w-full flex-wrap">
-                  <h2 className="mb-2 w-full font-raleway text-sm tracking-wide	text-blue">
-                    Interests
-                  </h2>
-                  <div className="flex flex-wrap">
-                    {hobbyQuestion.options?.map((option) => {
-                      return (
-                        <span
-                          key={option.id}
-                          className={
-                            hobbyQuestion.selectedOptions.indexOf(option?.id) >= 0
-                              ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-5 py-2 text-xs'
-                              : 'mr-2 mt-2 rounded-full border border-blue-100 px-5 py-2 text-xs'
+                  })
+                ) : (
+                  <Formik
+                    initialValues={{
+                      iceBreaker: iceBreakerList,
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={(data, { setFieldError, resetForm }) => {
+                      setIceBreakerQuestionEditing(true);
+                      dispatch(updateMyIceBreaker(data))
+                        .unwrap()
+                        .then(() => {
+                          resetForm();
+                          seticeBreakerEditMode(false);
+                        })
+                        .catch((e) => {
+                          if (e?.response?.data?.errors) {
+                            Object.keys(e?.response?.data?.errors).map((element) => {
+                              setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
+                            });
                           }
-                        >
-                          {option?.option}
-                        </span>
-                      );
-                    })}
+                        })
+                        .finally(() => {
+                          setIceBreakerQuestionEditing(false);
+                        });
+                    }}
+                  >
+                    {({ values }) => (
+                      <Form id="saveIceBreaker">
+                        <div className="flex w-full flex-wrap space-y-2 md:space-y-0 xxl:space-x-10 ">
+                          <FieldArray
+                            name="iceBreaker"
+                            render={(arrayHelper) => {
+                              ArrayHelperRef.current = arrayHelper;
+                              return (
+                                <>
+                                  {values?.iceBreaker &&
+                                    values?.iceBreaker.length > 0 &&
+                                    values.iceBreaker.map((breakerData, index) => (
+                                      <div
+                                        key={breakerData.question_id}
+                                        className="relative w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
+                                      >
+                                        <div className="min-h-[200px] rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
+                                          <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
+                                            {breakerData.breaker_question}
+                                          </h3>
+                                          <Field
+                                            type="hidden"
+                                            name={`iceBreaker.${index}.question_id`}
+                                          />
+                                          <Field
+                                            as="textarea"
+                                            name={`iceBreaker.${index}.answer`}
+                                            placeholder="Please enter some details"
+                                            className="text-bold h-20 w-full max-w-full list-decimal space-y-1 p-1 tracking-wide"
+                                          />
+                                          <ErrorMessage
+                                            name={`iceBreaker.${index}.answer`}
+                                            component="div"
+                                            className="error-message"
+                                          />
+                                        </div>
+                                        <button
+                                          type="button"
+                                          className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400"
+                                          onClick={() => arrayHelper.remove(index)}
+                                          hidden={values.iceBreaker.length <= 1}
+                                        >
+                                          <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 40 40"
+                                            fill="none"
+                                          >
+                                            <circle cx="20" cy="20" r="15" fill="#145CA8" />
+                                            <path
+                                              d="M26.6663 13.3333L13.333 26.6666"
+                                              stroke="#fff"
+                                              strokeWidth="2"
+                                              strokeLinecap="square"
+                                              strokeLinejoin="round"
+                                            />
+                                            <path
+                                              d="M13.3337 13.3333L26.667 26.6666"
+                                              stroke="#fff"
+                                              strokeWidth="2"
+                                              strokeLinecap="square"
+                                              strokeLinejoin="round"
+                                            />
+                                          </svg>
+                                        </button>
+                                      </div>
+                                    ))}
+                                </>
+                              );
+                            }}
+                          />
+                        </div>
+                        {values.iceBreaker?.length < 3 && iceBreakereditMode ? (
+                          <div className="w-full px-0 xxl:px-0">
+                            <div className="relative  border border-dashed border-yellow">
+                              <div className="relative flex h-full w-full items-center justify-center">
+                                <button
+                                  type="button"
+                                  onClick={openIceBreakerModal}
+                                  className=" flex h-full w-full items-center justify-center py-2 font-raleway text-base text-blue"
+                                >
+                                  <span className="mr-1">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="16"
+                                      height="16"
+                                      viewBox="0 0 16 16"
+                                      fill="none"
+                                    >
+                                      <path
+                                        d="M8 4L8 12"
+                                        stroke="#145CA8"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                      />
+                                      <path
+                                        d="M12 8L4 8"
+                                        stroke="#145CA8"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                      />
+                                    </svg>
+                                  </span>
+                                  Add an Icebreaker
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          ''
+                        )}
+                      </Form>
+                    )}
+                  </Formik>
+                )}
+                <div className="mb-8 w-full md:w-[100%] md:px-5">
+                  <div className="flex w-full justify-center">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        seticeBreakerEditMode(false);
+                      }}
+                      className="btn lg h-[60px] rounded-full border border-blue border-gray-400 bg-transparent px-3 py-2 font-raleway text-md leading-none text-blue hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      form="saveIceBreaker"
+                      disabled={iceBreakerQuestionEditing}
+                      className="btn primary lg ml-2 rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
-            ) : (
-              <QuestionSet
-                user={user}
-                hobbyQuestion={hobbyQuestion}
-                relationShipStatus={relationShipStatus}
-                setEditMode={setEditMode}
-                editMode={editMode}
-              />
-            )}
-            <div>
-              <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">My Ice Breakers</h2>
-              <div className="flex w-full flex-wrap space-y-2 md:space-y-5">
-                <div className="w-full px-0 xxl:px-0">
-                  <div className="rounded-lg border-2 border-yellow bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
-                    <h3 className="mb-3  font-raleway text-base font-normal tracking-wider">
-                      Two Truths And A Lie
-                    </h3>
-                    <ol className="list-decimal space-y-1  pl-5 text-lg tracking-wide">
-                      {user?.ice_breakers?.map((element: any) => {
-                        return (
-                          <li key={element?.id}>
-                            {element?.ice_breaker_master?.breaker_question || ''}
-                          </li>
-                        );
-                      })}
-                    </ol>
-                  </div>
-                </div>
 
-                <div className="w-full px-0   xxl:px-0">
-                  <div className="rounded-lg border-2 border-yellow  bg-white p-5 font-raleway font-semibold leading-tight text-blue">
-                    <h3 className="mb-3 font-raleway text-base font-normal tracking-wider">
-                      I’ll Pick The Topic If You Start The Conversation
-                    </h3>
-                    <ul className="space-y-1 text-lg tracking-wide">
-                      <li>Who should have ended up CEO of Waystar / Royco in Succession?</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="w-full px-0 xxl:px-0">
-                  <div className="relative  border border-dashed border-yellow">
-                    <div className="relative flex h-full w-full items-center justify-center">
-                      <button
-                        onClick={openIceBreakerModal}
-                        className=" flex h-full w-full items-center justify-center py-2 font-raleway text-base text-blue"
-                      >
-                        <span className="mr-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                          >
-                            <path
-                              d="M8 4L8 12"
-                              stroke="#145CA8"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                            />
-                            <path
-                              d="M12 8L4 8"
-                              stroke="#145CA8"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                        </span>
-                        Add an Icebreaker
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <Modal isOpen={isOpenModel} onClose={closeIcebreakerModel}>
                 <div className="mx-auto   max-h-[60vh] overflow-auto rounded-lg bg-white p-6 text-gray md:w-[60%]">
                   <div className="mb-4 font-raleway text-lg  font-bold text-gray">
@@ -348,6 +406,11 @@ const MyProfile = () => {
                         <li
                           key={question?.id}
                           onClick={() => {
+                            addQuestionToIceBreaker({
+                              question_id: question.id,
+                              breaker_question: question.breaker_question,
+                              answer: '',
+                            });
                             closeIcebreakerModel();
                           }}
                         >

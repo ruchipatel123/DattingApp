@@ -151,6 +151,36 @@ export const inviteReferal = createAsyncThunk('invite/referal', async (args: any
   }
 });
 
+export const updateMyProfile = createAsyncThunk(
+  'user/update-profile',
+  async (args: any, thunkAPI) => {
+    try {
+      const data: any = await AuthService.updateProfile(args);
+      if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
+      return data?.data;
+    } catch (error) {
+      if (error?.response?.data?.notify)
+        thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateMyIceBreaker = createAsyncThunk(
+  'user/update-icebreaker',
+  async (args: any, thunkAPI) => {
+    try {
+      const data: any = await AuthService.updateIceBreaker(args);
+      if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
+      return data?.data;
+    } catch (error) {
+      if (error?.response?.data?.notify)
+        thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getInitialState = () => {
   return {
     isLoggedIn: getCookie('token') ? true : false,
@@ -206,6 +236,12 @@ const authSlice = createSlice({
       })
       .addCase(inviteReferal.fulfilled, (state: any, action: any) => {
         state.user = action?.payload?.userdata ? action?.payload?.userdata : {};
+      })
+      .addCase(updateMyProfile.fulfilled, (state: any, action: any) => {
+        state.user = action?.payload?.user ? action?.payload?.user : {};
+      })
+      .addCase(updateMyIceBreaker.fulfilled, (state: any, action: any) => {
+        state.user = action?.payload?.user ? action?.payload?.user : {};
       });
   },
 });

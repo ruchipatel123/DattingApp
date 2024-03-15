@@ -1,22 +1,29 @@
-import Datepicker from 'components/DatePicker/Datepicker';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { RangeSlider } from 'next-range-slider';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { me, updateMyProfile } from 'slices/auth';
+import { useAppDispatch } from 'store';
 import * as Yup from 'yup';
 
-const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipStatus }) => {
+const QuestionSet = ({ setEditMode, relationShipStatus }) => {
   const fields = {};
   let validationSchema = {};
   const { genderList, hasChildren } = useSelector((state: any) => {
     return state?.common;
   });
-
-  user?.questions.forEach((question) => {
+  const { user } = useSelector((state: any) => {
+    return state?.auth;
+  });
+  user?.questions?.forEach((question) => {
     fields[`question__${question.id}`] =
-      question.question_type == 1 ? question?.selectedOptions : question?.selectedOptions[0];
+      question.question_type == 1
+        ? question?.selectedOptions.map((questionOption) => {
+            return questionOption.toString();
+          })
+        : question?.selectedOptions[0];
     fields['question__' + question.id + '_is_deal_breaker'] =
-      question.is_dealbreaker_selected ?? '';
+      question.is_dealbreaker_selected || '';
     validationSchema = {
       ...validationSchema,
       [`question__${question.id}`]:
@@ -62,15 +69,14 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
 
   const initialValues = {
     ...{
-      firstname: user.firstname,
-      lastname: user.lastname,
+      firstname: user?.firstname,
+      lastname: user?.lastname,
       city: user?.city,
       state: user?.state,
       zipcode: user?.zipcode,
-      latitude: user?.latitude,
-      longitude: user?.longitude,
+      latitude: user?.latitude?.toString(),
+      longitude: user?.longitude?.toString(),
       radius_miles: user?.radius_miles,
-      dob: user?.dob,
       gender: user?.gender,
       looking_for: user?.looking_for,
       age_range_max: user?.age_range_max,
@@ -83,34 +89,38 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
     },
     ...fields,
   };
+  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const handleFormSubmit = (formValue, setFieldError, resetForm) => {
+    setLoading(true);
+    dispatch(updateMyProfile(formValue))
+      .unwrap()
+      .then(() => {
+        dispatch(me({}))
+          .unwrap()
+          .then(() => {
+            resetForm();
+            setEditMode(false);
+          });
+      })
+      .catch((e) => {
+        if (e?.response?.data?.errors) {
+          Object.keys(e?.response?.data?.errors).map((element) => {
+            setFieldError(element, e?.response?.data?.errors[element][0] ?? '');
+          });
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
-      <div
-        className="smile w-[20px]"
-        onClick={() => {
-          setEditMode(!editMode);
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
-          viewBox="0 0 28 28"
-          fill="none"
-        >
-          <path
-            d="M6.78697 22.5466L6.78698 22.5466L6.81311 22.5401L6.81312 22.5401L10.1078 21.7164C10.124 21.7124 10.1401 21.7084 10.1562 21.7044C10.375 21.65 10.5853 21.5978 10.7767 21.4894C10.9682 21.381 11.1212 21.2275 11.2804 21.0679C11.2921 21.0561 11.3039 21.0444 11.3157 21.0325L20.0097 12.3385L20.0365 12.3117C20.3469 12.0014 20.6211 11.7272 20.8125 11.4764C21.0199 11.2046 21.1855 10.891 21.1855 10.5C21.1855 10.109 21.0199 9.79543 20.8125 9.52361C20.6211 9.27285 20.3469 8.99864 20.0366 8.68835L20.0097 8.66152L19.3382 7.98995L19.3113 7.96312C19.001 7.65279 18.7268 7.37853 18.4761 7.1872C18.2042 6.97981 17.8907 6.81421 17.4997 6.81421C17.1086 6.81421 16.7951 6.97981 16.5233 7.1872C16.2725 7.37853 15.9983 7.6528 15.688 7.96314L15.6612 7.98995L6.96712 16.684C6.95532 16.6958 6.94354 16.7076 6.93178 16.7193C6.77216 16.8785 6.61871 17.0315 6.51032 17.2229C6.40192 17.4144 6.34966 17.6247 6.2953 17.8435C6.29129 17.8596 6.28728 17.8757 6.28323 17.8919L5.45304 21.2127C5.45063 21.2223 5.44819 21.2321 5.44573 21.2419C5.40712 21.3959 5.36345 21.5702 5.34894 21.7185C5.33279 21.8836 5.33427 22.1828 5.57556 22.4241C5.81684 22.6654 6.11608 22.6669 6.2812 22.6507C6.42946 22.6362 6.60372 22.5926 6.75779 22.5539C6.7676 22.5515 6.77733 22.5491 6.78697 22.5466Z"
-            stroke="#5AA1EC"
-            strokeWidth="1.2"
-          />
-          <path d="M14.583 8.75L19.2497 13.4167" stroke="#5AA1EC" strokeWidth="1.2" />
-        </svg>
-      </div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(data, { setFieldError, resetForm }) => {
-          console.log(data, setFieldError, resetForm);
+          handleFormSubmit(data, setFieldError, resetForm);
         }}
       >
         {({ values, setFieldValue }) => (
@@ -175,20 +185,6 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
                 I’m looking for someone within
               </h2>
               <div className="h-[60px]">
-                {/* <Field
-                  type="select"
-                  as="select"
-                  name="radius_miles"
-                  className="border-${borderColor} focus:shadow-outline small inline-block h-full w-auto min-w-40 appearance-none rounded border bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
-                >
-                  {options.map((element) => {
-                    return (
-                      <option key={'l' + element.value} value={element.value}>
-                        {element.label}
-                      </option>
-                    );
-                  })}
-                </Field> */}
                 <div className="w-full">
                   <div className="range-slider-wrap range_slider_single inline-block w-3/5">
                     <RangeSlider
@@ -215,15 +211,6 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
                 </div>
                 <ErrorMessage name="radius_miles" component="div" className="error-message" />
               </div>
-            </div>
-            <div className="mb-5 w-full md:w-[50%] md:px-5">
-              <h2 className="mb-3 font-raleway  text-md text-gray md:text-lg">My Birthday Is:</h2>
-              <Datepicker
-                selectedDate={values?.dob ?? ''}
-                onChange={(data) => {
-                  setFieldValue('dob', data);
-                }}
-              />
             </div>
             <div className="mb-5 w-full md:px-5">
               <h2 className="mb-7 font-raleway text-lg text-gray">I am a...</h2>
@@ -258,7 +245,7 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
               <div className="relative mb-2 inline-flex items-center">
                 {genderList.map((element: any) => {
                   return (
-                    <div key={element.id} className="relative flex items-center ">
+                    <div key={element.id + 'Lookingfor'} className="relative flex items-center ">
                       <label
                         className={`m-1 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 
                                      ${
@@ -280,7 +267,7 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
                 })}
               </div>
             </div>
-            <div className="setup-form-wrap bg-white-transperent items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:px-10 md:py-10 ">
+            <div className="setup-form-wrap bg-white-transperent items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:w-[70%] md:px-10 md:py-10">
               <div className="setup-form ml-7">
                 <div className="mb-8 block">
                   <h3 className="mb-3 text-md font-medium text-gray">
@@ -402,11 +389,11 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
                     </div>
                   </div>
                   <div className="mb-5 block">
-                    {user?.questions.map((question) => {
+                    {user?.questions?.map((question) => {
                       return (
-                        <>
+                        <div key={question?.id}>
                           <h3 className="mb-3 text-md font-medium text-gray">
-                            {question.question}
+                            {question.question == 'Hobbies' ? 'Interests' : question.question}
                           </h3>
                           <div className="flex flex-wrap ">
                             {[0, 1].indexOf(question?.question_type) >= 0 ? (
@@ -418,8 +405,9 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
                                       ${
                                         (values['question__' + question.id] &&
                                           values['question__' + question.id][0] &&
-                                          values['question__' + question.id]?.indexOf(element.id) >=
-                                            0) ||
+                                          values['question__' + question.id]?.indexOf(
+                                            element.id.toString()
+                                          ) >= 0) ||
                                         (values['question__' + question.id] &&
                                           values['question__' + question.id] ==
                                             element.id.toString())
@@ -491,11 +479,32 @@ const QuestionSet = ({ user, setEditMode, editMode, hobbyQuestion, relationShipS
                           ) : (
                             ''
                           )}
-                        </>
+                        </div>
                       );
                     })}
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="mb-8 w-full md:w-[100%] md:px-5">
+              <div className="flex w-full justify-center">
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => {
+                    setEditMode(false);
+                  }}
+                  className="btn lg h-[60px] rounded-full border border-blue border-gray-400 bg-transparent px-3 py-2 font-raleway text-md leading-none text-blue hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn primary lg ml-2 rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
+                >
+                  Save
+                </button>
               </div>
             </div>
           </Form>
