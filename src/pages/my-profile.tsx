@@ -372,7 +372,7 @@ const MyProfile = () => {
                     )}
                   </Formik>
                 )}
-                {iceBreakerQuestionEditing ? (
+                {iceBreakereditMode ? (
                   <div className="mb-8 w-full md:w-[100%] md:px-5">
                     <div className="flex w-full justify-center">
                       <button
