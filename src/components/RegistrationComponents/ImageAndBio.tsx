@@ -201,11 +201,11 @@ const ImageAndBio = ({ stage, handleProgress }) => {
               </div>
             </div>
             <Modal isOpen={isOpen} onClose={closeModal}>
-              <div className="mx-auto   max-h-[60vh] overflow-auto rounded-lg bg-white p-6 text-gray md:w-[60%]">
-                <div className="mb-4 font-raleway text-lg  font-bold text-gray">
+              <div className="mx-auto   max-h-[60vh] overflow-auto rounded-lg bg-white p-6 text-black md:w-[60%]">
+                <div className="mb-4 font-raleway text-lg font-regular text-black xxl:text-[32px]">
                   List of Ice Breakers
                 </div>
-                <ol className="list-decimal space-y-2 pl-5 text-sm">
+                <ol className="list-decimal space-y-1 pl-5 font-raleway text-sm md:text-md">
                   {iceBreakersList?.map((question) => {
                     return (
                       <li

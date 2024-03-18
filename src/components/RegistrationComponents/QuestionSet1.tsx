@@ -49,7 +49,7 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
           >
             {({ values }) => (
               <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
-                <div className="mb-5 block">
+                <div className="block">
                   {questionList
                     .filter((question) => {
                       return question.page == 1;
@@ -66,13 +66,13 @@ const QuestionSet1 = ({ stage, handleProgress, questionList }) => {
                                 return (
                                   <div key={element.value} className="relative flex items-center ">
                                     <label
-                                      className={`m-1 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
+                                      className={`m-1 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-light md:mr-7 ${
                                         values['question__' + question.id] &&
                                         values['question__' + question.id]?.indexOf(
                                           element.id.toString()
                                         ) >= 0
                                           ? 'border border-blue bg-blue text-white'
-                                          : 'text-gray-800 border border-blue bg-transparent  text-gray'
+                                          : 'text-gray-800 border border-blue bg-transparent  text-black'
                                       } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
                                     >
                                       <Field

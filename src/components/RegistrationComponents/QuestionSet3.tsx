@@ -59,7 +59,7 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
               <Form id={'form' + stage}>
                 <div className="mb-8 block">
                   <h3 className="mb-3 text-md font-medium text-gray">How tall are you?</h3>
-                  <div className="flex items-center  space-x-8 text-gray md:w-96">
+                  <div className="flex items-start  space-x-8 text-gray md:w-96">
                     <div className="block">
                       <Field
                         as="select"
@@ -126,13 +126,13 @@ const QuestionSet3 = ({ stage, handleProgress, questionList }) => {
                                 return (
                                   <div key={element.value} className="relative flex items-center ">
                                     <label
-                                      className={`mb-3 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
+                                      className={`mb-3 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-light md:mr-7 ${
                                         values['question__' + question.id] &&
                                         values['question__' + question.id]?.indexOf(
                                           element.id.toString()
                                         ) >= 0
                                           ? 'border border-blue bg-blue text-white'
-                                          : 'text-gray-800 border border-blue bg-transparent  text-gray'
+                                          : 'text-gray-800 border border-blue bg-transparent  text-black'
                                       } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
                                     >
                                       <Field

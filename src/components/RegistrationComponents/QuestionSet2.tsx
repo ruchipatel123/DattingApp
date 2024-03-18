@@ -34,8 +34,7 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
   return (
     <>
       <h2 className="mb-7 font-raleway  text-md  text-gray md:-mx-10  md:text-lg">
-        One key to a long-term match is finding people with shared values and lifestyles. Let’s
-        figure out who’s best for you!
+        Now, let’s get to know you a little better! Please select up to 10 interests!
       </h2>
       <div className="setup-form-wrap bg-white-transperent h-[60vh] items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:px-10 md:py-5">
         <div className="setup-form">
@@ -86,13 +85,13 @@ const QuestionSet2 = ({ stage, handleProgress, questionList }) => {
                                         className="relative flex items-center "
                                       >
                                         <label
-                                          className={`mb-4 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
+                                          className={`mb-4 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-light md:mr-7 ${
                                             values['question__' + question.id] &&
                                             values['question__' + question.id]?.indexOf(
                                               element.id.toString()
                                             ) >= 0
                                               ? 'border border-blue bg-blue text-white'
-                                              : 'text-gray-800 border border-blue bg-transparent  text-gray'
+                                              : 'text-gray-800 border border-blue bg-transparent  text-black'
                                           } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
                                         >
                                           <Field

@@ -25,9 +25,7 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
     age_range_min: Yup.string().required('Please select your age range!'),
     age_range_max: Yup.string().required('Please select your age range!'),
     dating_intention: Yup.string().required('Please select your dating intention!'),
-    has_children: Yup.string().required(
-      'Please select are you ok with dating someone who already has children!'
-    ),
+    has_children: Yup.string().required('Please select at least one option.'),
   });
   return (
     <>
@@ -82,15 +80,15 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                   <h3 className="mb-3 text-md font-medium text-gray">
                     What are your dating intentions?
                   </h3>
-                  <div className="relative mb-2 inline-flex items-center">
+                  <div className="relative mb-2 flex flex-wrap items-center">
                     {relationShipStatus.map((element) => {
                       return (
                         <div key={element.id} className="relative flex items-center ">
                           <label
-                            className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
+                            className={`mb-2 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-light md:mr-7 ${
                               values.dating_intention == element.id.toString()
                                 ? 'border border-blue bg-blue text-white'
-                                : 'text-gray-800 border border-blue bg-transparent  text-gray'
+                                : 'text-gray-800 border border-blue bg-transparent  text-black '
                             } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
                           >
                             <Field
@@ -144,10 +142,10 @@ const AgeIntentionChild = ({ stage, handleProgress }) => {
                               />
                               <label
                                 htmlFor={'has_children_' + element.id}
-                                className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
+                                className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-light md:mr-7 ${
                                   values.has_children == element.id
                                     ? 'border border-blue bg-blue text-white'
-                                    : 'text-gray-800 border border-blue bg-transparent  text-gray'
+                                    : 'text-gray-800 border border-blue bg-transparent  text-black '
                                 } focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2`}
                               >
                                 {element?.value}
