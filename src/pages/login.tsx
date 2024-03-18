@@ -80,7 +80,7 @@ const Login = () => {
                 <Form className="m-auto  text-gray lg:w-[400px] lg:max-w-full">
                   <div className="mb-3">
                     <div className="input-container">
-                      <label className="block w-full text-md font-normal">Email</label>
+                      <label className="block w-full text-md font-normal">Email:</label>
                       <Field
                         name="username"
                         type="email"
@@ -97,7 +97,7 @@ const Login = () => {
                       Forgot Password?
                     </Link>
                     <div className="input-container mb-1">
-                      <label className="block  w-full text-md font-normal">Password</label>
+                      <label className="block  w-full text-md font-normal">Password:</label>
                       <div className="relative">
                         <Field
                           name="password"
@@ -137,7 +137,7 @@ const Login = () => {
                   </div>
                   <div className="devider relative mb-12 mt-16 border-t border-gray-400 text-center">
                     <p className="absolute left-1/2 top-2/4 -mt-3 inline-block -translate-x-1/2  bg-white px-5 text-center text-sm text-gray-400">
-                      Or sign in with
+                      Or log in with
                     </p>
                   </div>
                   <div className="text-center">

@@ -151,7 +151,7 @@ const Register = () => {
           )}
 
           {[0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(stage) >= 0 ? (
-            <div className="container flex min-h-[70vh] flex-wrap items-center justify-center pt-14">
+            <div className="container flex min-h-[70vh] flex-wrap items-center justify-center pb-10 pt-14">
               <div
                 className={
                   stage == 11 ? 'w-full text-gray-400' : 'w-full max-w-[880px] text-gray-400'

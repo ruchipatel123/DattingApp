@@ -123,7 +123,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                       }}
                     />
                   </div>
-                  <span className="ml-2 align-bottom font-raleway text-md text-gray md:text-lg">
+                  <span className="align-center -mt-2 ml-2 font-raleway text-md text-gray md:text-lg">
                     {high} miles
                   </span>
                 </div>

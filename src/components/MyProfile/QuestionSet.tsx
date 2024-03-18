@@ -124,7 +124,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
         }}
       >
         {({ values, setFieldValue }) => (
-          <Form className="flex flex-wrap md:-mx-5" id={'formprofile'}>
+          <Form className="mb-5 flex flex-wrap md:-mx-5" id={'formprofile'}>
             <div className="mb-3 w-full md:w-3/5 md:px-5">
               <label className="block  w-full text-md font-normal">First Name</label>
               <Field
@@ -152,7 +152,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
               />
               <ErrorMessage name="city" component="div" className="error-message" />
             </div>
-            <div className="mb-8 w-full md:w-[25%] md:px-5">
+            <div className="mb-5 w-full md:w-[25%] md:px-5">
               <label className="block  w-full text-md font-normal">State</label>
               <Field
                 name="state"
@@ -180,8 +180,8 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
               />
               <ErrorMessage name="zipcode" component="div" className="error-message" />
             </div>
-            <div className="mb-5 w-full md:w-[50%] md:px-5">
-              <h2 className="mb-3 font-raleway  text-md  text-gray md:text-lg">
+            <div className="mb-3 w-full md:w-[50%] md:px-5">
+              <h2 className="mb-2 font-raleway  text-md  text-gray md:text-lg">
                 I’m looking for someone within
               </h2>
               <div className="h-[60px]">
@@ -213,7 +213,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
               </div>
             </div>
             <div className="mb-5 w-full md:px-5">
-              <h2 className="mb-7 font-raleway text-lg text-gray">I am a...</h2>
+              <h2 className="mb-2 font-raleway text-lg text-gray">I am a...</h2>
               <div className="relative mb-2 inline-flex items-center">
                 {genderList.map((element: any) => {
                   return (
@@ -241,8 +241,8 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
               </div>
             </div>
             <div className="mb-5 w-full md:px-5">
-              <h2 className="mb-7 font-raleway text-lg text-gray">Looking for a...</h2>
-              <div className="relative mb-2 inline-flex items-center">
+              <h2 className="mb-2 font-raleway text-lg text-gray">Looking for a...</h2>
+              <div className="relative inline-flex items-center">
                 {genderList.map((element: any) => {
                   return (
                     <div key={element.id + 'Lookingfor'} className="relative flex items-center ">
@@ -267,10 +267,10 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                 })}
               </div>
             </div>
-            <div className="setup-form-wrap bg-white-transperent items-start justify-start overflow-auto rounded-lg p-5 md:-mx-10 md:w-[70%] md:px-10 md:py-10">
+            <div className="setup-form-wrap bg-white-transperent mb-5 items-start justify-start overflow-auto rounded-lg px-5 md:-mx-10 md:w-[70%] md:px-10">
               <div className="setup-form ml-7">
-                <div className="mb-8 block">
-                  <h3 className="mb-3 text-md font-medium text-gray">
+                <div className="mb-5 block">
+                  <h3 className="mb-2 text-md font-medium text-gray">
                     What age range are you looking to date within?
                   </h3>
                   <div className="mb-5 flex flex-wrap items-center">
@@ -392,10 +392,10 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                     {user?.questions?.map((question) => {
                       return (
                         <div key={question?.id}>
-                          <h3 className="mb-3 text-md font-medium text-gray">
+                          <h3 className="mb-2 text-md font-medium text-gray">
                             {question.question == 'Hobbies' ? 'Interests' : question.question}
                           </h3>
-                          <div className="flex flex-wrap ">
+                          <div className="mb-5 flex flex-wrap">
                             {[0, 1].indexOf(question?.question_type) >= 0 ? (
                               question.options.map((element) => {
                                 return (
@@ -494,14 +494,14 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                   onClick={() => {
                     setEditMode(false);
                   }}
-                  className="btn lg h-[60px] rounded-full border border-blue border-gray-400 bg-transparent px-3 py-2 font-raleway text-md leading-none text-blue hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
+                  className="btn lg py- rounded-full border  border-blue bg-transparent px-3 font-raleway text-md leading-none text-blue hover:border-red-500 hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn primary lg ml-2 rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
+                  className="btn primary lg ml-2 rounded-full border border-blue px-3 py-3 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
                 >
                   Save
                 </button>

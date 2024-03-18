@@ -257,8 +257,8 @@ const MyProfile = () => {
                     }}
                   >
                     {({ values }) => (
-                      <Form id="saveIceBreaker">
-                        <div className="flex w-full flex-wrap space-y-2 md:space-y-0 xxl:space-x-10 ">
+                      <Form id="saveIceBreaker" className="w-full">
+                        <div className="mb-5 flex w-full flex-wrap space-y-2 md:space-y-0 xxl:space-x-10">
                           <FieldArray
                             name="iceBreaker"
                             render={(arrayHelper) => {
@@ -270,7 +270,7 @@ const MyProfile = () => {
                                     values.iceBreaker.map((breakerData, index) => (
                                       <div
                                         key={breakerData.question_id}
-                                        className="relative w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
+                                        className="relative mb-2 w-full xxl:w-[31%] xxl:px-0"
                                       >
                                         <div className="min-h-[200px] rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
                                           <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
@@ -294,7 +294,7 @@ const MyProfile = () => {
                                         </div>
                                         <button
                                           type="button"
-                                          className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400"
+                                          className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400 xxl:right-0"
                                           onClick={() => arrayHelper.remove(index)}
                                           hidden={values.iceBreaker.length <= 1}
                                         >
@@ -379,7 +379,7 @@ const MyProfile = () => {
                       onClick={() => {
                         seticeBreakerEditMode(false);
                       }}
-                      className="btn lg h-[60px] rounded-full border border-blue border-gray-400 bg-transparent px-3 py-2 font-raleway text-md leading-none text-blue hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
+                      className="btn lg  border-bluebg-transparent rounded-full border px-3 py-3 font-raleway text-md leading-none text-blue hover:bg-red-500 hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
                     >
                       Cancel
                     </button>
@@ -387,7 +387,7 @@ const MyProfile = () => {
                       type="submit"
                       form="saveIceBreaker"
                       disabled={iceBreakerQuestionEditing}
-                      className="btn primary lg ml-2 rounded-full border border-blue px-3 py-2 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
+                      className="btn primary lg ml-2 rounded-full border border-blue px-3 py-3 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
                     >
                       Save
                     </button>
