@@ -372,27 +372,31 @@ const MyProfile = () => {
                     )}
                   </Formik>
                 )}
-                <div className="mb-8 w-full md:w-[100%] md:px-5">
-                  <div className="flex w-full justify-center">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        seticeBreakerEditMode(false);
-                      }}
-                      className="btn lg  border-bluebg-transparent rounded-full border px-3 py-3 font-raleway leading-none text-blue hover:border-red-500 hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      form="saveIceBreaker"
-                      disabled={iceBreakerQuestionEditing}
-                      className="btn primary lg ml-2 rounded-full border border-blue px-3 py-3 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
-                    >
-                      Save
-                    </button>
+                {iceBreakerQuestionEditing ? (
+                  <div className="mb-8 w-full md:w-[100%] md:px-5">
+                    <div className="flex w-full justify-center">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          seticeBreakerEditMode(false);
+                        }}
+                        className="btn lg  border-bluebg-transparent rounded-full border px-3 py-3 font-raleway leading-none text-blue hover:border-red-500 hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        form="saveIceBreaker"
+                        disabled={iceBreakerQuestionEditing}
+                        className="btn primary lg ml-2 rounded-full border border-blue px-3 py-3 font-raleway leading-none text-blue hover:bg-blue hover:text-white lg:px-5 lg:text-md xl:px-10"
+                      >
+                        Save
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  ''
+                )}
               </div>
 
               <Modal isOpen={isOpenModel} onClose={closeIcebreakerModel}>
