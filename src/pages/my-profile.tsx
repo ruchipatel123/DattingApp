@@ -379,7 +379,7 @@ const MyProfile = () => {
                       onClick={() => {
                         seticeBreakerEditMode(false);
                       }}
-                      className="btn lg  border-bluebg-transparent rounded-full border px-3 py-3 font-raleway text-md leading-none text-blue hover:bg-red-500 hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
+                      className="btn lg  border-bluebg-transparent rounded-full border px-3 py-3 font-raleway leading-none text-blue hover:bg-red-500 hover:bg-red-500 hover:text-white lg:px-5 lg:text-md xl:px-10"
                     >
                       Cancel
                     </button>

@@ -214,7 +214,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
             </div>
             <div className="mb-5 w-full md:px-5">
               <h2 className="mb-2 font-raleway text-lg text-gray">I am a...</h2>
-              <div className="relative mb-2 inline-flex items-center">
+              <div className="relative mb-2 flex flex-wrap items-center">
                 {genderList.map((element: any) => {
                   return (
                     <div key={element.id} className="relative flex items-center ">
@@ -242,7 +242,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
             </div>
             <div className="mb-5 w-full md:px-5">
               <h2 className="mb-2 font-raleway text-lg text-gray">Looking for a...</h2>
-              <div className="relative inline-flex items-center">
+              <div className="relative flex flex-wrap items-center">
                 {genderList.map((element: any) => {
                   return (
                     <div key={element.id + 'Lookingfor'} className="relative flex items-center ">
@@ -267,8 +267,8 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                 })}
               </div>
             </div>
-            <div className="setup-form-wrap bg-white-transperent mb-5 items-start justify-start overflow-auto rounded-lg px-5 md:-mx-10 md:w-[70%] md:px-10">
-              <div className="setup-form ml-7">
+            <div className=" mb-5  px-0  md:px-5">
+              <div className="setup-form ">
                 <div className="mb-5 block">
                   <h3 className="mb-2 text-md font-medium text-gray">
                     What age range are you looking to date within?
@@ -305,12 +305,12 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                   <h3 className="mb-3 text-md font-medium text-gray">
                     What are your dating intentions?
                   </h3>
-                  <div className="relative mb-2 inline-flex items-center">
+                  <div className="relative mb-2 flex flex-wrap items-center">
                     {relationShipStatus.map((element) => {
                       return (
                         <div key={element.id} className="relative flex items-center ">
                           <label
-                            className={`mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
+                            className={`mb-2 mr-3 inline-flex cursor-pointer items-center justify-center  rounded-full px-5 py-1 text-sm  font-medium md:mr-7 ${
                               values.dating_intention == element.id
                                 ? 'border border-blue bg-blue text-white'
                                 : 'text-gray-800 border border-blue bg-transparent  text-gray'
@@ -354,7 +354,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                       Are you ok with dating someone who already has children?
                     </h3>
                     <div className="flex flex-wrap">
-                      <div className="relative mb-2 inline-flex items-center">
+                      <div className="relative mb-2 flex flex-wrap items-center">
                         {hasChildren.map((element) => {
                           return (
                             <div key={element.id} className="relative flex items-center ">
