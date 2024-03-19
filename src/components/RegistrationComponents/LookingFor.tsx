@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 const LookingFor = ({ stage, handleProgress }) => {
-  const { genderList } = useSelector((state: any) => {
+  const { lookingFor } = useSelector((state: any) => {
     return state.common;
   });
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
@@ -29,7 +29,7 @@ const LookingFor = ({ stage, handleProgress }) => {
         {({ values }) => (
           <Form id={'form' + stage}>
             <div className="space-y-2">
-              {genderList.map((element: any) => {
+              {lookingFor.map((element: any) => {
                 return (
                   <div key={element.id} className="relative flex items-center ">
                     <label

@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 const QuestionSet = ({ setEditMode, relationShipStatus }) => {
   const fields = {};
   let validationSchema = {};
-  const { genderList, hasChildren } = useSelector((state: any) => {
+  const { genderList, lookingFor, hasChildren } = useSelector((state: any) => {
     return state?.common;
   });
   const { user } = useSelector((state: any) => {
@@ -243,7 +243,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
             <div className="mb-5 w-full md:px-5">
               <h2 className="mb-2 font-raleway text-lg text-gray">Looking for a...</h2>
               <div className="relative flex flex-wrap items-center">
-                {genderList.map((element: any) => {
+                {lookingFor.map((element: any) => {
                   return (
                     <div key={element.id + 'Lookingfor'} className="relative flex items-center ">
                       <label
