@@ -180,6 +180,20 @@ export const updateMyIceBreaker = createAsyncThunk(
     }
   }
 );
+export const uploadFileToUser = createAsyncThunk(
+  'user/user-profile-image-update',
+  async (args: any, thunkAPI) => {
+    try {
+      const data: any = await AuthService.uploadUserFile(args);
+      if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
+      return data?.data;
+    } catch (error) {
+      if (error?.response?.data?.notify)
+        thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const getInitialState = () => {
   return {
@@ -238,6 +252,9 @@ const authSlice = createSlice({
         state.user = action?.payload?.userdata ? action?.payload?.userdata : {};
       })
       .addCase(updateMyProfile.fulfilled, (state: any, action: any) => {
+        state.user = action?.payload?.user ? action?.payload?.user : {};
+      })
+      .addCase(uploadFileToUser.fulfilled, (state: any, action: any) => {
         state.user = action?.payload?.user ? action?.payload?.user : {};
       })
       .addCase(updateMyIceBreaker.fulfilled, (state: any, action: any) => {

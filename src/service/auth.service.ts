@@ -147,6 +147,12 @@ const updateIceBreaker = async (args) => {
     return response.data;
   });
 };
+
+const uploadUserFile = async (args) => {
+  return axios.post(API_URL + 'user-profile-image-update', args).then((response: any) => {
+    return response.data;
+  });
+};
 const authService = {
   register,
   login,
@@ -161,6 +167,7 @@ const authService = {
   inviteUserByEmailId,
   updateProfile,
   updateIceBreaker,
+  uploadUserFile,
 };
 
 export default authService;

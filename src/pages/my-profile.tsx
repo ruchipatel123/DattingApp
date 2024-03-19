@@ -9,10 +9,11 @@ import { Reorder } from 'framer-motion';
 import Layout from 'layout/Layout';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { me, updateMyIceBreaker } from 'slices/auth';
-import { getIcebreakerQuestionList } from 'slices/common';
+import { me, updateMyIceBreaker, uploadFileToUser } from 'slices/auth';
+import { getIcebreakerQuestionList, uploadFile } from 'slices/common';
 import { useAppDispatch } from 'store';
 import * as Yup from 'yup';
+
 const MyProfile = () => {
   const { relationShipStatus } = useSelector((state: any) => {
     return state?.common;
@@ -30,6 +31,9 @@ const MyProfile = () => {
   });
 
   const [images, setImages] = useState<any>([]);
+  const { user } = useSelector((state: any) => {
+    return state?.auth;
+  });
   const [iceBreakerQuestionList, setIceBreakerQuestionList] = useState<any>([]);
   const [iceBreakerQuestionEditing, setIceBreakerQuestionEditing] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +45,7 @@ const MyProfile = () => {
   const openIceBreakerModal = () => {
     setIsOpenModel(true);
   };
+
   const closeIcebreakerModel = () => {
     setIsOpenModel(false);
   };
@@ -65,9 +70,56 @@ const MyProfile = () => {
   const dispatch = useAppDispatch();
 
   const removeImage = (id) => {
-    setImages(images.filter((image) => image.id !== id));
+    dispatch(uploadFileToUser({ profile_images: images.filter((image) => image.id !== id) }))
+      .unwrap()
+      .then((resp) => {
+        setImages(resp?.user?.userProfileImages || []);
+      });
   };
 
+  const handleImageChange = async (e: any) => {
+    if (e.target.files[0]) {
+      dispatch(uploadFile(e.target.files[0]))
+        .unwrap()
+        .then(async (data: any) => {
+          const imageData: any = [];
+          images.forEach((image: any, index: number) => {
+            imageData.push(
+              image?.id == e?.target?.id?.split('__')[1]
+                ? { ...image, ...{ file_url: data?.file_url } }
+                : image
+            );
+          });
+          dispatch(uploadFileToUser({ profile_images: imageData }))
+            .unwrap()
+            .then((resp) => {
+              setImages(resp?.user?.userProfileImages || []);
+            });
+        });
+    }
+  };
+  const handleImageChangeNewFile = async (e: any) => {
+    if (e.target.files[0]) {
+      dispatch(uploadFile(e.target.files[0]))
+        .unwrap()
+        .then(async (data: any) => {
+          const imageData: any = [];
+          images.forEach((image: any, index: number) => {
+            imageData.push(
+              image?.id == e?.target?.id?.split('__')[1]
+                ? { ...image, ...{ file_url: data?.file_url } }
+                : image
+            );
+          });
+          imageData.push({ ...data, sort_order: images.length + 1 });
+          dispatch(uploadFileToUser({ profile_images: imageData }))
+            .unwrap()
+            .then((resp) => {
+              setImages(resp?.user?.userProfileImages || []);
+            });
+        });
+    }
+  };
   useEffect(() => {
     dispatch(me({}))
       .unwrap()
@@ -104,74 +156,138 @@ const MyProfile = () => {
         <div className="flex min-h-[100vh] flex-wrap">
           <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
           <div className={`flex w-[100%] flex-wrap  pb-[80px] pl-5 pr-5 pt-[100px]  md:pl-[20%]`}>
-            <Reorder.Group
-              axis="x"
-              values={images}
-              onReorder={setImages}
-              className="flex space-x-4 overflow-auto"
+            <Formik
+              initialValues={{
+                images: user?.images ?? [],
+              }}
+              validationSchema={Yup.object().shape({
+                images: Yup.array()
+                  .max(5, 'Please select max 5 images')
+                  .min(2, 'Please select minimum 2 images!'),
+              })}
+              onSubmit={(data, { setFieldError, resetForm }) => {
+                console.log(data);
+              }}
             >
-              {images.map((image, index) => (
-                <Reorder.Item
-                  key={image.id}
-                  value={image}
-                  className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg"
-                >
-                  <div
-                    className={`bg-image  h-64 w-full rounded-lg bg-cover bg-center`}
-                    style={{ backgroundImage: `url(${image.file_url})` }}
-                  ></div>
-                  {index === 0 && (
-                    <span
-                      className="absolute bottom-0 left-0 right-0 mt-2 pb-20 text-xs font-bold text-yellow"
-                      style={{
-                        background:
-                          'linear-gradient(180deg, rgba(20, 92, 168, 0.00) 0%, rgba(20, 92, 168, 0.40) 26.43%, rgba(20, 92, 168, 0.80) 73%, #145CA8 100%)',
-                        boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-                      }}
-                    >
-                      <span className="absolute bottom-2 left-2 text-shadow-sm">Main Image</span>
-                    </span>
-                  )}
-                  {images.length > 2 ? (
-                    <button
-                      onClick={() => removeImage(image.id)}
-                      className="absolute right-2 top-2 rounded"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <circle cx="12" cy="12" r="9" fill="#FBFDFF" />
-                        <path
-                          d="M16 8L8 16"
-                          stroke="#145CA8"
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M8 8L16 16"
-                          stroke="#145CA8"
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  ) : (
-                    ''
-                  )}
-                </Reorder.Item>
-              ))}
-            </Reorder.Group>
-            {images.length < 5 && (
-              <div className="ml-3 h-64 w-52">
-                <ImageUpdate />
-              </div>
-            )}
+              {({ values, setFieldValue }) => (
+                <Form id={'formimageUpload'}>
+                  <Reorder.Group
+                    axis="x"
+                    values={images}
+                    onReorder={async (data) => {
+                      const imageData: any = [];
+                      data.forEach((image: any, index: number) => {
+                        imageData.push({ ...image, ...{ sort_order: index + 1 } });
+                      });
+                      setImages(imageData);
+                      const args = { profile_images: imageData };
+                      dispatch(uploadFileToUser(args))
+                        .unwrap()
+                        .then((resp) => {
+                          setImages(resp?.user?.userProfileImages || []);
+                        });
+                    }}
+                    className="flex space-x-4 overflow-auto"
+                  >
+                    {Array.from(Array(images.length < 5 ? images.length + 1 : 5).keys()).map(
+                      (element, index) => {
+                        return images[index] ? (
+                          <Reorder.Item
+                            key={images[index].id}
+                            value={images[index]}
+                            className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg"
+                          >
+                            <div
+                              className={`bg-image  h-64 w-full rounded-lg bg-cover bg-center`}
+                              style={{ backgroundImage: `url(${images[index]?.file_url})` }}
+                            ></div>
+                            <button
+                              onClick={() => removeImage(images[index].id)}
+                              className="absolute right-2 top-2 rounded"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <circle cx="12" cy="12" r="9" fill="#FBFDFF" />
+                                <path
+                                  d="M16 8L8 16"
+                                  stroke="#145CA8"
+                                  strokeWidth="1.2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M8 8L16 16"
+                                  stroke="#145CA8"
+                                  strokeWidth="1.2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </button>
+
+                            {index === 0 && (
+                              <span
+                                className="absolute bottom-0 left-0 right-0 mt-2 pb-20 text-xs font-bold text-yellow"
+                                style={{
+                                  background:
+                                    'linear-gradient(180deg, rgba(20, 92, 168, 0.00) 0%, rgba(20, 92, 168, 0.40) 26.43%, rgba(20, 92, 168, 0.80) 73%, #145CA8 100%)',
+                                  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                                }}
+                              >
+                                <span className="absolute bottom-2 left-2 text-shadow-sm">
+                                  Main Image
+                                </span>
+                              </span>
+                            )}
+                            <input
+                              type="file"
+                              accept="image/*"
+                              id={'fileUpload__' + images[index].id}
+                              onChange={handleImageChange}
+                              className="relative bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
+                            />
+                          </Reorder.Item>
+                        ) : (
+                          <div className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg">
+                            <div className="ml-3 h-64 w-52">
+                              <div className="absolute flex h-full w-full items-center justify-center">
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  id={'fileUpload__' + index + 1}
+                                  onChange={handleImageChangeNewFile}
+                                  className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
+                                />
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="46"
+                                  height="46"
+                                  viewBox="0 0 46 46"
+                                  fill="none"
+                                  className="absolute"
+                                >
+                                  <path
+                                    d="M23 3V43M43 23H3"
+                                    stroke="#145CA8"
+                                    strokeWidth="5"
+                                    strokeLinecap="round"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )}
+                  </Reorder.Group>
+                </Form>
+              )}
+            </Formik>
             {!editMode ? (
               <Profile
                 editMode={editMode}
