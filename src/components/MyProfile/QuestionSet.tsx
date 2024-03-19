@@ -76,7 +76,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
       zipcode: user?.zipcode,
       latitude: user?.latitude?.toString(),
       longitude: user?.longitude?.toString(),
-      radius_miles: user?.radius_miles,
+      radius_miles: user?.radius_miles ?? 100,
       gender: user?.gender,
       looking_for: user?.looking_for,
       age_range_max: user?.age_range_max,
