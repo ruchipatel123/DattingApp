@@ -170,7 +170,7 @@ const MyProfile = () => {
               }}
             >
               {({ values, setFieldValue }) => (
-                <Form id={'formimageUpload'}>
+                <Form id={'formimageUpload'} className="overflow-auto">
                   <Reorder.Group
                     axis="x"
                     values={images}
@@ -187,7 +187,7 @@ const MyProfile = () => {
                           setImages(resp?.user?.userProfileImages || []);
                         });
                     }}
-                    className="flex space-x-4 overflow-auto"
+                    className="-ml-2 flex space-x-4 overflow-auto px-2 py-5"
                   >
                     {Array.from(Array(images.length < 5 ? images.length + 1 : 5).keys()).map(
                       (element, index) => {
@@ -244,13 +244,35 @@ const MyProfile = () => {
                                 </span>
                               </span>
                             )}
-                            <input
-                              type="file"
-                              accept="image/*"
-                              id={'fileUpload__' + images[index].id}
-                              onChange={handleImageChange}
-                              className="relative bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
-                            />
+                            <div className="absolute right-9 top-2 flex h-[24px] w-[24px] cursor-pointer items-center justify-center overflow-hidden rounded-full">
+                              <div className="rounded-full bg-white">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 28 28"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M6.78697 22.5466L6.78698 22.5466L6.81311 22.5401L6.81312 22.5401L10.1078 21.7164C10.124 21.7124 10.1401 21.7084 10.1562 21.7044C10.375 21.65 10.5853 21.5978 10.7767 21.4894C10.9682 21.381 11.1212 21.2275 11.2804 21.0679C11.2921 21.0561 11.3039 21.0444 11.3157 21.0325L20.0097 12.3385L20.0365 12.3117C20.3469 12.0014 20.6211 11.7272 20.8125 11.4764C21.0199 11.2046 21.1855 10.891 21.1855 10.5C21.1855 10.109 21.0199 9.79543 20.8125 9.52361C20.6211 9.27285 20.3469 8.99864 20.0366 8.68835L20.0097 8.66152L19.3382 7.98995L19.3113 7.96312C19.001 7.65279 18.7268 7.37853 18.4761 7.1872C18.2042 6.97981 17.8907 6.81421 17.4997 6.81421C17.1086 6.81421 16.7951 6.97981 16.5233 7.1872C16.2725 7.37853 15.9983 7.6528 15.688 7.96314L15.6612 7.98995L6.96712 16.684C6.95532 16.6958 6.94354 16.7076 6.93178 16.7193C6.77216 16.8785 6.61871 17.0315 6.51032 17.2229C6.40192 17.4144 6.34966 17.6247 6.2953 17.8435C6.29129 17.8596 6.28728 17.8757 6.28323 17.8919L5.45304 21.2127C5.45063 21.2223 5.44819 21.2321 5.44573 21.2419C5.40712 21.3959 5.36345 21.5702 5.34894 21.7185C5.33279 21.8836 5.33427 22.1828 5.57556 22.4241C5.81684 22.6654 6.11608 22.6669 6.2812 22.6507C6.42946 22.6362 6.60372 22.5926 6.75779 22.5539C6.7676 22.5515 6.77733 22.5491 6.78697 22.5466Z"
+                                    stroke="#5AA1EC"
+                                    stroke-width="1.2"
+                                  ></path>
+                                  <path
+                                    d="M14.583 8.75L19.2497 13.4167"
+                                    stroke="#145CA8"
+                                    stroke-width="1.2"
+                                  ></path>
+                                </svg>
+                              </div>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                id={'fileUpload__' + images[index].id}
+                                onChange={handleImageChange}
+                                className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full cursor-pointer opacity-0"
+                              />
+                            </div>
                           </Reorder.Item>
                         ) : (
                           <div className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg">
