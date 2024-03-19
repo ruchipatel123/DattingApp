@@ -1,16 +1,26 @@
 import React from 'react';
 import { uploadFile } from 'slices/common';
 import { useAppDispatch } from 'store';
-
+import toast from 'react-hot-toast';
 const ImageUpload = ({ setFieldValue, fieldName, values, element }) => {
   const dispatch = useAppDispatch();
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      dispatch(uploadFile(e.target.files[0]))
-        .unwrap()
-        .then((data) => {
-          setFieldValue(fieldName, data?.file_url);
-        });
+      if (
+        ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/png'].indexOf(
+          e.target.files[0].type
+        ) < 0
+      ) {
+        toast.error('Please select only jpg, jpeg, gif or png image!');
+      } else if (e.target.files[0].size / 1048576 > 5) {
+        toast.error('Please select image of max 5 mb!');
+      } else {
+        dispatch(uploadFile(e.target.files[0]))
+          .unwrap()
+          .then((data) => {
+            setFieldValue(fieldName, data?.file_url);
+          });
+      }
     }
   };
 
