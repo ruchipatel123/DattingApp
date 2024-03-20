@@ -138,6 +138,7 @@ const LocationForm = ({ stage, handleProgress }) => {
                   setFieldValue('dob', data);
                 }}
               />
+              <ErrorMessage name="dob" component="div" className="error-message" />
             </div>
           </Form>
         )}

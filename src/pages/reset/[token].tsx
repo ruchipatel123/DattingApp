@@ -18,7 +18,7 @@ const ResetPasswordWithLink = () => {
       .max(15, 'Please enter valid password with minimum 15 character!')
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        'Please enter password with 1 upper case char, 1 lower case char, 1 number and 1 special char'
+        'Please enter password with at least 1 upper case char, 1 lower case char, 1 number and 1 special char'
       ),
     password_confirmation: Yup.string()
       .required('Please enter confirm password!')
