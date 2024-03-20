@@ -1,5 +1,4 @@
 import AuthHeader from 'components/Header/AuthHeader';
-import ImageUpdate from 'components/ImageUpload/ImageUpdate';
 import Modal from 'components/Modal/Modal';
 import Profile from 'components/MyProfile/Profile';
 import QuestionSet from 'components/MyProfile/QuestionSet';
@@ -19,8 +18,9 @@ const MyProfile = () => {
   const { relationShipStatus } = useSelector((state: any) => {
     return state?.common;
   });
+
   const validationSchema = Yup.object().shape({
-    iceBreaker: Yup.array()
+    ice_breaker: Yup.array()
       .max(3, 'Please select max 3 ice breaker')
       .min(1, 'Please select Ice breaker')
       .of(
@@ -57,9 +57,9 @@ const MyProfile = () => {
   const ArrayHelperRef = useRef<FieldArrayRenderProps>();
   const addQuestionToIceBreaker = (question) => {
     if (
-      ArrayHelperRef?.current?.form?.values?.iceBreaker?.length < 4 &&
+      ArrayHelperRef?.current?.form?.values?.ice_breaker?.length < 4 &&
       question.question_id &&
-      ArrayHelperRef?.current?.form?.values?.iceBreaker?.filter((ele) => {
+      ArrayHelperRef?.current?.form?.values?.ice_breaker?.filter((ele) => {
         return ele.question_id == question.question_id;
       }) <= 0
     ) {
@@ -93,7 +93,7 @@ const MyProfile = () => {
           .unwrap()
           .then(async (data: any) => {
             const imageData: any = [];
-            images.forEach((image: any, index: number) => {
+            images.forEach((image: any) => {
               imageData.push(
                 image?.id == e?.target?.id?.split('__')[1]
                   ? { ...image, ...{ file_url: data?.file_url } }
@@ -109,6 +109,7 @@ const MyProfile = () => {
       }
     }
   };
+
   const handleImageChangeNewFile = async (e: any) => {
     if (e.target.files[0]) {
       if (e.target.files[0]) {
@@ -125,7 +126,7 @@ const MyProfile = () => {
             .unwrap()
             .then(async (data: any) => {
               const imageData: any = [];
-              images.forEach((image: any, index: number) => {
+              images.forEach((image: any) => {
                 imageData.push(
                   image?.id == e?.target?.id?.split('__')[1]
                     ? { ...image, ...{ file_url: data?.file_url } }
@@ -143,6 +144,7 @@ const MyProfile = () => {
       }
     }
   };
+
   useEffect(() => {
     dispatch(me({}))
       .unwrap()
@@ -188,156 +190,153 @@ const MyProfile = () => {
                   .max(5, 'Please select max 5 images')
                   .min(2, 'Please select minimum 2 images!'),
               })}
-              onSubmit={(data, { setFieldError, resetForm }) => {
+              onSubmit={(data) => {
                 console.log(data);
               }}
             >
-              {({ values, setFieldValue }) => (
-                <Form id={'formimageUpload'} className="overflow-auto">
-                  <Reorder.Group
-                    axis="x"
-                    values={images}
-                    onReorder={async (data) => {
-                      const imageData: any = [];
-                      data.forEach((image: any, index: number) => {
-                        imageData.push({ ...image, ...{ sort_order: index + 1 } });
+              <Form id={'formimageUpload'} className="overflow-auto">
+                <Reorder.Group
+                  axis="x"
+                  values={images}
+                  onReorder={async (data) => {
+                    const imageData: any = [];
+                    data.forEach((image: any, index: number) => {
+                      imageData.push({ ...image, ...{ sort_order: index + 1 } });
+                    });
+                    setImages(imageData);
+                    const args = { profile_images: imageData };
+                    dispatch(uploadFileToUser(args))
+                      .unwrap()
+                      .then((resp) => {
+                        setImages(resp?.user?.userProfileImages || []);
                       });
-                      setImages(imageData);
-                      const args = { profile_images: imageData };
-                      dispatch(uploadFileToUser(args))
-                        .unwrap()
-                        .then((resp) => {
-                          setImages(resp?.user?.userProfileImages || []);
-                        });
-                    }}
-                    className="-ml-2 flex space-x-4 overflow-auto px-2 py-5"
-                  >
-                    {Array.from(Array(images.length < 5 ? images.length + 1 : 5).keys()).map(
-                      (element, index) => {
-                        return images[index] ? (
-                          <Reorder.Item
-                            key={images[index].id}
-                            value={images[index]}
-                            className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg"
+                  }}
+                  className="-ml-2 flex space-x-4 overflow-auto px-2 py-5"
+                >
+                  {Array.from(Array(images.length < 5 ? images.length + 1 : 5).keys()).map(
+                    (element, index) => {
+                      return images[index] ? (
+                        <Reorder.Item
+                          key={images[index].id}
+                          value={images[index]}
+                          className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg"
+                        >
+                          <div
+                            className={`bg-image  h-64 w-full rounded-lg bg-cover bg-center`}
+                            style={{ backgroundImage: `url(${images[index]?.file_url})` }}
+                          ></div>
+                          <button
+                            onClick={() => removeImage(images[index].id)}
+                            className="absolute right-2 top-2 rounded"
                           >
-                            <div
-                              className={`bg-image  h-64 w-full rounded-lg bg-cover bg-center`}
-                              style={{ backgroundImage: `url(${images[index]?.file_url})` }}
-                            ></div>
-                            <button
-                              onClick={() => removeImage(images[index].id)}
-                              className="absolute right-2 top-2 rounded"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
                             >
+                              <circle cx="12" cy="12" r="9" fill="#FBFDFF" />
+                              <path
+                                d="M16 8L8 16"
+                                stroke="#145CA8"
+                                strokeWidth="1.2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M8 8L16 16"
+                                stroke="#145CA8"
+                                strokeWidth="1.2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+
+                          {index === 0 && (
+                            <span
+                              className="absolute bottom-0 left-0 right-0 mt-2 pb-20 text-xs font-bold text-yellow"
+                              style={{
+                                background:
+                                  'linear-gradient(180deg, rgba(20, 92, 168, 0.00) 0%, rgba(20, 92, 168, 0.40) 26.43%, rgba(20, 92, 168, 0.80) 73%, #145CA8 100%)',
+                                boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                              }}
+                            >
+                              <span className="absolute bottom-2 left-2 text-shadow-sm">
+                                Main Image
+                              </span>
+                            </span>
+                          )}
+                          <div className="absolute right-9 top-2 flex h-[24px] w-[24px] cursor-pointer items-center justify-center overflow-hidden rounded-full">
+                            <div className="rounded-full bg-white">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 28 28"
                                 fill="none"
                               >
-                                <circle cx="12" cy="12" r="9" fill="#FBFDFF" />
                                 <path
-                                  d="M16 8L8 16"
+                                  d="M6.78697 22.5466L6.78698 22.5466L6.81311 22.5401L6.81312 22.5401L10.1078 21.7164C10.124 21.7124 10.1401 21.7084 10.1562 21.7044C10.375 21.65 10.5853 21.5978 10.7767 21.4894C10.9682 21.381 11.1212 21.2275 11.2804 21.0679C11.2921 21.0561 11.3039 21.0444 11.3157 21.0325L20.0097 12.3385L20.0365 12.3117C20.3469 12.0014 20.6211 11.7272 20.8125 11.4764C21.0199 11.2046 21.1855 10.891 21.1855 10.5C21.1855 10.109 21.0199 9.79543 20.8125 9.52361C20.6211 9.27285 20.3469 8.99864 20.0366 8.68835L20.0097 8.66152L19.3382 7.98995L19.3113 7.96312C19.001 7.65279 18.7268 7.37853 18.4761 7.1872C18.2042 6.97981 17.8907 6.81421 17.4997 6.81421C17.1086 6.81421 16.7951 6.97981 16.5233 7.1872C16.2725 7.37853 15.9983 7.6528 15.688 7.96314L15.6612 7.98995L6.96712 16.684C6.95532 16.6958 6.94354 16.7076 6.93178 16.7193C6.77216 16.8785 6.61871 17.0315 6.51032 17.2229C6.40192 17.4144 6.34966 17.6247 6.2953 17.8435C6.29129 17.8596 6.28728 17.8757 6.28323 17.8919L5.45304 21.2127C5.45063 21.2223 5.44819 21.2321 5.44573 21.2419C5.40712 21.3959 5.36345 21.5702 5.34894 21.7185C5.33279 21.8836 5.33427 22.1828 5.57556 22.4241C5.81684 22.6654 6.11608 22.6669 6.2812 22.6507C6.42946 22.6362 6.60372 22.5926 6.75779 22.5539C6.7676 22.5515 6.77733 22.5491 6.78697 22.5466Z"
+                                  stroke="#5AA1EC"
+                                  strokeWidth="1.2"
+                                ></path>
+                                <path
+                                  d="M14.583 8.75L19.2497 13.4167"
                                   stroke="#145CA8"
                                   strokeWidth="1.2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M8 8L16 16"
-                                  stroke="#145CA8"
-                                  strokeWidth="1.2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
+                                ></path>
                               </svg>
-                            </button>
-
-                            {index === 0 && (
-                              <span
-                                className="absolute bottom-0 left-0 right-0 mt-2 pb-20 text-xs font-bold text-yellow"
-                                style={{
-                                  background:
-                                    'linear-gradient(180deg, rgba(20, 92, 168, 0.00) 0%, rgba(20, 92, 168, 0.40) 26.43%, rgba(20, 92, 168, 0.80) 73%, #145CA8 100%)',
-                                  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-                                }}
-                              >
-                                <span className="absolute bottom-2 left-2 text-shadow-sm">
-                                  Main Image
-                                </span>
-                              </span>
-                            )}
-                            <div className="absolute right-9 top-2 flex h-[24px] w-[24px] cursor-pointer items-center justify-center overflow-hidden rounded-full">
-                              <div className="rounded-full bg-white">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="20"
-                                  height="20"
-                                  viewBox="0 0 28 28"
-                                  fill="none"
-                                >
-                                  <path
-                                    d="M6.78697 22.5466L6.78698 22.5466L6.81311 22.5401L6.81312 22.5401L10.1078 21.7164C10.124 21.7124 10.1401 21.7084 10.1562 21.7044C10.375 21.65 10.5853 21.5978 10.7767 21.4894C10.9682 21.381 11.1212 21.2275 11.2804 21.0679C11.2921 21.0561 11.3039 21.0444 11.3157 21.0325L20.0097 12.3385L20.0365 12.3117C20.3469 12.0014 20.6211 11.7272 20.8125 11.4764C21.0199 11.2046 21.1855 10.891 21.1855 10.5C21.1855 10.109 21.0199 9.79543 20.8125 9.52361C20.6211 9.27285 20.3469 8.99864 20.0366 8.68835L20.0097 8.66152L19.3382 7.98995L19.3113 7.96312C19.001 7.65279 18.7268 7.37853 18.4761 7.1872C18.2042 6.97981 17.8907 6.81421 17.4997 6.81421C17.1086 6.81421 16.7951 6.97981 16.5233 7.1872C16.2725 7.37853 15.9983 7.6528 15.688 7.96314L15.6612 7.98995L6.96712 16.684C6.95532 16.6958 6.94354 16.7076 6.93178 16.7193C6.77216 16.8785 6.61871 17.0315 6.51032 17.2229C6.40192 17.4144 6.34966 17.6247 6.2953 17.8435C6.29129 17.8596 6.28728 17.8757 6.28323 17.8919L5.45304 21.2127C5.45063 21.2223 5.44819 21.2321 5.44573 21.2419C5.40712 21.3959 5.36345 21.5702 5.34894 21.7185C5.33279 21.8836 5.33427 22.1828 5.57556 22.4241C5.81684 22.6654 6.11608 22.6669 6.2812 22.6507C6.42946 22.6362 6.60372 22.5926 6.75779 22.5539C6.7676 22.5515 6.77733 22.5491 6.78697 22.5466Z"
-                                    stroke="#5AA1EC"
-                                    stroke-width="1.2"
-                                  ></path>
-                                  <path
-                                    d="M14.583 8.75L19.2497 13.4167"
-                                    stroke="#145CA8"
-                                    stroke-width="1.2"
-                                  ></path>
-                                </svg>
-                              </div>
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              id={'fileUpload__' + images[index].id}
+                              onChange={handleImageChange}
+                              className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full cursor-pointer opacity-0"
+                            />
+                          </div>
+                        </Reorder.Item>
+                      ) : (
+                        <div className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg">
+                          <div className="ml-3 h-64 w-52">
+                            <div className="absolute flex h-full w-full items-center justify-center">
                               <input
                                 type="file"
                                 accept="image/*"
-                                id={'fileUpload__' + images[index].id}
-                                onChange={handleImageChange}
-                                className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full cursor-pointer opacity-0"
+                                id={'fileUpload__' + index + 1}
+                                onChange={handleImageChangeNewFile}
+                                className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
                               />
-                            </div>
-                          </Reorder.Item>
-                        ) : (
-                          <div className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg">
-                            <div className="ml-3 h-64 w-52">
-                              <div className="absolute flex h-full w-full items-center justify-center">
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  id={'fileUpload__' + index + 1}
-                                  onChange={handleImageChangeNewFile}
-                                  className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="46"
+                                height="46"
+                                viewBox="0 0 46 46"
+                                fill="none"
+                                className="absolute"
+                              >
+                                <path
+                                  d="M23 3V43M43 23H3"
+                                  stroke="#145CA8"
+                                  strokeWidth="5"
+                                  strokeLinecap="round"
                                 />
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="46"
-                                  height="46"
-                                  viewBox="0 0 46 46"
-                                  fill="none"
-                                  className="absolute"
-                                >
-                                  <path
-                                    d="M23 3V43M43 23H3"
-                                    stroke="#145CA8"
-                                    strokeWidth="5"
-                                    strokeLinecap="round"
-                                  />
-                                </svg>
-                              </div>
+                              </svg>
                             </div>
                           </div>
-                        );
-                      }
-                    )}
-                  </Reorder.Group>
-                </Form>
-              )}
+                        </div>
+                      );
+                    }
+                  )}
+                </Reorder.Group>
+              </Form>
             </Formik>
             {!editMode ? (
               <Profile
                 editMode={editMode}
                 setEditMode={setEditMode}
-                hobbyQuestion={hobbyQuestion}
                 relationShipStatus={relationShipStatus}
                 iceBreakereditMode={iceBreakereditMode}
               />
@@ -394,7 +393,7 @@ const MyProfile = () => {
                 ) : (
                   <Formik
                     initialValues={{
-                      iceBreaker: iceBreakerList,
+                      ice_breaker: iceBreakerList,
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(data, { setFieldError, resetForm }) => {
@@ -421,14 +420,14 @@ const MyProfile = () => {
                       <Form id="saveIceBreaker" className="w-full">
                         <div className="mb-5 flex w-full flex-wrap space-y-2 md:space-y-0 xxl:space-x-10">
                           <FieldArray
-                            name="iceBreaker"
+                            name="ice_breaker"
                             render={(arrayHelper) => {
                               ArrayHelperRef.current = arrayHelper;
                               return (
                                 <>
-                                  {values?.iceBreaker &&
-                                    values?.iceBreaker.length > 0 &&
-                                    values.iceBreaker.map((breakerData, index) => (
+                                  {values?.ice_breaker &&
+                                    values?.ice_breaker.length > 0 &&
+                                    values.ice_breaker.map((breakerData, index) => (
                                       <div
                                         key={breakerData.question_id}
                                         className="relative mb-2 w-full xxl:w-[31%] xxl:px-0"
@@ -439,16 +438,16 @@ const MyProfile = () => {
                                           </h3>
                                           <Field
                                             type="hidden"
-                                            name={`iceBreaker.${index}.question_id`}
+                                            name={`ice_breaker.${index}.question_id`}
                                           />
                                           <Field
                                             as="textarea"
-                                            name={`iceBreaker.${index}.answer`}
+                                            name={`ice_breaker.${index}.answer`}
                                             placeholder="Please enter some details"
                                             className="text-bold h-20 w-full max-w-full list-decimal space-y-1 p-1 tracking-wide"
                                           />
                                           <ErrorMessage
-                                            name={`iceBreaker.${index}.answer`}
+                                            name={`ice_breaker.${index}.answer`}
                                             component="div"
                                             className="error-message"
                                           />
@@ -457,7 +456,7 @@ const MyProfile = () => {
                                           type="button"
                                           className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400 xxl:right-0"
                                           onClick={() => arrayHelper.remove(index)}
-                                          hidden={values.iceBreaker.length <= 1}
+                                          hidden={values.ice_breaker.length <= 1}
                                         >
                                           <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -490,7 +489,7 @@ const MyProfile = () => {
                             }}
                           />
                         </div>
-                        {values.iceBreaker?.length < 3 && iceBreakereditMode ? (
+                        {values.ice_breaker?.length < 3 && iceBreakereditMode ? (
                           <div className="w-full px-0 xxl:px-0">
                             <div className="relative  border border-dashed border-yellow">
                               <div className="relative flex h-full w-full items-center justify-center">

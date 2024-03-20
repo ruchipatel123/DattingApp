@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { logout } from 'slices/auth';
 import { useAppDispatch } from 'store';
 
 const Sidebar = ({ isOpen, toggle }) => {
   const router = useRouter();
+  const { user } = useSelector((store: any) => {
+    return store.auth;
+  });
   const dispatch = useAppDispatch();
   return (
     <>
@@ -27,24 +31,29 @@ const Sidebar = ({ isOpen, toggle }) => {
       >
         <nav className="mt-5 space-y-5 text-center md:mt-20 md:pr-0">
           {/* Add your sidebar navigation links here */}
-          <Link
-            href="discover"
-            className={`hover:bg-gray-700 flex items-center  space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
-              router.pathname === '/discover' ? 'bg-[#E1EEFC]' : ''
-            }`}
-          >
-            <span className="icon mr-1">
-              <img src="/assets/images/discover-icon.svg" alt="discover" />
-            </span>{' '}
-            Discover
-          </Link>
+          {user?.user_type == 2 ? (
+            <Link
+              href="discover"
+              className={`hover:bg-gray-700 flex items-center  space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
+                router.pathname === '/discover' ? 'bg-[#E1EEFC]' : ''
+              }`}
+            >
+              <span className="icon mr-1">
+                <img src="/assets/images/discover-icon.svg" alt="discover" />
+              </span>{' '}
+              Discover
+            </Link>
+          ) : (
+            ''
+          )}
+
           <Link
             href="/common-threads"
             className={`hover:bg-gray-700 flex items-center space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
               router.pathname === '/common-threads' ? 'bg-[#E1EEFC]' : ''
             }`}
           >
-            <span className="icon  mr-1">
+            <span className="icon mr-1">
               <img src="/assets/images/tread-icon.svg" alt="tread" />
             </span>{' '}
             Common Threads
@@ -55,7 +64,7 @@ const Sidebar = ({ isOpen, toggle }) => {
               router.pathname === '/my-connections' ? 'bg-[#E1EEFC]' : ''
             }`}
           >
-            <span className="icon  mr-1">
+            <span className="icon mr-1">
               <img src="/assets/images/connection-icon.svg" alt="connection" />
             </span>{' '}
             My Connections
@@ -63,7 +72,7 @@ const Sidebar = ({ isOpen, toggle }) => {
         </nav>
 
         <button
-          title="Log Out"
+          title="Sign Out"
           className=" absolute left-0 right-0 top-3/4 h-6 font-raleway text-md"
           onClick={() => {
             dispatch(logout({}))
@@ -73,7 +82,7 @@ const Sidebar = ({ isOpen, toggle }) => {
               });
           }}
         >
-          Log Out
+          Sign out
         </button>
       </div>
     </>

@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -36,11 +35,15 @@ const Login = () => {
     setLoading(true);
     dispatch(login({ username: username, password: password }))
       .unwrap()
-      .then(() => {
+      .then((data) => {
         resetForm();
         deleteCookie('reguser');
         deleteCookie('stage');
-        redirect('/discover');
+        if (data?.user?.user_type == 2) {
+          router.push('/discover');
+        } else {
+          router.push('/common-threads');
+        }
       })
       .catch((e) => {
         if (e?.response?.data?.errors) {

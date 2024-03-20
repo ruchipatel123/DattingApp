@@ -3,10 +3,16 @@ import Link from 'next/link';
 import Logo from './Logo';
 import { useSelector } from 'react-redux';
 import ProfileDropdown from 'components/Profile/ProfileDropdown';
+import { useAppDispatch } from 'store';
+import { me } from 'slices/auth';
 
 const AuthHeader = () => {
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
-  useEffect(() => {}, [isLoggedIn]);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(me({}));
+  }, [isLoggedIn]);
   return (
     <header className="site-header fixed left-0 right-0 top-0 z-50 flex w-full bg-white py-5">
       <div className="flex w-full flex-wrap items-center px-5 md:justify-between md:px-10">

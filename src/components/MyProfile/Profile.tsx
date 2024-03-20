@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { me } from 'slices/auth';
+import { useAppDispatch } from 'store';
 
-const Profile = ({
-  hobbyQuestion,
-  setEditMode,
-  editMode,
-  relationShipStatus,
-  iceBreakereditMode,
-}) => {
+const Profile = ({ setEditMode, editMode, relationShipStatus, iceBreakereditMode }) => {
   const { user } = useSelector((state: any) => {
     return state?.auth;
   });
-
+  const dispatch = useAppDispatch();
+  const [hobbyQuestionData, setHobbyQuestionData] = useState<any>([]);
+  useEffect(() => {
+    dispatch(me({}))
+      .unwrap()
+      .then((data) => {
+        setHobbyQuestionData(
+          data?.user?.questions?.filter((element: any) => {
+            return element?.question == 'Hobbies';
+          })[0] || []
+        );
+      });
+  }, []);
   return (
     <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
       <div className="flex w-full justify-between">
@@ -104,6 +112,11 @@ const Profile = ({
               </h2>
               <div className="flex flex-wrap">
                 {question?.options?.map((option) => {
+                  console.log(
+                    question.selectedOptions.indexOf(option?.id) >= 0,
+                    question.selectedOptions,
+                    option?.id
+                  );
                   return (
                     <span
                       key={option.id}
@@ -124,12 +137,12 @@ const Profile = ({
       <div className="mt-2 flex w-full flex-wrap">
         <h2 className="mb-2 w-full font-raleway text-sm tracking-wide	text-blue">Interests</h2>
         <div className="flex flex-wrap">
-          {hobbyQuestion.options?.map((option) => {
+          {hobbyQuestionData?.options?.map((option) => {
             return (
               <span
                 key={option.id}
                 className={
-                  hobbyQuestion.selectedOptions.indexOf(option?.id) >= 0
+                  hobbyQuestionData.selectedOptions.indexOf(option?.id) >= 0
                     ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-5 py-2 text-xs'
                     : 'mr-2 mt-2 rounded-full border border-blue-100 px-5 py-2 text-xs'
                 }
