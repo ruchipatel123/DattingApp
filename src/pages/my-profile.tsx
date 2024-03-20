@@ -187,7 +187,7 @@ const MyProfile = () => {
                           setImages(resp?.user?.userProfileImages || []);
                         });
                     }}
-                    className="-ml-2 flex space-x-4 overflow-auto px-2 py-5"
+                    className="-ml-2 flex space-x-4 overflow-auto px-2 pb-1 pt-3"
                   >
                     {Array.from(Array(images.length < 5 ? images.length + 1 : 5).keys()).map(
                       (element, index) => {
@@ -195,10 +195,10 @@ const MyProfile = () => {
                           <Reorder.Item
                             key={images[index].id}
                             value={images[index]}
-                            className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg"
+                            className="relative flex w-[200px] flex-none flex-col items-center overflow-hidden rounded-xl bg-white shadow"
                           >
                             <div
-                              className={`bg-image  h-64 w-full rounded-lg bg-cover bg-center`}
+                              className={`bg-image  h-[300px] w-full rounded-xl bg-cover bg-center`}
                               style={{ backgroundImage: `url(${images[index]?.file_url})` }}
                             ></div>
                             <button
@@ -275,8 +275,8 @@ const MyProfile = () => {
                             </div>
                           </Reorder.Item>
                         ) : (
-                          <div className="relative flex w-52 flex-none flex-col items-center overflow-hidden rounded bg-white shadow-lg">
-                            <div className="ml-3 h-64 w-52">
+                          <div className="relative flex w-[200px] flex-none flex-col items-center overflow-hidden rounded-xl bg-white shadow">
+                            <div className="ml-3 h-[300px] w-[200px]">
                               <div className="absolute flex h-full w-full items-center justify-center">
                                 <input
                                   type="file"
@@ -321,7 +321,7 @@ const MyProfile = () => {
             ) : (
               <QuestionSet relationShipStatus={relationShipStatus} setEditMode={setEditMode} />
             )}
-            <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
+            <div className="mb-5 mt-5 h-max w-full rounded-lg">
               <div className="flex w-full justify-between">
                 <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">
                   My Ice Breakers
@@ -357,7 +357,7 @@ const MyProfile = () => {
                   iceBreakerList?.map((element: any) => {
                     return (
                       <div key={element?.question_id} className="w-full px-0 xxl:px-0">
-                        <div className="rounded-lg border-2 border-yellow  bg-white p-5 font-raleway font-semibold leading-tight text-blue">
+                        <div className="rounded-lg border-2 border-yellow  bg-white px-5 py-3 font-raleway font-semibold leading-tight text-blue">
                           <h3 className="mb-3 font-raleway text-base font-normal tracking-wider">
                             {element?.breaker_question || ''}
                           </h3>
