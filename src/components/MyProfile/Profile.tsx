@@ -21,9 +21,9 @@ const Profile = ({ setEditMode, editMode, relationShipStatus, iceBreakereditMode
       });
   }, []);
   return (
-    <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
+    <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-4 ">
       <div className="flex w-full justify-between">
-        <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">
+        <h2 className="mb-4 font-raleway text-lg font-semibold leading-none text-blue">
           {user?.firstname ?? ''} {user?.lastname ?? ''}{' '}
           <span className="font-light">{user?.age ?? ''}</span>
         </h2>
@@ -122,8 +122,8 @@ const Profile = ({ setEditMode, editMode, relationShipStatus, iceBreakereditMode
                       key={option.id}
                       className={
                         question.selectedOptions.indexOf(option?.id) >= 0
-                          ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-5 py-2 text-xs'
-                          : 'mr-2 mt-2 rounded-full border border-blue-100 px-5 py-2 text-xs'
+                          ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-4 py-1 text-xs'
+                          : 'mr-2 mt-2 rounded-full border border-blue-100 px-4 py-1 text-xs'
                       }
                     >
                       {option?.option}
@@ -143,8 +143,8 @@ const Profile = ({ setEditMode, editMode, relationShipStatus, iceBreakereditMode
                 key={option.id}
                 className={
                   hobbyQuestionData.selectedOptions.indexOf(option?.id) >= 0
-                    ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-5 py-2 text-xs'
-                    : 'mr-2 mt-2 rounded-full border border-blue-100 px-5 py-2 text-xs'
+                    ? 'mr-2 mt-2 rounded-full border border-blue-100 bg-[#E1EEFC]  px-4 py-1 text-xs'
+                    : 'mr-2 mt-2 rounded-full border border-blue-100 px-4 py-1 text-xs'
                 }
               >
                 {option?.option}
