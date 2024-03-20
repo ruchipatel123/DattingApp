@@ -62,6 +62,12 @@ const commonSlice = createSlice({
       { id: '3', value: 'Non-Binary' },
       { id: '0', value: 'Prefer Not To Say' },
     ],
+    lookingFor: [
+      { id: '1', value: 'Male' },
+      { id: '2', value: 'Female' },
+      { id: '3', value: 'Non-Binary' },
+      { id: '0', value: 'Any' },
+    ],
     hasChildren: [
       { id: '1', value: 'Yes' },
       { id: '0', value: 'No' },

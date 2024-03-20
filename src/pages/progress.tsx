@@ -1,4 +1,5 @@
 import Button from 'components/Button/Button';
+import { setCookie } from 'cookies-next';
 import React from 'react';
 
 const Progress = ({ setStage, stage }) => {
@@ -12,6 +13,7 @@ const Progress = ({ setStage, stage }) => {
               <Button
                 onClick={() => {
                   setStage(stage - 1);
+                  setCookie('stage', stage - 1);
                 }}
                 type="primary"
                 size="lg"
@@ -23,6 +25,7 @@ const Progress = ({ setStage, stage }) => {
               <Button
                 onClick={() => {
                   setStage(stage + 1);
+                  setCookie('stage', stage + 1);
                 }}
                 type="primary"
                 size="lg"

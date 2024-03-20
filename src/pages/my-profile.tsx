@@ -8,6 +8,7 @@ import { ErrorMessage, Field, FieldArray, FieldArrayRenderProps, Form, Formik } 
 import { Reorder } from 'framer-motion';
 import Layout from 'layout/Layout';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { me, updateMyIceBreaker, uploadFileToUser } from 'slices/auth';
 import { getIcebreakerQuestionList, uploadFile } from 'slices/common';
@@ -79,45 +80,67 @@ const MyProfile = () => {
 
   const handleImageChange = async (e: any) => {
     if (e.target.files[0]) {
-      dispatch(uploadFile(e.target.files[0]))
-        .unwrap()
-        .then(async (data: any) => {
-          const imageData: any = [];
-          images.forEach((image: any, index: number) => {
-            imageData.push(
-              image?.id == e?.target?.id?.split('__')[1]
-                ? { ...image, ...{ file_url: data?.file_url } }
-                : image
-            );
-          });
-          dispatch(uploadFileToUser({ profile_images: imageData }))
-            .unwrap()
-            .then((resp) => {
-              setImages(resp?.user?.userProfileImages || []);
+      if (
+        ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/png'].indexOf(
+          e.target.files[0].type
+        ) < 0
+      ) {
+        toast.error('Please select only jpg, jpeg, gif or png image!');
+      } else if (e.target.files[0].size / 1048576 > 5) {
+        toast.error('Please select image of max 5 mb!');
+      } else {
+        dispatch(uploadFile(e.target.files[0]))
+          .unwrap()
+          .then(async (data: any) => {
+            const imageData: any = [];
+            images.forEach((image: any, index: number) => {
+              imageData.push(
+                image?.id == e?.target?.id?.split('__')[1]
+                  ? { ...image, ...{ file_url: data?.file_url } }
+                  : image
+              );
             });
-        });
+            dispatch(uploadFileToUser({ profile_images: imageData }))
+              .unwrap()
+              .then((resp) => {
+                setImages(resp?.user?.userProfileImages || []);
+              });
+          });
+      }
     }
   };
   const handleImageChangeNewFile = async (e: any) => {
     if (e.target.files[0]) {
-      dispatch(uploadFile(e.target.files[0]))
-        .unwrap()
-        .then(async (data: any) => {
-          const imageData: any = [];
-          images.forEach((image: any, index: number) => {
-            imageData.push(
-              image?.id == e?.target?.id?.split('__')[1]
-                ? { ...image, ...{ file_url: data?.file_url } }
-                : image
-            );
-          });
-          imageData.push({ ...data, sort_order: images.length + 1 });
-          dispatch(uploadFileToUser({ profile_images: imageData }))
+      if (e.target.files[0]) {
+        if (
+          ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/png'].indexOf(
+            e.target.files[0].type
+          ) < 0
+        ) {
+          toast.error('Please select only jpg, jpeg, gif or png image!');
+        } else if (e.target.files[0].size / 1048576 > 5) {
+          toast.error('Please select image of max 5 mb!');
+        } else {
+          dispatch(uploadFile(e.target.files[0]))
             .unwrap()
-            .then((resp) => {
-              setImages(resp?.user?.userProfileImages || []);
+            .then(async (data: any) => {
+              const imageData: any = [];
+              images.forEach((image: any, index: number) => {
+                imageData.push(
+                  image?.id == e?.target?.id?.split('__')[1]
+                    ? { ...image, ...{ file_url: data?.file_url } }
+                    : image
+                );
+              });
+              imageData.push({ ...data, sort_order: images.length + 1 });
+              dispatch(uploadFileToUser({ profile_images: imageData }))
+                .unwrap()
+                .then((resp) => {
+                  setImages(resp?.user?.userProfileImages || []);
+                });
             });
-        });
+        }
+      }
     }
   };
   useEffect(() => {
