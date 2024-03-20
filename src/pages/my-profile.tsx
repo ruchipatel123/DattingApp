@@ -351,7 +351,7 @@ const MyProfile = () => {
                 </h2>
                 {!iceBreakereditMode && !editMode ? (
                   <div
-                    className="smile w-[20px]"
+                    className="smile mt-1 w-[20px]"
                     onClick={() => {
                       seticeBreakerEditMode(!iceBreakereditMode);
                     }}
