@@ -9,7 +9,7 @@ const Progress = ({ setStage, stage }) => {
         <div className="progress-container bg-white-transperent flex flex-col items-center justify-center rounded px-4 pt-4 shadow-md md:px-5">
           <h2 className="text-md text-blue">You’re {stage}0% of the way through!</h2>
           <div className="btn-wrap mt-4 flex  flex-wrap justify-center space-x-2  md:space-x-7">
-            <div className="mb-5">
+            <div className="mb-5 ">
               <Button
                 onClick={() => {
                   setStage(stage - 1);
