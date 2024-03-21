@@ -178,7 +178,7 @@ const MyProfile = () => {
     <>
       <Layout meta={{ title: 'Valadate' }}>
         <AuthHeader />
-        <div className="flex min-h-[100vh] flex-wrap">
+        <div className="flex min-h-[100vh] flex-wrap bg-[url('/assets/images/network-background.png')]  bg-top">
           <Sidebar isOpen={isOpen} toggle={toggleSidebar} />
           <div className={`flex w-[100%] flex-wrap  pb-[80px] pl-5 pr-5 pt-[100px]  md:pl-[20%]`}>
             <Formik
@@ -343,7 +343,7 @@ const MyProfile = () => {
             ) : (
               <QuestionSet relationShipStatus={relationShipStatus} setEditMode={setEditMode} />
             )}
-            <div className="mb-5 mt-10 h-max w-full rounded-lg border border-yellow p-5 ">
+            <div className="mb-5 mt-10 h-max w-full  ">
               <div className="flex w-full justify-between">
                 <h2 className="mb-4 font-raleway text-lg font-semibold text-blue">
                   My Ice Breakers

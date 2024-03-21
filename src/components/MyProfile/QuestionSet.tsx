@@ -212,7 +212,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                       }}
                     />
                   </div>
-                  <span className="ml-2 align-bottom font-raleway text-md text-gray md:text-lg">
+                  <span className="align-center ml-2 font-raleway text-md text-gray md:text-lg">
                     {high} miles
                   </span>
                 </div>
@@ -438,7 +438,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                                 <Field
                                   as="select"
                                   name={'question__' + question.id}
-                                  className="`inline-block border-${borderColor} focus:shadow-outline h-full w-full min-w-40 appearance-none rounded border bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                                  className="`inline-block border-${borderColor} focus:shadow-outline h-full w-full min-w-40 appearance-none rounded border bg-transparent bg-[url('/assets/images/arrow.png')] bg-[96%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
                                 >
                                   <option key={'s' + question.id} value="">
                                     Select

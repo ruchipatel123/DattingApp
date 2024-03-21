@@ -371,3 +371,23 @@ background: linear-gradient(90deg, #FF4365 0%, #FDBC40 51.04%, #06D6A0 100%)  !i
   top: -15px;
 }
 
+
+/* width */
+#formimageUpload ::-webkit-scrollbar {
+  height: 8px;
+}
+
+/* Track */
+#formimageUpload ::-webkit-scrollbar-track {
+  background: #888;
+}
+
+/* Handle */
+#formimageUpload ::-webkit-scrollbar-thumb {
+  background: #000 !important;
+}
+
+/* Handle on hover */
+#formimageUpload ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

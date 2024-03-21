@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, toggle }) => {
         </svg>
       </button>
       <div
-        className={` left-0 top-[80px] min-h-[400px] w-full   transform overflow-y-auto bg-white md:h-full md:w-[20%] md:transform-none ${
+        className={` left-0 top-[80px] min-h-[400px] w-full  transform overflow-y-auto bg-white md:h-[90vh] md:w-[20%] md:transform-none ${
           isOpen ? 'relative translate-y-0 ease-out' : 'fixed -translate-y-full ease-in'
         } z-30 transition duration-300`}
       >
@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, toggle }) => {
 
         <button
           title="Sign Out"
-          className=" absolute left-0 right-0 top-3/4 h-6 font-raleway text-md"
+          className=" absolute bottom-8 left-0 right-0 h-6 w-full font-raleway text-md"
           onClick={() => {
             dispatch(logout({}))
               .unwrap()
