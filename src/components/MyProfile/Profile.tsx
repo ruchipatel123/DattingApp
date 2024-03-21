@@ -112,11 +112,6 @@ const Profile = ({ setEditMode, editMode, relationShipStatus, iceBreakereditMode
               </h2>
               <div className="flex flex-wrap">
                 {question?.options?.map((option) => {
-                  console.log(
-                    question.selectedOptions.indexOf(option?.id) >= 0,
-                    question.selectedOptions,
-                    option?.id
-                  );
                   return (
                     <span
                       key={option.id}
