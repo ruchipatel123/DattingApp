@@ -1,3 +1,4 @@
+import AutoCompleteDropdown from 'components/RegistrationComponents/AutoCompleteDropdown';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { RangeSlider } from 'next-range-slider';
 import React, { useState } from 'react';
@@ -51,6 +52,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
         .required('Please enter city name!')
         .min(1, 'Please enter city name with minimum 1 character!')
         .max(255, 'Please enter city name with maximum 255 characters!'),
+      latitude: Yup.string().required('Please enter city name from auto suggestion!'),
       state: Yup.string()
         .required('Please enter state name!')
         .min(1, 'Please enter state name with minimum 1 character!')
@@ -123,7 +125,7 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
           handleFormSubmit(data, setFieldError, resetForm);
         }}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, errors }) => (
           <Form className="mb-5 flex flex-wrap md:-mx-5" id={'formprofile'}>
             <div className="mb-3 w-full md:w-3/5 md:px-5">
               <label className="block  w-full text-md font-normal">First Name</label>
@@ -148,9 +150,14 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
               <Field
                 name="city"
                 type="text"
+                component={AutoCompleteDropdown}
                 className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
               />
-              <ErrorMessage name="city" component="div" className="error-message" />
+              {errors?.city ? (
+                <ErrorMessage name="city" component="div" className="error-message" />
+              ) : (
+                <ErrorMessage name="latitude" component="div" className="error-message" />
+              )}
             </div>
             <div className="mb-5 w-full md:w-[25%] md:px-5">
               <label className="block  w-full text-md font-normal">State</label>

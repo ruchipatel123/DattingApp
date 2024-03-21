@@ -4,6 +4,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { getCookie } from 'cookies-next';
 import FacebookLogin from '@greatsumini/react-facebook-login';
+import { useAppDispatch } from 'store';
+import { loginFacebookCallback } from 'slices/auth';
 
 const RegistrationForm = ({ stage, handleProgress }) => {
   const [initialValueData, setInitValuesData] = useState<any>(
@@ -40,6 +42,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
     password: initialValueData?.password ?? '',
   };
 
+  const dispatch = useAppDispatch();
   const handleFacebookLogin = (response) => {
     const { accessToken } = response;
     console.log(accessToken, response);
@@ -52,7 +55,7 @@ const RegistrationForm = ({ stage, handleProgress }) => {
         social_media_id: response?.userID,
       },
     });
-    //loginWithFacebook(accessToken);
+    dispatch(loginFacebookCallback({ code: accessToken }));
   };
   return (
     <>

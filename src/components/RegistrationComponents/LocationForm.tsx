@@ -4,6 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { RangeSlider } from 'next-range-slider';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import AutoCompleteDropdown from './AutoCompleteDropdown';
 
 const LocationForm = ({ stage, handleProgress }) => {
   const [initialValueData] = useState<any>(JSON.parse(getCookie('reguser') ?? '{}'));
@@ -14,6 +15,7 @@ const LocationForm = ({ stage, handleProgress }) => {
       .required('Please enter city name!')
       .min(1, 'Please enter city name with minimum 1 character!')
       .max(255, 'Please enter city name with maximum 255 characters!'),
+    latitude: Yup.string().required('Please enter city name from auto suggestion!'),
     state: Yup.string()
       .required('Please enter state name!')
       .min(1, 'Please enter state name with minimum 1 character!')
@@ -31,8 +33,8 @@ const LocationForm = ({ stage, handleProgress }) => {
     zipcode: initialValueData?.zipcode ?? '',
     dob: initialValueData?.dob ?? '',
     radius_miles: initialValueData?.radius_miles ?? 100,
-    latitude: initialValueData?.latitude ?? '118.2426',
-    longitude: initialValueData?.longitude ?? '34.0549',
+    latitude: initialValueData?.latitude ?? null,
+    longitude: initialValueData?.longitude ?? null,
   };
 
   return (
@@ -45,16 +47,21 @@ const LocationForm = ({ stage, handleProgress }) => {
           handleProgress(data, setFieldError, resetForm);
         }}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, errors }) => (
           <Form className="flex flex-wrap md:-mx-5" id={'form' + stage}>
             <div className="mb-8 w-full md:w-[50%] md:px-5">
               <label className="block  w-full text-md font-normal">City</label>
               <Field
                 name="city"
+                component={AutoCompleteDropdown}
                 type="text"
                 className="m-auto h-[60px] w-full max-w-full rounded-lg border border-gray-400 bg-transparent px-4 py-2 text-md focus:border-black focus:outline-none"
               />
-              <ErrorMessage name="city" component="div" className="error-message" />
+              {errors?.city ? (
+                <ErrorMessage name="city" component="div" className="error-message" />
+              ) : (
+                <ErrorMessage name="latitude" component="div" className="error-message" />
+              )}
             </div>
             <div className="mb-8 w-full md:w-[25%] md:px-5">
               <label className="block  w-full text-md font-normal">State</label>

@@ -108,9 +108,11 @@ const loginWithFacebook = () => {
 };
 
 const loginWithFacebookCallaback = (code) => {
-  return axios.get(API_URL + 'login-facebook-callback?code=' + code).then((response) => {
-    return response.data;
-  });
+  return axios
+    .post(API_URL + 'login-facebook-callback', { access_token: code })
+    .then((response) => {
+      return response.data;
+    });
 };
 
 const inviteUserByEmailId = (args) => {
