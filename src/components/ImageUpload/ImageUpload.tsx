@@ -34,7 +34,7 @@ const ImageUpload = ({ setFieldValue, fieldName, values, element }) => {
             onChange={handleImageChange}
             className="absolute bottom-0 left-0 right-0 top-0 z-10 h-full w-full opacity-0"
           />
-          {!values.images[element] && (
+          {values.images && !values.images[element] && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="46"
@@ -48,7 +48,7 @@ const ImageUpload = ({ setFieldValue, fieldName, values, element }) => {
           )}
         </div>
         <div className="image_wrap relative overflow-hidden pb-[120%] text-center">
-          {values.images[element] && (
+          {values.images && values.images[element] && (
             <img
               src={values.images[element]}
               alt="Uploaded image"

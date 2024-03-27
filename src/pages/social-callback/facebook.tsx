@@ -10,8 +10,7 @@ const Facebook = () => {
   const loginWithFacebook = async (code) => {
     dispatch(loginFacebookCallback({ code: code }))
       .unwrap()
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         if (getCookie('stage')) setCookie('stage', Number(getCookie('stage')) + 2);
         router.push('/register');
       });

@@ -48,9 +48,9 @@ const Sidebar = ({ isOpen, toggle }) => {
           )}
 
           <Link
-            href="/common-threads"
+            href="/discover/common-threads"
             className={`hover:bg-gray-700 flex items-center space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
-              router.pathname === '/common-threads' ? 'bg-[#E1EEFC]' : ''
+              router.pathname === '/discover/common-threads' ? 'bg-[#E1EEFC]' : ''
             }`}
           >
             <span className="icon mr-1">
@@ -59,9 +59,9 @@ const Sidebar = ({ isOpen, toggle }) => {
             Common Threads
           </Link>
           <Link
-            href="/my-connections"
+            href="/discover/my-connections"
             className={`hover:bg-gray-700 flex  items-center space-x-5 px-2 py-2 text-md font-normal text-gray hover:bg-[#E1EEFC] lg:px-4 ${
-              router.pathname === '/my-connections' ? 'bg-[#E1EEFC]' : ''
+              router.pathname === '/discover/my-connections' ? 'bg-[#E1EEFC]' : ''
             }`}
           >
             <span className="icon mr-1">

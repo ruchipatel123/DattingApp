@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { deleteCookie } from 'cookies-next';
 import moment from 'moment';
-const API_URL = 'https://valadate.merlin.dev.project-progress.net/';
+const API_URL = 'http://localhost/valadate-laravel-backend/public/';
 
 const register = async (args) => {
   const objectKeys = Object.keys(args);
@@ -34,7 +34,7 @@ const login = (username, password) => {
     })
     .then((response) => {
       if (response?.data?.data?.accessToken) {
-        localStorage.setItem('user', JSON.stringify(response?.data?.data));
+        localStorage.setItem('user', JSON.stringify(response?.data?.data?.user));
       }
       return response.data;
     });
@@ -144,6 +144,29 @@ const updateProfile = async (args) => {
   });
 };
 
+const completeMySocialProfile = async (args) => {
+  const objectKeys = Object.keys(args);
+  const object = {};
+  objectKeys.forEach((value) => {
+    if (value.includes('question_')) {
+      const keyval = value.split('__');
+      if (keyval[1]?.includes('is_deal_breaker')) {
+        object['question[' + keyval[1].split('_is_deal_breaker')[0] + '][is_deal_breaker]'] =
+          args[value];
+      } else {
+        object['question[' + keyval[1] + ']'] = args[value];
+      }
+    } else if (value == 'dob') {
+      object[value] = moment(args[value]).format('YYYY-MM-DD');
+    } else {
+      object[value] = args[value];
+    }
+  });
+  return axios.post(API_URL + 'complete-social-profile', object).then((response: any) => {
+    return response.data;
+  });
+};
+
 const updateIceBreaker = async (args) => {
   return axios.post(API_URL + 'my-ice-breaker', args).then((response: any) => {
     return response.data;
@@ -170,6 +193,7 @@ const authService = {
   updateProfile,
   updateIceBreaker,
   uploadUserFile,
+  completeMySocialProfile,
 };
 
 export default authService;

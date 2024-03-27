@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { getCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { useAppDispatch } from 'store';
 import { loginFacebookCallback } from 'slices/auth';
+import { useRouter } from 'next/router';
 
 const RegistrationForm = ({ stage, handleProgress }) => {
   const [initialValueData, setInitValuesData] = useState<any>(
     JSON.parse(getCookie('reguser') ?? '{}')
   );
+
   const validationSchema = Yup.object().shape({
     firstname: Yup.string()
       .required('Please enter first name!')
@@ -43,9 +45,9 @@ const RegistrationForm = ({ stage, handleProgress }) => {
   };
 
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const handleFacebookLogin = (response) => {
     const { accessToken } = response;
-    console.log(accessToken, response);
     setInitValuesData({
       ...initialValueData,
       ...{
@@ -55,7 +57,25 @@ const RegistrationForm = ({ stage, handleProgress }) => {
         social_media_id: response?.userID,
       },
     });
-    dispatch(loginFacebookCallback({ code: accessToken }));
+    const regUser = getCookie('reguser') ?? '{}';
+    dispatch(
+      loginFacebookCallback({
+        code: accessToken,
+        user_type: JSON.parse(regUser)?.user_type ? JSON.parse(regUser)?.user_type : 2,
+      })
+    )
+      .unwrap()
+      .then((data) => {
+        setCookie('token', data?.token);
+        setCookie('status', data?.user.status);
+        deleteCookie('reguser');
+        deleteCookie('stage');
+        if (data?.user?.user_type == 2) {
+          router.push('/discover');
+        } else {
+          router.push('/discover/common-threads');
+        }
+      });
   };
   return (
     <>
@@ -126,8 +146,8 @@ const RegistrationForm = ({ stage, handleProgress }) => {
             <div className="text-center">
               <FacebookLogin
                 appId={'1648935228679261'}
-                fields="name,email,picture"
-                scope="public_profile,email"
+                fields="id,name,email,picture"
+                scope="public_profile,email,user_friends,user_birthday,user_gender"
                 onSuccess={handleFacebookLogin}
                 onFail={(error) => {
                   console.log(error);

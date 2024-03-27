@@ -5,13 +5,30 @@ import { useSelector } from 'react-redux';
 import ProfileDropdown from 'components/Profile/ProfileDropdown';
 import { useAppDispatch } from 'store';
 import { me } from 'slices/auth';
+import { useRouter } from 'next/router';
+import { getCookie } from 'cookies-next';
 
 const AuthHeader = () => {
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    dispatch(me({}));
+    if (
+      getCookie('status') &&
+      getCookie('status') == '3' &&
+      router.pathname !== '/discover/complete-my-profile'
+    ) {
+      router.push('/discover/complete-my-profile');
+    }
+  }, []);
+  useEffect(() => {
+    dispatch(me({}))
+      .unwrap()
+      .then((data) => {
+        if (router.pathname === '/discover' && data?.user) {
+        }
+      });
   }, [isLoggedIn]);
   return (
     <header className="site-header fixed left-0 right-0 top-0 z-50 flex w-full bg-white py-5">

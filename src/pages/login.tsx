@@ -4,25 +4,29 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'store';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { login } from 'slices/auth';
+import { login, loginFacebookCallback } from 'slices/auth';
 import { useRouter } from 'next/router';
 import Header from 'components/Header/Header';
 import Layout from 'layout/Layout';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import FacebookLogin from '@greatsumini/react-facebook-login';
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
-  const dispatch = useAppDispatch();
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Please enter email!').email('Please enter valid email!'),
-    password: Yup.string().required('Please enter password!'),
-  });
+  const [initialValueData, setInitValuesData] = useState<any>(
+    JSON.parse(getCookie('reguser') ?? '{}')
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const dispatch = useAppDispatch();
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required('Please enter email!').email('Please enter valid email!'),
+    password: Yup.string().required('Please enter password!'),
+  });
 
   useEffect(() => {
     setShowComponent(true);
@@ -30,6 +34,33 @@ const Login = () => {
       router.push('/discover');
     }
   }, [isLoggedIn]);
+
+  const handleFacebookLogin = (response) => {
+    const { accessToken } = response;
+    setInitValuesData({
+      ...initialValueData,
+      ...{
+        firstname: response?.name?.split(' ')[0] || '',
+        lastname: response?.name?.split(' ')[1] || '',
+        email: response?.email,
+        social_media_id: response?.userID,
+      },
+    });
+    dispatch(loginFacebookCallback({ code: accessToken }))
+      .unwrap()
+      .then((data) => {
+        setCookie('token', data?.token);
+        setCookie('status', data?.user.status);
+        deleteCookie('reguser');
+        deleteCookie('stage');
+        if (data?.user?.user_type == 2) {
+          router.push('/discover');
+        } else {
+          router.push('/discover/common-threads');
+        }
+      });
+  };
+
   const handleLogin = (formValue, setFieldError, resetForm) => {
     const { username, password } = formValue;
     setLoading(true);
@@ -42,7 +73,7 @@ const Login = () => {
         if (data?.user?.user_type == 2) {
           router.push('/discover');
         } else {
-          router.push('/common-threads');
+          router.push('/discover/common-threads');
         }
       })
       .catch((e) => {
@@ -144,9 +175,25 @@ const Login = () => {
                     </p>
                   </div>
                   <div className="text-center">
-                    <button className="fb-btn">
-                      <img src="assets/images/fb-btn.png" alt="facebook" />
-                    </button>
+                    <FacebookLogin
+                      appId={'1648935228679261'}
+                      fields="id,name,email,picture"
+                      scope="public_profile,email,user_friends,user_birthday,user_gender"
+                      onSuccess={handleFacebookLogin}
+                      onFail={(error) => {
+                        console.log(error);
+                      }}
+                      render={(renderProps) => (
+                        <button
+                          className="fb-btn"
+                          type="button"
+                          onClick={renderProps.onClick}
+                          disabled={false}
+                        >
+                          <img src="assets/images/fb-btn.png" alt="facebook-link-button" />
+                        </button>
+                      )}
+                    />
                   </div>
                 </Form>
               </Formik>

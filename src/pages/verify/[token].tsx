@@ -8,7 +8,6 @@ import Layout from 'layout/Layout';
 
 const ResetPasswordWithLink = () => {
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<any>(null);
   const [errormessage, seterrormessage] = useState<any>(null);
   const isLoggedIn = useSelector((state: any) => state?.auth?.isLoggedIn);
@@ -20,13 +19,10 @@ const ResetPasswordWithLink = () => {
       router.push('/discover');
     } else {
       if (token) {
-        setLoading(true);
-
         dispatch(verifyAccount({ token: token }))
           .unwrap()
           .then(() => {
             setShowComponent(true);
-            setLoading(false);
             setSuccess(1);
             setTimeout(() => {
               router.push('/login');
@@ -36,7 +32,6 @@ const ResetPasswordWithLink = () => {
             setShowComponent(true);
             setSuccess(2);
             if (e?.response?.data?.errors) {
-              setLoading(false);
               seterrormessage(e?.response?.data?.errors.general);
             }
           });

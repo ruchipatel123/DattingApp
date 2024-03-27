@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 const QuestionSet = ({ setEditMode, relationShipStatus }) => {
   const fields = {};
   let validationSchema = {};
-  const { genderList, lookingFor, hasChildren } = useSelector((state: any) => {
+  const { genderList, lookingFor, hasChildren, optionin, optionft } = useSelector((state: any) => {
     return state?.common;
   });
   const { user } = useSelector((state: any) => {
@@ -272,6 +272,49 @@ const QuestionSet = ({ setEditMode, relationShipStatus }) => {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+            <div className="mb-5 w-full md:px-5">
+              <h2 className="mb-2 font-raleway text-lg text-gray">How tall are you?</h2>
+              <div className="flex items-start text-gray md:w-96">
+                <div className="block">
+                  <Field
+                    as="select"
+                    name="height_feet"
+                    className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight focus:outline-none"
+                  >
+                    <option key={'sheightfeet'} value="">
+                      Select
+                    </option>
+                    {optionft.map((element) => {
+                      return (
+                        <option key={element?.id} value={element?.id}>
+                          {element?.value}
+                        </option>
+                      );
+                    })}
+                  </Field>
+                  <ErrorMessage name={'height_feet'} component="div" className="error-message" />
+                </div>
+                <div className="ml-3 block">
+                  <Field
+                    as="select"
+                    name="height_inch"
+                    className="focus:shadow-outline inline-block h-full w-auto min-w-40 appearance-none rounded border border-black bg-transparent bg-[url('/assets/images/arrow.png')] bg-[90%] bg-no-repeat px-4 py-2 pr-8 text-md leading-tight text-black focus:outline-none"
+                  >
+                    <option key={'sheightinch'} value="">
+                      Select
+                    </option>
+                    {optionin.map((element) => {
+                      return (
+                        <option key={element?.id} value={element?.id}>
+                          {element?.value}
+                        </option>
+                      );
+                    })}
+                  </Field>
+                  <ErrorMessage name={'height_inch'} component="div" className="error-message" />
+                </div>
               </div>
             </div>
             <div className=" mb-5  px-0  md:px-5">

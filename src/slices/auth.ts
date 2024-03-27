@@ -34,6 +34,23 @@ export const loginFacebookCallback = createAsyncThunk(
     try {
       const data = await AuthService.loginWithFacebookCallaback(args?.code ?? '');
       if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
+      setCookie('token', data?.data?.token);
+      return data.data;
+    } catch (error) {
+      if (error?.response?.data?.notify)
+        thunkAPI.dispatch(setErrorMessage(error?.response?.data?.notify ?? 'Somthing went wrong!'));
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const completeMyProfile = createAsyncThunk(
+  'user/complete-my-profile',
+  async (args: any, thunkAPI) => {
+    try {
+      const data = await AuthService.completeMySocialProfile(args);
+      if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
+      deleteCookie('status');
       return data.data;
     } catch (error) {
       if (error?.response?.data?.notify)
@@ -47,6 +64,7 @@ export const login = createAsyncThunk('user/login', async (args: any, thunkAPI) 
   try {
     const data = await AuthService.login(args.username, args.password);
     setCookie('token', data?.data?.token);
+    setCookie('user', data?.data?.user);
     if (data?.notify) thunkAPI.dispatch(setSuccessMessage(data?.notify ?? 'Success!'));
     return data.data;
   } catch (error) {
@@ -131,6 +149,7 @@ export const logout = createAsyncThunk('user/logout', async (args: any, thunkAPI
     const response = await AuthService.logout();
     if (response?.notify) thunkAPI.dispatch(setSuccessMessage(response?.notify ?? 'Success!'));
     deleteCookie('token');
+    deleteCookie('user');
     return response?.data ?? null;
   } catch (error) {
     if (error?.response?.data?.notify)
@@ -258,6 +277,9 @@ const authSlice = createSlice({
         state.user = action?.payload?.user ? action?.payload?.user : {};
       })
       .addCase(updateMyIceBreaker.fulfilled, (state: any, action: any) => {
+        state.user = action?.payload?.user ? action?.payload?.user : {};
+      })
+      .addCase(completeMyProfile.fulfilled, (state: any, action: any) => {
         state.user = action?.payload?.user ? action?.payload?.user : {};
       });
   },

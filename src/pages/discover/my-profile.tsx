@@ -42,7 +42,7 @@ const MyProfile = () => {
   const [iceBreakereditMode, seticeBreakerEditMode] = useState(false);
   const [iceBreakerList, seticeBreakerList] = useState<any>([]);
   const [isOpenModel, setIsOpenModel] = useState(false);
-  const [hobbyQuestion, setHobbyQuestion] = useState<any>({});
+
   const openIceBreakerModal = () => {
     setIsOpenModel(true);
   };
@@ -150,11 +150,6 @@ const MyProfile = () => {
       .unwrap()
       .then((data) => {
         //setUser(data?.user);
-        setHobbyQuestion(
-          data?.user?.questions?.filter((element: any) => {
-            return element?.question == 'Hobbies';
-          })[0] || []
-        );
         seticeBreakerList(
           data?.user?.ice_breakers?.map((question) => {
             return {

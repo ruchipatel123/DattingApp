@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 const middleware = (req: NextRequest) => {
-  const token = req.cookies.get('token');
+  const token: any = req.cookies.get('token');
   if (req.nextUrl.pathname.startsWith('/discover') && !token) {
     return NextResponse.redirect(new URL('/login', req.url));
   } else if (

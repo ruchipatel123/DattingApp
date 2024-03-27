@@ -48,8 +48,8 @@ const Register = () => {
         dispatch(checkEmail({ email: formValue?.email }))
           .unwrap()
           .then((data) => {
-            if (data) setLoading(false);
-            setStage(stage + 1);
+            if (data) setStage(stage + 1);
+            setLoading(false);
           })
           .catch((e) => {
             if (e?.response?.data?.errors) {
@@ -116,6 +116,7 @@ const Register = () => {
                       setCookie('stage', 10);
                     }
                   }}
+                  disabled={loading}
                   type="primary"
                   size="lg"
                 >
@@ -125,6 +126,7 @@ const Register = () => {
                   <button
                     form={'form' + stage}
                     type="submit"
+                    disabled={loading}
                     className="btn primary lg rounded-full border border-blue px-6 py-2 font-raleway text-md leading-none text-blue hover:bg-blue hover:text-white md:px-10"
                   >
                     Continue
@@ -140,6 +142,7 @@ const Register = () => {
                     }}
                     type="primary"
                     size="lg"
+                    disabled={loading}
                   >
                     Continue
                   </Button>
