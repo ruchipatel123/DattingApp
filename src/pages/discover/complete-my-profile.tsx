@@ -70,7 +70,7 @@ const CompleteMyProfile = () => {
         .max(255, 'Please enter zip code with maximum 255 characters!'),
       radius_miles: Yup.string().required('Please select miles!').min(1, 'Please select miles!'),
     },
-    ice_breaker: Yup.array()
+    iceBreaker: Yup.array()
       .max(3, 'Please select max 3 ice breaker')
       .min(1, 'Please select Ice breaker')
       .of(
@@ -96,7 +96,7 @@ const CompleteMyProfile = () => {
   const [iceBreakerList, seticeBreakerList] = useState<any>([]);
   const [isOpenModel, setIsOpenModel] = useState(false);
   const dispatch = useAppDispatch();
-  const [initialValues, setInitialValues] = useState<any>({});
+  const [initialValues, setInitialValues] = useState<any>({ iceBreaker: [] });
   const openIceBreakerModal = () => {
     setIsOpenModel(true);
   };
@@ -109,9 +109,9 @@ const CompleteMyProfile = () => {
 
   const addQuestionToIceBreaker = (question) => {
     if (
-      ArrayHelperRef?.current?.form?.values?.ice_breaker?.length < 4 &&
+      ArrayHelperRef?.current?.form?.values?.iceBreaker?.length < 4 &&
       question.question_id &&
-      ArrayHelperRef?.current?.form?.values?.ice_breaker?.filter((ele) => {
+      ArrayHelperRef?.current?.form?.values?.iceBreaker?.filter((ele) => {
         return ele.question_id == question.question_id;
       }) <= 0
     ) {
@@ -150,58 +150,45 @@ const CompleteMyProfile = () => {
     dispatch(me({}))
       .unwrap()
       .then((data) => {
-        //setUser(data?.user);
-        seticeBreakerList(
-          data?.user?.ice_breakers?.map((question) => {
-            return {
-              question_id: question?.ice_breaker_master_id,
-              answer: question.answer,
-              breaker_question: question?.ice_breaker_master.breaker_question,
-            };
-          }) ?? []
-        );
-        setInitialValues({
-          ...{
-            images: user?.userProfileImages ?? [],
-            firstname: user?.firstname ?? null,
-            lastname: user?.lastname ?? null,
-            city: user?.city ?? null,
-            state: user?.state ?? null,
-            zipcode: user?.zipcode ?? null,
-            latitude: user?.latitude?.toString() ?? null,
-            longitude: user?.longitude?.toString() ?? null,
-            radius_miles: user?.radius_miles ?? 100,
-            gender: user?.gender ?? null,
-            looking_for: user?.looking_for ?? null,
-            age_range_min: user?.age_range_min ?? 18,
-            age_range_max: user?.age_range_max ?? 100,
-            dating_intention: user?.dating_intention,
-            dating_intention_is_dealbreaker: user?.dating_intention_is_dealbreaker ?? null,
-            has_children: user?.has_children ?? null,
-            height_feet: user?.height_feet ?? '',
-            height_inch: user?.height_inch ?? '',
-            ice_breaker: iceBreakerList.length
-              ? iceBreakerList
-              : [
+        dispatch(getIcebreakerQuestionList({}))
+          .unwrap()
+          .then((response) => {
+            setIceBreakerQuestionList(response.icebreakerQuestions);
+            setInitialValues({
+              ...{
+                images: user?.userProfileImages ?? [],
+                firstname: user?.firstname ?? null,
+                lastname: user?.lastname ?? null,
+                city: user?.city ?? null,
+                state: user?.state ?? null,
+                zipcode: user?.zipcode ?? null,
+                latitude: user?.latitude?.toString() ?? null,
+                longitude: user?.longitude?.toString() ?? null,
+                radius_miles: user?.radius_miles ?? 100,
+                gender: user?.gender ?? null,
+                looking_for: user?.looking_for ?? null,
+                age_range_min: user?.age_range_min ?? 18,
+                age_range_max: user?.age_range_max ?? 100,
+                dating_intention: user?.dating_intention,
+                dating_intention_is_dealbreaker: user?.dating_intention_is_dealbreaker ?? null,
+                has_children: user?.has_children ?? null,
+                height_feet: user?.height_feet ?? '',
+                height_inch: user?.height_inch ?? '',
+                iceBreaker: [
                   {
                     question_id: iceBreakerQuestionList[0]?.id,
                     breaker_question: iceBreakerQuestionList[0]?.breaker_question,
                     answer: '',
                   },
                 ],
-          },
-          ...fields,
-        });
-        if (iceBreakerQuestionList.length == 0) {
-          dispatch(getIcebreakerQuestionList({}))
-            .unwrap()
-            .then((response) => {
-              setIceBreakerQuestionList(response.icebreakerQuestions);
+              },
+              ...fields,
             });
-        }
-      })
-      .finally(() => {
-        setLoading(false);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+        //setUser(data?.user);
       });
   }, []);
 
@@ -222,7 +209,7 @@ const CompleteMyProfile = () => {
                 }}
               >
                 {({ values, setFieldValue, errors }) => (
-                  <Form id={'formProfileComplete'} className="overflow-auto">
+                  <Form id={'formProfileComplete'} className="overflow-none">
                     {JSON.stringify(errors)}
                     <div className="mb-14 w-full text-gray-400">
                       <h2 className="mb-10 px-5 font-raleway text-md font-normal leading-tight text-gray md:text-lg xxl:px-0">
@@ -708,17 +695,17 @@ const CompleteMyProfile = () => {
                       <div className="flex w-full flex-wrap space-y-2 md:space-y-5">
                         <div className="mb-5 flex w-full flex-wrap space-y-2 md:space-y-0 xxl:space-x-10">
                           <FieldArray
-                            name="ice_breaker"
+                            name="iceBreaker"
                             render={(arrayHelper) => {
                               ArrayHelperRef.current = arrayHelper;
                               return (
                                 <>
-                                  {values?.ice_breaker &&
-                                    values?.ice_breaker.length > 0 &&
-                                    values.ice_breaker.map((breakerData, index) => (
+                                  {values?.iceBreaker &&
+                                    values?.iceBreaker.length > 0 &&
+                                    values.iceBreaker.map((breakerData, index) => (
                                       <div
-                                        key={breakerData.question_id}
-                                        className="relative mb-2 w-full xxl:w-[31%] xxl:px-0"
+                                        key={'icebreaker' + index}
+                                        className="relative w-full px-5 md:w-1/3 xxl:w-[31%] xxl:px-0"
                                       >
                                         <div className="min-h-[200px] rounded-lg border-2 border-blue-300 bg-white p-5 font-raleway  font-semibold leading-tight text-blue">
                                           <h3 className="mb-3 text-center font-raleway text-base font-normal tracking-wider">
@@ -726,25 +713,25 @@ const CompleteMyProfile = () => {
                                           </h3>
                                           <Field
                                             type="hidden"
-                                            name={`ice_breaker.${index}.question_id`}
+                                            name={`iceBreaker.${index}.question_id`}
                                           />
                                           <Field
                                             as="textarea"
-                                            name={`ice_breaker.${index}.answer`}
+                                            name={`iceBreaker.${index}.answer`}
                                             placeholder="Please enter some details"
                                             className="text-bold h-20 w-full max-w-full list-decimal space-y-1 p-1 tracking-wide"
                                           />
                                           <ErrorMessage
-                                            name={`ice_breaker.${index}.answer`}
+                                            name={`iceBreaker.${index}.answer`}
                                             component="div"
                                             className="error-message"
                                           />
                                         </div>
                                         <button
                                           type="button"
-                                          className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400 xxl:right-0"
+                                          className="hover:text-blue-500 absolute right-0 top-0 mr-2 mt-2 text-blue-400"
                                           onClick={() => arrayHelper.remove(index)}
-                                          hidden={values.ice_breaker.length <= 1}
+                                          hidden={values.iceBreaker.length <= 1}
                                         >
                                           <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -777,7 +764,7 @@ const CompleteMyProfile = () => {
                             }}
                           />
                         </div>
-                        {values?.ice_breaker?.length < 3 ? (
+                        {values?.iceBreaker?.length < 3 ? (
                           <div className="w-full px-0 xxl:px-0">
                             <div className="relative  border border-dashed border-yellow">
                               <div className="relative flex h-full w-full items-center justify-center">
